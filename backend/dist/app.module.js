@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
+import { AuthModule } from './modules/auth/auth.module.js';
+import { GestionModule } from './modules/gestion/gestion.module.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -17,6 +17,8 @@ AppModule = __decorate([
             ConfigModule.forRoot({
                 isGlobal: true,
             }),
+            AuthModule,
+            GestionModule,
             TypeOrmModule.forRootAsync({
                 imports: [ConfigModule],
                 inject: [ConfigService],
@@ -32,8 +34,6 @@ AppModule = __decorate([
                 }),
             }),
         ],
-        controllers: [AppController],
-        providers: [AppService],
     })
 ], AppModule);
 export { AppModule };
