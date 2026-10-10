@@ -3,14 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { UsuariosModule } from './usuarios/usuarios.module.js';
 
 @Module({
   imports: [
-    // 1. Cargamos las variables de entorno globalmente
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // 2. Configuramos la conexión a PostgreSQL de forma asíncrona
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -22,9 +21,10 @@ import { AppService } from './app.service.js';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: true, // Solo para desarrollo. Sincroniza las entidades con la BD.
+        synchronize: true, 
       }),
     }),
+    UsuariosModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

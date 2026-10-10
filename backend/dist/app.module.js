@@ -9,6 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { UsuariosModule } from './usuarios/usuarios.module.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -31,6 +32,7 @@ AppModule = __decorate([
                     synchronize: true,
                 }),
             }),
+            UsuariosModule,
         ],
         controllers: [AppController],
         providers: [AppService],
