@@ -1,2 +1,9 @@
-# Ambientes
+# Dependencias
+node_modules/
+
+# Archivos compilados y temporales de TypeScript
+dist/
+*.tsbuildinfo
+
+# Variables de entorno con credenciales
 .env
