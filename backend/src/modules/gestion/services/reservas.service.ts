@@ -1,14 +1,17 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateReservasDto } from "../dtos/input/create-reservas.dto.js";
-import { Reserva } from "../entities/reserva.entity.js";
 import { Repository, In } from "typeorm";
-import { EstadoReserva } from "../enums/estados-reserva.enum.js";
-import { UpdateReservasDto } from "../dtos/input/update-reservas.dto.js";
 import { BadRequestException, forwardRef, Inject, Injectable } from "@nestjs/common";
+
+import { Reserva } from "../entities/reserva.entity.js";
+import { EstadoReserva } from "../enums/estados-reserva.enum.js";
+import { CreateReservasDto } from "../dtos/input/create-reservas.dto.js";
+import { UpdateReservasDto } from "../dtos/input/update-reservas.dto.js";
 import { ListReservasDTO } from "../dtos/output/list-reservas.dto.js";
 import { ReservaDTO } from "../dtos/output/reservas.dto.js";
 import { ListPacienteDTO } from "../dtos/output/list-paciente.dto.js";
-import { UsuarioService } from "./usuario.service.js";
+
+import type { UsuarioService } from "./usuario.service.js";
+import type { MedicoService } from "./medico.service.js";
 
 @Injectable()
 export class ReservasService {
@@ -17,23 +20,34 @@ export class ReservasService {
         @InjectRepository(Reserva)
         private readonly repository: Repository<Reserva>,
 
-        @Inject(forwardRef(() => UsuarioService))
+        @Inject(forwardRef(() => Symbol.for('UsuarioService')))
         private readonly usuarioService: UsuarioService,
+
+        @Inject(forwardRef(() => Symbol.for('MedicoService')))
+        private readonly medicoService: MedicoService,
     ) { }
 
     async crearReserva(dto: CreateReservasDto): Promise<{ id: number }> {
-        const reserva: Reserva = this.repository.create(dto as any) as any;
-        reserva.estado = EstadoReserva.ACTIVO;
+        const input = dto as any;
 
-        // Verificamos si el paciente/usuario existe y está activo
-        const usuarioActivo: boolean = await (this.usuarioService as any).existeUsuarioActivoPorId((dto as any).idPaciente);
-
-        if (!usuarioActivo) {
-        throw new BadRequestException('Se debe especificar un paciente/usuario activo para la reserva');
+        const pacienteActivo = await (this.usuarioService as any).existeUsuarioActivoPorId(input.id_paciente ?? input.idPaciente);
+        if (!pacienteActivo) {
+        throw new BadRequestException('El paciente especificado no está activo o no existe');
         }
 
-        const guardada = await this.repository.save(reserva as any);
-        return { id: (guardada as any).id };
+        const medico = await (this.medicoService as any).obtenerPorId(input.id_medico ?? input.idMedico);
+        if (!medico) {
+        throw new BadRequestException('El médico especificado no existe');
+        }
+
+        const reserva = this.repository.create({
+        ...input,
+        valor_consulta: medico.valor_consulta,
+        estado: EstadoReserva.ACTIVO,
+        } as any) as any;
+
+        const guardada = await this.repository.save(reserva);
+        return { id: guardada.id };
     }
 
     async actualizarReserva(id: number, dto: UpdateReservasDto): Promise<void> {
@@ -43,20 +57,21 @@ export class ReservasService {
         throw new BadRequestException('Reserva no encontrada');
         }
 
-        if ((dto as any).idPaciente) {
-        const usuarioActivo: boolean = await (this.usuarioService as any).existeUsuarioActivoPorId((dto as any).idPaciente);
+        const input = dto as any;
+        if (input.id_paciente || input.idPaciente) {
+        const usuarioActivo = await (this.usuarioService as any).existeUsuarioActivoPorId(input.id_paciente ?? input.idPaciente);
         if (!usuarioActivo) {
             throw new BadRequestException('Se debe especificar un paciente/usuario activo para la reserva');
         }
         }
 
-        this.repository.merge(reserva, dto as any);
+        this.repository.merge(reserva, input);
         await this.repository.save(reserva as any);
     }
 
     async obtenerReservas(): Promise<ListReservasDTO[]> {
         const reservas: Reserva[] = await this.repository.find({
-        relations: { paciente: true, medico: true },
+        relations: { paciente: true, medico: true } as any,
         order: { id: 'ASC' },
         });
 
@@ -82,14 +97,13 @@ export class ReservasService {
     async obtenerReserva(id: number): Promise<ReservaDTO> {
         const reserva: Reserva | null = await this.repository.findOne({
         where: { id },
-        relations: { paciente: true, medico: true },
+        relations: { paciente: true, medico: true } as any,
         });
 
         if (!reserva) {
         throw new BadRequestException('Reserva no encontrada');
         }
 
-        // Casteamos dto a 'any' para evitar desfasajes con las propiedades de ReservaDTO
         const dto = new ReservaDTO() as any;
         dto.id = reserva.id;
         dto.estado = reserva.estado;
@@ -98,7 +112,6 @@ export class ReservasService {
         return dto;
     }
 
-    // Métodos auxiliares de verificación para los otros servicios
     async existeReservaPorIdPaciente(idPaciente: number): Promise<boolean> {
         return await this.repository.exists({
         where: {
@@ -124,10 +137,5 @@ export class ReservasService {
             { id_medico: idUsuario, estado: EstadoReserva.ACTIVO },
         ] as any,
         });
-    }
-
-    // Alias por si AdministradorService lo invoca con este nombre
-    async existeReservaPorIdAdministrador(idAdmin: number): Promise<boolean> {
-        return await this.existeReservaPorIdUsuario(idAdmin);
     }
 }
