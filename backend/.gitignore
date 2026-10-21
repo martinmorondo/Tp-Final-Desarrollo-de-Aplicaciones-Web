@@ -1,2 +1,6 @@
 # Ambientes
 .env
+documentation/
+node_modules/
+dist/
+*.tsbuildinfo
