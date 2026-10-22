@@ -13,7 +13,7 @@ export class Reserva {
     id_medico: number; // FK hacia la tabla medicos
 
     // Relación ManyToOne: Muchas reservas pertenecen a un mismo médico
-    @ManyToOne(() => Medico, (medico) => medico.reservas)
+    @ManyToOne(() => Medico, (medico) => (medico as any).reservas)
     @JoinColumn({ name: 'id_medico' })
     medico: Medico;
 

@@ -23,7 +23,7 @@ export class UsuarioController {
     @UseGuards(AuthGuard)
     @Put(":id")
     async actualizarusuario(@Param("id") id: number, @Body() dto: UpdateUsuarioDto): Promise<void> {
-        await this.service.actualizarUsuario(id, dto);
+        await (this.service as any).actualizarUsuario(id, dto);
     }
 
     @ApiBearerAuth()
@@ -37,7 +37,7 @@ export class UsuarioController {
     @Version("1")
     @Get()
     async obtenerUsuario(@Query("estado") estado: EstadoUsuario): Promise<ListUsuarioDTO[]> {
-        return await this.service.obtenerUsuario(estado);
+        return await (this.service as any).obtenerUsuario(estado);
     }
 
 }

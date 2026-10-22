@@ -1,13 +1,23 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty } from "class-validator";
-import { CreateMedicoDto } from "./create-medico.dto.js";
-import { EstadoUsuario } from "../../enums/estados-usuarios.enum.js";
+import { PartialType, ApiPropertyOptional } from '@nestjs/swagger';
+import { CreateMedicoDto } from './create-medico.dto.js';
+import { EstadoUsuario } from '../../enums/estados-usuarios.enum.js';
 
-export class UpdateMedicoDto extends CreateMedicoDto {
+export class UpdateMedicoDto extends PartialType(CreateMedicoDto) {
+    @ApiPropertyOptional({
+        description: 'Número de matrícula profesional',
+        example: 'MN-99999',
+    })
+    matricula?: string;
 
-    @ApiProperty({ enum: EstadoUsuario, example: EstadoUsuario.ACTIVO })
-    @IsEnum(EstadoUsuario)
-    @IsNotEmpty()
-    estado!: EstadoUsuario;
+    @ApiPropertyOptional({
+        description: 'Nuevo valor de la consulta médica',
+        example: 20000.0,
+    })
+    valor_consulta?: number;
 
+    @ApiPropertyOptional({
+        enum: EstadoUsuario,
+        description: 'Estado del usuario/médico',
+    })
+    estado?: EstadoUsuario;
 }

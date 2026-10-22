@@ -1,37 +1,35 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import type { Medico } from './medico.entity.js';
 import { EstadoUsuario } from '../enums/estados-usuarios.enum.js';
 import { RolUsuario } from '../enums/rol-usuario.enum.js';
+
 
 @Entity('usuarios')
 export class Usuario {
     @PrimaryGeneratedColumn()
-    id: number; 
+    id: number;
 
-    @Column({ type: 'text', unique: true })
-    documento: string; 
+    @Column({ unique: true })
+    documento: string;
 
-    @Column({ type: 'text' })
+    @Column()
     apellidos: string;
 
-    @Column({ type: 'text' })
+    @Column()
     nombres: string;
 
-    @Column({ type: 'text' })
+    @Column({ unique: true })
     email: string;
 
-    @Column({ type: 'text' })
-    clave: string; 
+    @Column()
+    clave: string;
 
-    @Column({
-        type: 'enum',
-        enum: EstadoUsuario,
-        default: EstadoUsuario.ACTIVO,
-    })
+    @Column({ type: 'enum', enum: EstadoUsuario, default: EstadoUsuario.ACTIVO })
     estado: EstadoUsuario;
 
-    @Column({
-        type: 'enum',
-        enum: RolUsuario,
-    })
+    @Column({ type: 'enum', enum: RolUsuario })
     rol: RolUsuario;
+
+    @OneToOne('Medico', (medico: any) => medico.usuario)
+    medico?: Medico;
 }
