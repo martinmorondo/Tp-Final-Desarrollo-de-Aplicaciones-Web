@@ -8,7 +8,9 @@
   "type": "module",
   "scripts": {
     "build": "nest build",
-    "doc": "compodoc -p tsconfig.json -s",
+    "docs": "compodoc -p tsconfig.build.json -d documentation",
+    "docs:serve": "compodoc -p tsconfig.build.json -d documentation -s",
+    "doc": "npm run docs:serve",
     "deploy": "nest deploy",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
