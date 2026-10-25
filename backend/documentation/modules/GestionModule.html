@@ -1,0 +1,537 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>backend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">backend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content module">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Modules</li>
+    <li class="breadcrumb-item" >GestionModule</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/modules/gestion/gestion.module.ts</code>
+</div>
+
+<div class="text-center module-graph-container">
+    <div id="module-graph-svg">
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.47.0 (20210316.0004)
+ -->
+<!-- Title: dependencies Pages: 1 -->
+<svg width="521pt" height="284pt"
+ viewBox="0.00 0.00 521.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 280)">
+<title>dependencies</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-280 517,-280 517,4 -4,4"/>
+<text text-anchor="start" x="235.51" y="-42.4" font-family="Times-12" font-weight="bold" font-size="14.00">Legend</text>
+<polygon fill="#ffffb3" stroke="transparent" points="22.5,-10 22.5,-30 42.5,-30 42.5,-10 22.5,-10"/>
+<text text-anchor="start" x="46.13" y="-15.4" font-family="Times-12" font-size="14.00"> &#160;Declarations</text>
+<polygon fill="#8dd3c7" stroke="transparent" points="135.5,-10 135.5,-30 155.5,-30 155.5,-10 135.5,-10"/>
+<text text-anchor="start" x="159.23" y="-15.4" font-family="Times-12" font-size="14.00"> &#160;Module</text>
+<polygon fill="#80b1d3" stroke="transparent" points="221.5,-10 221.5,-30 241.5,-30 241.5,-10 221.5,-10"/>
+<text text-anchor="start" x="245.28" y="-15.4" font-family="Times-12" font-size="14.00"> &#160;Bootstrap</text>
+<polygon fill="#fdb462" stroke="transparent" points="318.5,-10 318.5,-30 338.5,-30 338.5,-10 318.5,-10"/>
+<text text-anchor="start" x="342.17" y="-15.4" font-family="Times-12" font-size="14.00"> &#160;Providers</text>
+<polygon fill="#fb8072" stroke="transparent" points="414.5,-10 414.5,-30 434.5,-30 434.5,-10 414.5,-10"/>
+<text text-anchor="start" x="438.23" y="-15.4" font-family="Times-12" font-size="14.00"> &#160;Exports</text>
+<g id="clust1" class="cluster">
+<title>cluster_GestionModule</title>
+<polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-70 8,-268 505,-268 505,-70 8,-70"/>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_GestionModule_providers</title>
+<polygon fill="none" stroke="black" points="16,-78 16,-130 497,-130 497,-78 16,-78"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_GestionModule_exports</title>
+<polygon fill="none" stroke="black" points="70,-208 70,-260 444,-260 444,-208 70,-208"/>
+</g>
+<!-- MedicoService  -->
+<g id="node1" class="node"><a xlink:href="../injectables/MedicoService.html" href="../injectables/MedicoService.html" target="_top">
+<title>MedicoService </title>
+<polygon fill="#fb8072" stroke="black" points="436.24,-252 331.76,-252 331.76,-216 436.24,-216 436.24,-252"/>
+<text text-anchor="middle" x="384" y="-229.8" font-family="Times,serif" font-size="14.00">MedicoService </text>
+</a></g>
+<!-- ReservasService  -->
+<g id="node2" class="node"><a xlink:href="../injectables/ReservasService.html" href="../injectables/ReservasService.html" target="_top">
+<title>ReservasService </title>
+<polygon fill="#fb8072" stroke="black" points="314.01,-252 201.99,-252 201.99,-216 314.01,-216 314.01,-252"/>
+<text text-anchor="middle" x="258" y="-229.8" font-family="Times,serif" font-size="14.00">ReservasService </text>
+</a></g>
+<!-- UsuarioService  -->
+<g id="node3" class="node"><a xlink:href="../injectables/UsuarioService.html" href="../injectables/UsuarioService.html" target="_top">
+<title>UsuarioService </title>
+<polygon fill="#fb8072" stroke="black" points="183.79,-252 78.21,-252 78.21,-216 183.79,-216 183.79,-252"/>
+<text text-anchor="middle" x="131" y="-229.8" font-family="Times,serif" font-size="14.00">UsuarioService </text>
+</a></g>
+<!-- GestionModule -->
+<g id="node4" class="node"><a xlink:href="../modules/GestionModule.html" href="../modules/GestionModule.html" target="_top">
+<title>GestionModule</title>
+<polygon fill="#8dd3c7" stroke="black" points="309.6,-187 306.6,-191 285.6,-191 282.6,-187 206.4,-187 206.4,-151 309.6,-151 309.6,-187"/>
+<text text-anchor="middle" x="258" y="-164.8" font-family="Times,serif" font-size="14.00">GestionModule</text>
+</a></g>
+<!-- GestionModule&#45;&gt;MedicoService  -->
+<g id="edge1" class="edge">
+<title>GestionModule&#45;&gt;MedicoService </title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M309.57,-178C326.79,-178 341.68,-178 341.68,-178 341.68,-178 341.68,-205.97 341.68,-205.97"/>
+<polygon fill="black" stroke="black" points="338.18,-205.97 341.68,-215.97 345.18,-205.97 338.18,-205.97"/>
+</g>
+<!-- GestionModule&#45;&gt;ReservasService  -->
+<g id="edge2" class="edge">
+<title>GestionModule&#45;&gt;ReservasService </title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M258,-187.11C258,-187.11 258,-205.99 258,-205.99"/>
+<polygon fill="black" stroke="black" points="254.5,-205.99 258,-215.99 261.5,-205.99 254.5,-205.99"/>
+</g>
+<!-- GestionModule&#45;&gt;UsuarioService  -->
+<g id="edge3" class="edge">
+<title>GestionModule&#45;&gt;UsuarioService </title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M205.98,-178C188.97,-178 174.36,-178 174.36,-178 174.36,-178 174.36,-205.97 174.36,-205.97"/>
+<polygon fill="black" stroke="black" points="170.86,-205.97 174.36,-215.97 177.86,-205.97 170.86,-205.97"/>
+</g>
+<!-- MedicoService -->
+<g id="node5" class="node"><a xlink:href="../injectables/MedicoService.html" href="../injectables/MedicoService.html" target="_top">
+<title>MedicoService</title>
+<ellipse fill="#fdb462" stroke="black" cx="420" cy="-104" rx="69.48" ry="18"/>
+<text text-anchor="middle" x="420" y="-99.8" font-family="Times,serif" font-size="14.00">MedicoService</text>
+</a></g>
+<!-- MedicoService&#45;&gt;GestionModule -->
+<g id="edge4" class="edge">
+<title>MedicoService&#45;&gt;GestionModule</title>
+<path fill="none" stroke="black" d="M379.05,-118.71C379.05,-135.31 379.05,-160 379.05,-160 379.05,-160 319.69,-160 319.69,-160"/>
+<polygon fill="black" stroke="black" points="319.69,-156.5 309.69,-160 319.69,-163.5 319.69,-156.5"/>
+</g>
+<!-- MedicoService&#45;&gt;GestionModule -->
+<g id="edge5" class="edge">
+<title>MedicoService&#45;&gt;GestionModule</title>
+<path fill="none" stroke="black" d="M407.58,-121.76C407.58,-141.01 407.58,-169 407.58,-169 407.58,-169 319.9,-169 319.9,-169"/>
+<polygon fill="black" stroke="black" points="319.9,-165.5 309.9,-169 319.9,-172.5 319.9,-165.5"/>
+</g>
+<!-- ReservasService -->
+<g id="node6" class="node"><a xlink:href="../injectables/ReservasService.html" href="../injectables/ReservasService.html" target="_top">
+<title>ReservasService</title>
+<ellipse fill="#fdb462" stroke="black" cx="258" cy="-104" rx="74.69" ry="18"/>
+<text text-anchor="middle" x="258" y="-99.8" font-family="Times,serif" font-size="14.00">ReservasService</text>
+</a></g>
+<!-- ReservasService&#45;&gt;GestionModule -->
+<g id="edge6" class="edge">
+<title>ReservasService&#45;&gt;GestionModule</title>
+<path fill="none" stroke="black" d="M275.18,-121.76C275.18,-121.76 275.18,-140.81 275.18,-140.81"/>
+<polygon fill="black" stroke="black" points="271.68,-140.81 275.18,-150.81 278.68,-140.81 271.68,-140.81"/>
+</g>
+<!-- ReservasService&#45;&gt;GestionModule -->
+<g id="edge7" class="edge">
+<title>ReservasService&#45;&gt;GestionModule</title>
+<path fill="none" stroke="black" d="M240.82,-121.76C240.82,-121.76 240.82,-140.81 240.82,-140.81"/>
+<polygon fill="black" stroke="black" points="237.32,-140.81 240.82,-150.81 244.32,-140.81 237.32,-140.81"/>
+</g>
+<!-- UsuarioService -->
+<g id="node7" class="node"><a xlink:href="../injectables/UsuarioService.html" href="../injectables/UsuarioService.html" target="_top">
+<title>UsuarioService</title>
+<ellipse fill="#fdb462" stroke="black" cx="95" cy="-104" rx="70.62" ry="18"/>
+<text text-anchor="middle" x="95" y="-99.8" font-family="Times,serif" font-size="14.00">UsuarioService</text>
+</a></g>
+<!-- UsuarioService&#45;&gt;GestionModule -->
+<g id="edge8" class="edge">
+<title>UsuarioService&#45;&gt;GestionModule</title>
+<path fill="none" stroke="black" d="M136.41,-118.71C136.41,-135.31 136.41,-160 136.41,-160 136.41,-160 196.43,-160 196.43,-160"/>
+<polygon fill="black" stroke="black" points="196.43,-163.5 206.43,-160 196.43,-156.5 196.43,-163.5"/>
+</g>
+<!-- UsuarioService&#45;&gt;GestionModule -->
+<g id="edge9" class="edge">
+<title>UsuarioService&#45;&gt;GestionModule</title>
+<path fill="none" stroke="black" d="M107.26,-121.76C107.26,-141.01 107.26,-169 107.26,-169 107.26,-169 196.12,-169 196.12,-169"/>
+<polygon fill="black" stroke="black" points="196.12,-172.5 206.12,-169 196.12,-165.5 196.12,-172.5"/>
+</g>
+</g>
+</svg>
+
+    </div>
+    <i id="fullscreen" class="icon ion-ios-resize module-graph-fullscreen-btn" aria-hidden="true"></i>
+    <div class="btn-group size-buttons">
+        <button id="zoom-in" class="btn btn-default btn-sm">Zoom in</button>
+        <button id="reset" class="btn btn-default btn-sm">Reset</button>
+        <button id="zoom-out" class="btn btn-default btn-sm">Zoom out</button>
+    </div>
+</div>
+<script src="../js/libs/svg-pan-zoom.min.js"></script>
+<script src="../js/svg-pan-zoom.controls.js"></script>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a href="#info" 
+            class="nav-link"
+            class="nav-link active"
+            role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+    </li>
+    <li class="nav-item">
+        <a href="#source" 
+            class="nav-link"
+            
+            role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+
+
+
+
+        <div class="container-fluid module">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3>Providers<a href="https://angular.io/api/core/NgModule#providers" target="_blank" rel="noopener noreferrer"
+                            title="Official documentation about module providers"><span class="icon ion-ios-information-circle-outline"></a></h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="../injectables/MedicoService.html">MedicoService</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="../injectables/MedicoService.html">MedicoService</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="../injectables/ReservasService.html">ReservasService</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="../injectables/ReservasService.html">ReservasService</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="../injectables/UsuarioService.html">UsuarioService</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="../injectables/UsuarioService.html">UsuarioService</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Controllers<a href="https://docs.nestjs.com/controllers" target="_blank" rel="noopener noreferrer"
+                            title="Official documentation about module controllers"><span
+                                class="icon ion-ios-information-circle-outline"></a></h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="../controllers/MedicoController.html">MedicoController</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Exports<a href="https://angular.io/api/core/NgModule#exports" target="_blank" rel="noopener noreferrer"
+                            title="Official documentation about module exports"><span
+                                class="icon ion-ios-information-circle-outline"></a></h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="../injectables/MedicoService.html">MedicoService</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="../injectables/ReservasService.html">ReservasService</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="../injectables/UsuarioService.html">UsuarioService</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+                <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="../modules/AppModule.html" target="_self" >AppModule</a></code>
+                                </li>
+                        </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="../injectables/MedicoService.html" target="_self" >MedicoService</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="../injectables/ReservasService.html" target="_self" >ReservasService</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="../injectables/UsuarioService.html" target="_self" >UsuarioService</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="../controllers/MedicoController.html" target="_self" >MedicoController</a></code>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Module } from &#x27;@nestjs/common&#x27;;
+import { TypeOrmModule } from &#x27;@nestjs/typeorm&#x27;;
+
+// Entidades
+import { Usuario } from &#x27;./entities/usuario.entity.js&#x27;;
+import { Medico } from &#x27;./entities/medico.entity.js&#x27;;
+import { Reserva } from &#x27;./entities/reserva.entity.js&#x27;;
+
+// Servicios
+import { UsuarioService } from &#x27;./services/usuario.service.js&#x27;;
+import { MedicoService } from &#x27;./services/medico.service.js&#x27;;
+import { ReservasService } from &#x27;./services/reservas.service.js&#x27;;
+
+// Controladores
+import { MedicoController } from &#x27;./controllers/medicos.controller.js&#x27;;
+
+@Module({
+    imports: [
+        TypeOrmModule.forFeature([Usuario, Medico, Reserva]),
+    ],
+    controllers: [
+        MedicoController,
+    ],
+    providers: [
+        UsuarioService,
+        MedicoService,
+        ReservasService,
+        {
+        provide: Symbol.for(&#x27;UsuarioService&#x27;),
+        useExisting: UsuarioService,
+        },
+        {
+        provide: Symbol.for(&#x27;MedicoService&#x27;),
+        useExisting: MedicoService,
+        },
+        {
+        provide: Symbol.for(&#x27;ReservasService&#x27;),
+        useExisting: ReservasService,
+        },
+    ],
+    exports: [
+        UsuarioService,
+        MedicoService,
+        ReservasService,
+    ],
+})
+export class GestionModule {}</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
+            var COMPODOC_CURRENT_PAGE_URL = 'GestionModule.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

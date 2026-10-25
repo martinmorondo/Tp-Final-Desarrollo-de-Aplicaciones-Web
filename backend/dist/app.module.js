@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
+import { AuthModule } from './modules/auth/auth.module.js';
+import { GestionModule } from './modules/gestion/gestion.module.js';
 import { UsuariosModule } from './usuarios/usuarios.module.js';
 let AppModule = class AppModule {
 };
@@ -25,17 +25,20 @@ AppModule = __decorate([
                     type: 'postgres',
                     host: configService.get('DB_HOST'),
                     port: configService.get('DB_PORT'),
-                    username: configService.get('DB_USER'),
+                    username: configService.get('DB_USERNAME'),
                     password: configService.get('DB_PASSWORD'),
                     database: configService.get('DB_NAME'),
                     autoLoadEntities: true,
                     synchronize: true,
                 }),
             }),
+            AuthModule,
+            GestionModule,
             UsuariosModule,
         ],
-        controllers: [AppController],
-        providers: [AppService],
+        controllers: [],
+        providers: [],
+        exports: [],
     })
 ], AppModule);
 export { AppModule };
