@@ -119,7 +119,7 @@
 
 <div class="io-file io-file-path" data-compodoc="entity-file-path">
     <span class="icon ion-ios-document" aria-hidden="true"></span>
-    <code>src/modules/auth/entities/usuario.entity.ts</code>
+    <code>src/usuarios/entities/usuario.entity.ts</code>
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -164,7 +164,22 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                <a href="#apellidos" >apellidos</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
                                 <a href="#clave" >clave</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                <a href="#documento" >documento</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                <a href="#email" >email</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
@@ -179,7 +194,12 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
-                                <a href="#nombre" >nombre</a>
+                                <a href="#nombres" >nombres</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                <a href="#rol" >rol</a>
                             </li>
                         </ul>
                     </td>
@@ -203,6 +223,42 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="apellidos"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>apellidos</b></span>
+                        <a href="#apellidos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column({type: &#x27;text&#x27;})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="clave"></a>
                     <span class="name">
                             <span class="modifier"></span>
@@ -222,13 +278,85 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column()<br />
+                            @Column({type: &#x27;text&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/modules/auth/entities/usuario.entity.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="documento"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>documento</b></span>
+                        <a href="#documento"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column({type: &#x27;text&#x27;, unique: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:11</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="email"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>email</b></span>
+                        <a href="#email"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column({type: &#x27;text&#x27;})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -264,7 +392,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/modules/auth/entities/usuario.entity.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -300,7 +428,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/modules/auth/entities/usuario.entity.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:8</a></div>
                         </td>
                     </tr>
 
@@ -311,11 +439,11 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="nombre"></a>
+                    <a name="nombres"></a>
                     <span class="name">
                             <span class="modifier"></span>
-                        <span ><b>nombre</b></span>
-                        <a href="#nombre"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>nombres</b></span>
+                        <a href="#nombres"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -330,13 +458,49 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column()<br />
+                            @Column({type: &#x27;text&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/modules/auth/entities/usuario.entity.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rol"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>rol</b></span>
+                        <a href="#rol"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#RolUsuario" target="_self" >RolUsuario</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column({type: &#x27;enum&#x27;, enum: RolUsuario})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/usuarios/entities/usuario.entity.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -348,25 +512,35 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Column, Entity, PrimaryGeneratedColumn } from &quot;typeorm&quot;;
-import { EstadoUsuario } from &quot;../enums/estados-usuarios.enum.js&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Entity, PrimaryGeneratedColumn, Column } from &#x27;typeorm&#x27;;
+import { EstadoUsuario } from &#x27;../enums/estado-usuario.enum.js&#x27;;
+import { RolUsuario } from &#x27;../enums/rol-usuario.enum.js&#x27;;
 
-@Entity({name: &quot;usuarios&quot;})
-export class Usuario{
+@Entity(&#x27;usuarios&#x27;) // Nombre exacto de la tabla según el modelo
+export class Usuario {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column({ type: &#x27;text&#x27;, unique: true })
+  documento: string;
 
-    @Column()
-    nombre: string
+  @Column({ type: &#x27;text&#x27; })
+  apellidos: string;
 
-    @Column()
-    clave: string
+  @Column({ type: &#x27;text&#x27; })
+  nombres: string;
 
-    @Column({type: &quot;enum&quot;, enum: EstadoUsuario})
-    estado: EstadoUsuario
+  @Column({ type: &#x27;text&#x27; })
+  email: string;
 
+  @Column({ type: &#x27;text&#x27; })
+  clave: string;
 
+  @Column({ type: &#x27;enum&#x27;, enum: EstadoUsuario })
+  estado: EstadoUsuario;
+
+  @Column({ type: &#x27;enum&#x27;, enum: RolUsuario })
+  rol: RolUsuario;
 }</code></pre>
     </div>
 </div>

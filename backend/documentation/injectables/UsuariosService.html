@@ -121,7 +121,7 @@
 
 <div class="io-file io-file-path" data-compodoc="entity-file-path">
     <span class="icon ion-ios-document" aria-hidden="true"></span>
-    <code>src/modules/auth/services/usuario.service.ts</code>
+    <code>src/usuarios/usuarios.service.ts</code>
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -162,6 +162,9 @@
                                 <li>
                                             <code><a href="../modules/AuthModule.html" target="_self" >AuthModule</a></code>
                                 </li>
+                                <li>
+                                            <code><a href="../modules/UsuariosModule.html" target="_self" >UsuariosModule</a></code>
+                                </li>
                         </ul>
                 </div>
 
@@ -174,33 +177,6 @@
     </div>
 
     <div class="tab-pane fade " id="api">
-            <section data-compodoc="block-index">
-    <h3 id="index">Index</h3>
-
-        <table class="table table-sm table-bordered index-table">
-            <tbody>
-                <tr>
-                    <td class="col-md-3">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                    <td class="col-md-9">
-                        <ul class="index-list">
-                            <li>
-                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#buscarUsuarioActivoPorNombre" >buscarUsuarioActivoPorNombre</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-
-
-
-
-</section>
 
             <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
@@ -208,12 +184,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(repository: Repository<Usuario>)</code>
+<code>constructor(usuarioRepository: Repository<Usuario>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/modules/auth/services/usuario.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/usuarios/usuarios.service.ts:7</a></div>
                             </td>
                         </tr>
 
@@ -231,7 +207,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>repository</td>
+                                                        <td>usuarioRepository</td>
                                                   
                                                         <td>
                                                                     <code>Repository&lt;Usuario&gt;</code>
@@ -251,105 +227,23 @@
         </table>
 </section>
 
-            <section data-compodoc="block-methods">
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="buscarUsuarioActivoPorNombre"></a>
-                    <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>buscarUsuarioActivoPorNombre</b></span>
-                        <a href="#buscarUsuarioActivoPorNombre"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>buscarUsuarioActivoPorNombre(nombre: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="14"
-                                    class="link-to-prism">src/modules/auth/services/usuario.service.ts:14</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>nombre</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;Usuario | null&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
 
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@nestjs/common&quot;;
-import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
-import { Repository } from &quot;typeorm&quot;;
-import { Usuario } from &quot;../entities/usuario.entity.js&quot;;
-import { EstadoUsuario } from &quot;../enums/estados-usuarios.enum.js&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+import { Usuario } from &#x27;./entities/usuario.entity.js&#x27;;
 
 @Injectable()
 export class UsuariosService {
-
-    constructor(@InjectRepository(Usuario) private readonly repository: Repository&lt;Usuario&gt;) {
-
-    }
-
-    async buscarUsuarioActivoPorNombre(nombre: string): Promise&lt;Usuario | null&gt; {
-
-        return await this.repository.findOne({ where: { nombre, estado: EstadoUsuario.ACTIVO } })
-    }
-
+  constructor(
+    @InjectRepository(Usuario)
+    private readonly usuarioRepository: Repository&lt;Usuario&gt;,
+  ) {}
 }</code></pre>
     </div>
 

@@ -144,6 +144,23 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </ul>
                                 </li>
                             </li>
+                            <li class="link">
+                                <a href="modules/UsuariosModule.html" data-type="entity-link" >UsuariosModule</a>
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
+                                        'data-bs-target="#injectables-links-module-UsuariosModule-2139a4f6a4a651486dffd6e701f312ef4c853840030ffe1dd88a21659d6c71f1ad1cb50b8d053b6ca75691f3af6312040a87c1a6a5b93de284de447b12fb2de7"' : 'data-bs-target="#xs-injectables-links-module-UsuariosModule-2139a4f6a4a651486dffd6e701f312ef4c853840030ffe1dd88a21659d6c71f1ad1cb50b8d053b6ca75691f3af6312040a87c1a6a5b93de284de447b12fb2de7"' }>
+                                        <span class="icon ion-md-arrow-round-down"></span>
+                                        <span>Injectables</span>
+                                        <span class="icon ion-ios-arrow-down"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-UsuariosModule-2139a4f6a4a651486dffd6e701f312ef4c853840030ffe1dd88a21659d6c71f1ad1cb50b8d053b6ca75691f3af6312040a87c1a6a5b93de284de447b12fb2de7"' :
+                                        'id="xs-injectables-links-module-UsuariosModule-2139a4f6a4a651486dffd6e701f312ef4c853840030ffe1dd88a21659d6c71f1ad1cb50b8d053b6ca75691f3af6312040a87c1a6a5b93de284de447b12fb2de7"' }>
+                                        <li class="link">
+                                            <a href="injectables/UsuariosService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >UsuariosService</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </li>
                 </ul>
                 </li>
                         <li class="chapter">
@@ -187,6 +204,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="entities/Usuario-1.html" data-type="entity-link" >Usuario</a>
+                                </li>
+                                <li class="link">
+                                    <a href="entities/Usuario-2.html" data-type="entity-link" >Usuario</a>
                                 </li>
                             </ul>
                         </li>
@@ -264,6 +284,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/UsuariosService.html" data-type="entity-link" >UsuariosService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/UsuariosService-1.html" data-type="entity-link" >UsuariosService</a>
                                 </li>
                             </ul>
                         </li>
