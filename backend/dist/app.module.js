@@ -10,6 +10,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { UsuariosModule } from './usuarios/usuarios.module.js';
+import { MedicosModule } from './medicos/medicos.module.js';
+import { ReservasModule } from './reservas/reservas.module.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -33,6 +35,8 @@ AppModule = __decorate([
                 }),
             }),
             UsuariosModule,
+            MedicosModule,
+            ReservasModule,
         ],
         controllers: [AppController],
         providers: [AppService],
