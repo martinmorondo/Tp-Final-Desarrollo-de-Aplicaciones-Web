@@ -24,10 +24,12 @@ export class ReservasController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Put(':id')
-    async actualizarReservas(@Body() dto: UpdateReservasDto, @Param('id') id: number): Promise<void> {
-
-        await this.service.actualizarReserva(id, dto);
-    }
+async actualizarReservas(
+    @Body() dto: UpdateReservasDto,
+    @Param('id', ParseIntPipe) id: number,
+): Promise<void> {
+    await this.service.actualizarReserva(id, dto);
+}
 
     @ApiBearerAuth()
     @ApiOkResponse({ type: ListReservasDTO, isArray: true })

@@ -26,20 +26,20 @@ export class MedicoController {
     @ApiQuery({ name: 'estado', enum: EstadoUsuario, required: false })
     @ApiResponse({ status: 200, type: [ListMedicoDTO] })
     async obtenerMedicos(
-        @Query('estado') estado?: EstadoUsuario,
-    ): Promise<ListMedicoDTO[]> {
-        return await (this.medicoService as any).obtenerMedicos(estado);
-    }
+    @Query('estado') estado?: EstadoUsuario,
+): Promise<ListMedicoDTO[]> {
+    return this.medicoService.obtenerMedicos(estado);
+}
 
     @Get(':id')
     @ApiOperation({ summary: 'Obtener el detalle de un médico por su ID' })
     @ApiResponse({ status: 200, type: MedicoDTO })
     @ApiResponse({ status: 404, description: 'Médico no encontrado.' })
     async obtenerMedicoPorId(
-        @Param('id', ParseIntPipe) id: number,
-    ): Promise<MedicoDTO> {
-        return await (this.medicoService as any).obtenerMedico(id);
-    }
+    @Param('id', ParseIntPipe) id: number,
+): Promise<MedicoDTO> {
+    return this.medicoService.obtenerMedico(id);
+}
 
     @Put(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
