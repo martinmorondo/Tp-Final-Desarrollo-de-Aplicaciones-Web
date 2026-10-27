@@ -12,8 +12,8 @@ export class Medico {
   @JoinColumn({ name: 'id_usuario' })
   usuario: Relation<Usuario>;
 
-  @Column({ type: 'int' })
-  matricula: number;
+  @Column({ unique: true })
+  matricula: string;
 
   @Column({ type: 'int' })
   valor_consulta: number;

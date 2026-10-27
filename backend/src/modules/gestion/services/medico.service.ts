@@ -8,30 +8,64 @@ import { UpdateMedicoDto } from '../dtos/input/update-medico.dato.js';
 import { ListMedicoDTO } from '../dtos/output/list-medico.dto.js';
 import { MedicoDTO } from '../dtos/output/medico.dto.js';
 import { EstadoUsuario } from '../enums/estados-usuarios.enum.js';
+import { UsuarioService } from './usuario.service.js';
+import { RolUsuario } from '../enums/rol-usuario.enum.js';
 
 import type { ReservasService } from './reservas.service.js';
 
 @Injectable()
 export class MedicoService {
     constructor(
-        @InjectRepository(Medico)
-        private readonly repository: Repository<Medico>,
+    @InjectRepository(Medico)
+    private readonly repository: Repository<Medico>,
 
-        @Inject(forwardRef(() => Symbol.for('ReservasService')))
-        private readonly reservasService: ReservasService,
-    ) {}
+    private readonly usuarioService: UsuarioService,
 
-    async crearMedico(dto: CreateMedicoDto): Promise<{ id: number }> {
-        const medico = this.repository.create(dto as any);
-        const guardado = await this.repository.save(medico as any);
-        return { id: (guardado as any).id };
+    @Inject(forwardRef(() => Symbol.for('ReservasService')))
+    private readonly reservasService: ReservasService,
+) {}
+
+    
+async crearMedico(dto: CreateMedicoDto): Promise<{ id: number }> {
+    const usuario = await this.usuarioService.obtenerPorId(dto.id_usuario);
+
+    if (usuario.estado !== EstadoUsuario.ACTIVO) {
+        throw new BadRequestException('El usuario debe estar activo para crear un perfil médico');
     }
+
+    if (usuario.rol !== RolUsuario.MEDICO) {
+        throw new BadRequestException('El usuario debe tener el rol MEDICO');
+    }
+
+    const perfilExistente = await this.repository.findOne({
+        where: { id_usuario: dto.id_usuario },
+    });
+
+    if (perfilExistente) {
+        throw new BadRequestException('El usuario ya tiene un perfil médico');
+    }
+
+    const matriculaExistente = await this.repository.findOne({
+        where: { matricula: dto.matricula },
+    });
+
+    if (matriculaExistente) {
+        throw new BadRequestException('La matrícula ya se encuentra registrada');
+    }
+
+    const medico = this.repository.create(dto);
+    const guardado = await this.repository.save(medico);
+
+    return { id: guardado.id };
+}
+
 
     async obtenerMedicos(estado?: EstadoUsuario): Promise<ListMedicoDTO[]> {
         const medicos = await this.repository.find({
         relations: { usuario: true } as any,
+        where: estado ? { usuario: { estado } } : {},
         order: { id: 'ASC' },
-        });
+    });
 
         return medicos.map((m: any) => {
         const dto = new ListMedicoDTO() as any;
@@ -89,7 +123,8 @@ export class MedicoService {
         throw new NotFoundException('Médico no encontrado');
         }
 
-        const relacionadoConReservas = await (this.reservasService as any).existeReservaPorIdMedico(id);
+        const relacionadoConReservas =
+        await this.reservasService.existeReservaPorIdMedico(id);
 
         if (relacionadoConReservas && dto.estado === EstadoUsuario.BAJA) {
         throw new BadRequestException('No se puede dar de baja un médico con reservas activas');

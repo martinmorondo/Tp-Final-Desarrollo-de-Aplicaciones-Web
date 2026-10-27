@@ -1,4 +1,16 @@
-import { Body, Controller, Get, Param, Post, Put, Query, UseGuards, Version } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    ParseEnumPipe,
+    ParseIntPipe,
+    Post,
+    Put,
+    Query,
+    UseGuards,
+    Version,
+} from '@nestjs/common';;
 import { CreateUsuarioDto } from "../dtos/input/create-usuario.dto.js";
 import { ApiBearerAuth, ApiOkResponse, ApiQuery } from "@nestjs/swagger";
 import { ListUsuarioDTO } from "../dtos/output/list-usuario.dto.js";
@@ -21,10 +33,13 @@ export class UsuarioController {
 
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
-    @Put(":id")
-    async actualizarusuario(@Param("id") id: number, @Body() dto: UpdateUsuarioDto): Promise<void> {
-        await (this.service as any).actualizarUsuario(id, dto);
-    }
+    @Put(':id')
+async actualizarusuario(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateUsuarioDto,
+): Promise<void> {
+    await this.service.actualizarUsuario(id, dto);
+}
 
     @ApiBearerAuth()
     @ApiOkResponse({ type: ListUsuarioDTO, isArray: true })
@@ -34,10 +49,19 @@ export class UsuarioController {
         enum: EstadoUsuario
     })
     @UseGuards(AuthGuard)
-    @Version("1")
-    @Get()
-    async obtenerUsuario(@Query("estado") estado: EstadoUsuario): Promise<ListUsuarioDTO[]> {
-        return await (this.service as any).obtenerUsuario(estado);
-    }
-
+    @Version('1')
+@Get()
+@ApiBearerAuth()
+@ApiOkResponse({ type: ListUsuarioDTO, isArray: true })
+@ApiQuery({
+    name: 'estado',
+    required: false,
+    enum: EstadoUsuario,
+})
+async obtenerUsuario(
+    @Query('estado', new ParseEnumPipe(EstadoUsuario, { optional: true }))
+    estado?: EstadoUsuario,
+): Promise<ListUsuarioDTO[]> {
+    return this.service.obtenerUsuario(estado);
+}
 }

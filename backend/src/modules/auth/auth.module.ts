@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { LoginController } from "./controllers/login.controllers.js";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Usuario } from "./entities/usuario.entity.js";
+import { Usuario } from "../gestion/entities/usuario.entity.js";
 import { UsuariosService } from "./services/usuario.service.js";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";

@@ -4,6 +4,8 @@ import { BadRequestException, forwardRef, Inject, Injectable } from "@nestjs/com
 
 import { Reserva } from "../entities/reserva.entity.js";
 import { EstadoReserva } from "../enums/estados-reserva.enum.js";
+import { EstadoUsuario } from "../enums/estados-usuarios.enum.js";
+import { RolUsuario } from "../enums/rol-usuario.enum.js";
 import { CreateReservasDto } from "../dtos/input/create-reservas.dto.js";
 import { UpdateReservasDto } from "../dtos/input/update-reservas.dto.js";
 import { ListReservasDTO } from "../dtos/output/list-reservas.dto.js";
@@ -27,47 +29,144 @@ export class ReservasService {
         private readonly medicoService: MedicoService,
     ) { }
 
-    async crearReserva(dto: CreateReservasDto): Promise<{ id: number }> {
-        const input = dto as any;
+    
+async crearReserva(dto: CreateReservasDto): Promise<{ id: number }> {
+    const paciente = await this.usuarioService.obtenerPorId(dto.id_paciente);
 
-        const pacienteActivo = await (this.usuarioService as any).existeUsuarioActivoPorId(input.id_paciente ?? input.idPaciente);
-        if (!pacienteActivo) {
-        throw new BadRequestException('El paciente especificado no está activo o no existe');
-        }
+    if (paciente.estado !== EstadoUsuario.ACTIVO) {
+        throw new BadRequestException(
+            'El paciente debe estar activo para reservar un turno',
+        );
+    }
 
-        const medico = await (this.medicoService as any).obtenerPorId(input.id_medico ?? input.idMedico);
-        if (!medico) {
-        throw new BadRequestException('El médico especificado no existe');
-        }
+    if (paciente.rol !== RolUsuario.PACIENTE) {
+        throw new BadRequestException(
+            'El usuario indicado no tiene el rol PACIENTE',
+        );
+    }
 
-        const reserva = this.repository.create({
-        ...input,
+    const medico = await this.medicoService.obtenerPorId(dto.id_medico);
+
+    if (medico.usuario?.estado !== EstadoUsuario.ACTIVO) {
+        throw new BadRequestException(
+            'El médico debe estar activo para recibir reservas',
+        );
+    }
+
+    
+const fechaTurno = new Date(dto.fecha_hora);
+
+if (Number.isNaN(fechaTurno.getTime())) {
+    throw new BadRequestException('La fecha y hora del turno no son válidas');
+}
+
+const ahora = new Date();
+const limiteAnticipacion = new Date(ahora);
+limiteAnticipacion.setDate(limiteAnticipacion.getDate() + 30);
+
+if (fechaTurno <= ahora) {
+    throw new BadRequestException('El turno debe ser en una fecha y hora futuras');
+}
+
+if (fechaTurno > limiteAnticipacion) {
+    throw new BadRequestException(
+        'No se pueden reservar turnos con más de 30 días de anticipación',
+    );
+}
+
+const hora = fechaTurno.getHours();
+const minutos = fechaTurno.getMinutes();
+const segundos = fechaTurno.getSeconds();
+
+if (
+    hora < 8 ||
+    hora >= 16 ||
+    minutos !== 0 ||
+    segundos !== 0 ||
+    fechaTurno.getMilliseconds() !== 0
+) {
+    throw new BadRequestException(
+        'Los turnos deben comenzar en horas enteras entre las 08:00 y las 15:00',
+    );
+}
+
+
+const finTurno = new Date(fechaTurno);
+finTurno.setHours(finTurno.getHours() + 1);
+
+const reservaSuperpuesta = await this.repository
+    .createQueryBuilder('reserva')
+    .where('reserva.id_medico = :idMedico', {
+        idMedico: medico.id,
+    })
+    .andWhere('reserva.estado = :estado', {
+        estado: EstadoReserva.ACTIVO,
+    })
+    .andWhere('reserva.fecha_hora < :finTurno', {
+        finTurno,
+    })
+    .andWhere(
+        "reserva.fecha_hora + INTERVAL '1 hour' > :fechaTurno",
+        { fechaTurno },
+    )
+    .getOne();
+
+if (reservaSuperpuesta) {
+    throw new BadRequestException(
+        'El médico ya tiene una reserva en ese horario',
+    );
+}
+
+
+
+    const reserva = this.repository.create({
+        id_medico: medico.id,
+        id_paciente: paciente.id,
+        fecha_hora: dto.fecha_hora,
         valor_consulta: medico.valor_consulta,
         estado: EstadoReserva.ACTIVO,
-        } as any) as any;
+    });
 
-        const guardada = await this.repository.save(reserva);
-        return { id: guardada.id };
-    }
+    const guardada = await this.repository.save(reserva);
 
-    async actualizarReserva(id: number, dto: UpdateReservasDto): Promise<void> {
-        const reserva: Reserva | null = await this.repository.findOne({ where: { id } });
+    return { id: guardada.id };
+}
 
-        if (!reserva) {
+
+    
+async actualizarReserva(
+    id: number,
+    dto: UpdateReservasDto,
+): Promise<void> {
+    const reserva = await this.repository.findOne({ where: { id } });
+
+    if (!reserva) {
         throw new BadRequestException('Reserva no encontrada');
-        }
-
-        const input = dto as any;
-        if (input.id_paciente || input.idPaciente) {
-        const usuarioActivo = await (this.usuarioService as any).existeUsuarioActivoPorId(input.id_paciente ?? input.idPaciente);
-        if (!usuarioActivo) {
-            throw new BadRequestException('Se debe especificar un paciente/usuario activo para la reserva');
-        }
-        }
-
-        this.repository.merge(reserva, input);
-        await this.repository.save(reserva as any);
     }
+
+    if (reserva.estado === EstadoReserva.CANCELADO) {
+        throw new BadRequestException(
+            'No se puede modificar una reserva cancelada',
+        );
+    }
+
+    if (reserva.estado === EstadoReserva.ATENDIDO) {
+        throw new BadRequestException(
+            'No se puede modificar una reserva que ya fue atendida',
+        );
+    }
+
+    if (reserva.estado === EstadoReserva.AUSENTE) {
+        throw new BadRequestException(
+            'No se puede modificar una reserva marcada como ausente',
+        );
+    }
+
+    reserva.estado = dto.estado;
+
+    await this.repository.save(reserva);
+}
+
 
     async obtenerReservas(): Promise<ListReservasDTO[]> {
         const reservas: Reserva[] = await this.repository.find({

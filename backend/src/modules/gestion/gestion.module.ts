@@ -13,14 +13,18 @@ import { ReservasService } from './services/reservas.service.js';
 
 // Controladores
 import { MedicoController } from './controllers/medicos.controller.js';
+import { ReservasController } from './controllers/reserva.controller.js';
+import { UsuarioController } from './controllers/usuarios.controller.js';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Usuario, Medico, Reserva]),
     ],
     controllers: [
-        MedicoController,
-    ],
+    MedicoController,
+    ReservasController,
+    UsuarioController,
+],
     providers: [
         UsuarioService,
         MedicoService,
