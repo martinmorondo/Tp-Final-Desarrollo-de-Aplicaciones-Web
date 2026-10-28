@@ -25,7 +25,7 @@ export class MedicoService {
     private readonly reservasService: ReservasService,
 ) {}
 
-    
+
 async crearMedico(dto: CreateMedicoDto): Promise<{ id: number }> {
     const usuario = await this.usuarioService.obtenerPorId(dto.id_usuario);
 
@@ -115,6 +115,21 @@ async crearMedico(dto: CreateMedicoDto): Promise<{ id: number }> {
 
         return medico;
     }
+
+
+async obtenerPorUsuario(idUsuario: number): Promise<Medico> {
+    const medico = await this.repository.findOne({
+        where: { id_usuario: idUsuario },
+        relations: { usuario: true } as any,
+    });
+
+    if (!medico) {
+        throw new NotFoundException('No se encontró un perfil médico para este usuario');
+    }
+
+    return medico;
+}
+
 
     async actualizarMedico(id: number, dto: UpdateMedicoDto): Promise<void> {
         const medico = await this.repository.findOneBy({ id });

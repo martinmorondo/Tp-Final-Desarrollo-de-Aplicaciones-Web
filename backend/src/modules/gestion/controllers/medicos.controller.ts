@@ -1,4 +1,16 @@
-import {Controller,Get,Post,Put,Body,Param,Query,ParseIntPipe,HttpCode,HttpStatus,} from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Put,
+    Body,
+    Param,
+    Query,
+    ParseIntPipe,
+    HttpCode,
+    HttpStatus,
+    UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { MedicoService } from '../services/medico.service.js';
 import { CreateMedicoDto } from '../dtos/input/create-medico.dto.js';
@@ -6,6 +18,10 @@ import { UpdateMedicoDto } from '../dtos/input/update-medico.dato.js';
 import { ListMedicoDTO } from '../dtos/output/list-medico.dto.js';
 import { MedicoDTO } from '../dtos/output/medico.dto.js';
 import { EstadoUsuario } from '../enums/estados-usuarios.enum.js';
+import { AuthGuard } from '../../auth/guardars/auth.guard.js';
+import { RolesGuard } from '../../auth/guardars/roles.guard.js';
+import { Roles } from '../../auth/decorators/roles.decorator.js';
+import { RolUsuario } from '../enums/rol-usuario.enum.js';
 
 @ApiTags('Médicos')
 @Controller('medicos')
@@ -13,6 +29,8 @@ export class MedicoController {
     constructor(private readonly medicoService: MedicoService) {}
 
     @Post()
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.ADMINISTRADOR)
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: 'Registrar un nuevo perfil de médico' })
     @ApiResponse({ status: 201, description: 'Médico registrado exitosamente.' })
@@ -40,7 +58,8 @@ export class MedicoController {
 ): Promise<MedicoDTO> {
     return this.medicoService.obtenerMedico(id);
 }
-
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.ADMINISTRADOR)
     @Put(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
     @ApiOperation({ summary: 'Actualizar los datos de un médico' })

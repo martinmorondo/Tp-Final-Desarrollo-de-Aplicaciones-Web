@@ -19,15 +19,6 @@ export class CreateReservasDto {
     id_medico!: number;
 
     @ApiProperty({
-        description: 'ID del paciente que solicita el turno',
-        example: 2,
-    })
-    @Type(() => Number)
-    @IsInt({ message: 'El ID del paciente debe ser un número entero' })
-    @IsPositive({ message: 'El ID del paciente debe ser positivo' })
-    id_paciente!: number;
-
-    @ApiProperty({
         description: 'Fecha y hora del turno en formato ISO 8601',
         example: '2026-11-10T09:00:00',
     })
