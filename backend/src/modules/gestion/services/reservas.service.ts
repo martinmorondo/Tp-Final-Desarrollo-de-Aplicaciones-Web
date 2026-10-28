@@ -1,6 +1,12 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, In } from "typeorm";
-import { BadRequestException, forwardRef, Inject, Injectable } from "@nestjs/common";
+import {
+    BadRequestException,
+    ForbiddenException,
+    forwardRef,
+    Inject,
+    Injectable,
+} from '@nestjs/common';
 
 import { Reserva } from "../entities/reserva.entity.js";
 import { EstadoReserva } from "../enums/estados-reserva.enum.js";
@@ -29,9 +35,12 @@ export class ReservasService {
         private readonly medicoService: MedicoService,
     ) { }
 
-    
-async crearReserva(dto: CreateReservasDto): Promise<{ id: number }> {
-    const paciente = await this.usuarioService.obtenerPorId(dto.id_paciente);
+
+async crearReserva(
+    dto: CreateReservasDto,
+    idPaciente: number,
+): Promise<{ id: number }> {
+    const paciente = await this.usuarioService.obtenerPorId(idPaciente);
 
     if (paciente.estado !== EstadoUsuario.ACTIVO) {
         throw new BadRequestException(
@@ -53,7 +62,7 @@ async crearReserva(dto: CreateReservasDto): Promise<{ id: number }> {
         );
     }
 
-    
+
 const fechaTurno = new Date(dto.fecha_hora);
 
 if (Number.isNaN(fechaTurno.getTime())) {
@@ -133,40 +142,101 @@ if (reservaSuperpuesta) {
 }
 
 
-    
+
+
+
 async actualizarReserva(
     id: number,
     dto: UpdateReservasDto,
+    idUsuario: number,
+    rol: RolUsuario,
 ): Promise<void> {
-    const reserva = await this.repository.findOne({ where: { id } });
+    const reserva = await this.repository.findOne({
+        where: { id },
+        relations: {
+            medico: { usuario: true },
+        } as any,
+    });
 
     if (!reserva) {
         throw new BadRequestException('Reserva no encontrada');
     }
 
-    if (reserva.estado === EstadoReserva.CANCELADO) {
+    if (reserva.estado !== EstadoReserva.ACTIVO) {
         throw new BadRequestException(
-            'No se puede modificar una reserva cancelada',
+            'Solo se pueden modificar reservas activas',
         );
     }
 
-    if (reserva.estado === EstadoReserva.ATENDIDO) {
-        throw new BadRequestException(
-            'No se puede modificar una reserva que ya fue atendida',
-        );
-    }
+    const ahora = new Date();
+    const fechaTurno = new Date((reserva as any).fecha_hora);
 
-    if (reserva.estado === EstadoReserva.AUSENTE) {
-        throw new BadRequestException(
-            'No se puede modificar una reserva marcada como ausente',
+    if (rol === RolUsuario.PACIENTE) {
+        if (reserva.id_paciente !== idUsuario) {
+            throw new ForbiddenException(
+                'No tenés permisos para modificar esta reserva',
+            );
+        }
+
+        if (dto.estado !== EstadoReserva.CANCELADO) {
+            throw new ForbiddenException(
+                'Los pacientes solo pueden cancelar sus reservas',
+            );
+        }
+
+        const inicioDelDiaDelTurno = new Date(fechaTurno);
+        inicioDelDiaDelTurno.setHours(0, 0, 0, 0);
+
+        const inicioDeHoy = new Date(ahora);
+        inicioDeHoy.setHours(0, 0, 0, 0);
+
+        if (inicioDelDiaDelTurno <= inicioDeHoy) {
+            throw new BadRequestException(
+                'Solo podés cancelar hasta el día anterior al turno',
+            );
+        }
+    } else if (rol === RolUsuario.MEDICO) {
+        if (reserva.medico?.id_usuario !== idUsuario) {
+            throw new ForbiddenException(
+                'No tenés permisos para modificar este turno',
+            );
+        }
+
+        if (
+            dto.estado !== EstadoReserva.ATENDIDO &&
+            dto.estado !== EstadoReserva.AUSENTE
+        ) {
+            throw new ForbiddenException(
+                'Los médicos solo pueden marcar turnos como atendidos o ausentes',
+            );
+        }
+
+        if (fechaTurno > ahora) {
+            throw new BadRequestException(
+                'No podés registrar el resultado de un turno que todavía no comenzó',
+            );
+        }
+    } else if (rol === RolUsuario.ADMINISTRADOR) {
+        if (dto.estado !== EstadoReserva.CANCELADO) {
+            throw new ForbiddenException(
+                'El administrador solo puede cambiar el estado de un turno mediante esta operación para cancelarlo',
+            );
+        }
+
+        if (fechaTurno <= ahora) {
+            throw new BadRequestException(
+                'El administrador solo puede cancelar hasta el inicio de la consulta',
+            );
+        }
+    } else {
+        throw new ForbiddenException(
+            'No tenés permisos para modificar reservas',
         );
     }
 
     reserva.estado = dto.estado;
-
     await this.repository.save(reserva);
 }
-
 
     async obtenerReservas(): Promise<ListReservasDTO[]> {
         const reservas: Reserva[] = await this.repository.find({
@@ -180,7 +250,7 @@ async actualizarReserva(
         const dto = new ListReservasDTO() as any;
         dto.id = r.id;
         dto.estado = r.estado;
-        
+
         if ((r as any).paciente) {
             dto.paciente = new ListPacienteDTO();
             dto.paciente.id = (r as any).paciente.id;
@@ -193,14 +263,115 @@ async actualizarReserva(
         return dtoList;
     }
 
-    async obtenerReserva(id: number): Promise<ReservaDTO> {
-        const reserva: Reserva | null = await this.repository.findOne({
-        where: { id },
+
+async obtenerReservasPorPaciente(
+    idPaciente: number,
+): Promise<ListReservasDTO[]> {
+    const reservas = await this.repository.find({
+        where: { id_paciente: idPaciente },
         relations: { paciente: true, medico: true } as any,
+        order: { id: 'ASC' },
+    });
+
+    return reservas.map((r) => {
+        const dto = new ListReservasDTO() as any;
+        dto.id = r.id;
+        dto.estado = r.estado;
+
+        if ((r as any).paciente) {
+            dto.paciente = new ListPacienteDTO();
+            dto.paciente.id = (r as any).paciente.id;
+            dto.paciente.nombre =
+                `${(r as any).paciente.nombres ?? ''} ${(r as any).paciente.apellidos ?? ''}`;
+        }
+
+        return dto;
+    });
+}
+
+
+async obtenerReservasPorMedicoYFecha(
+    idUsuario: number,
+    fecha: string,
+): Promise<ListReservasDTO[]> {
+    // Validar el formato YYYY-MM-DD.
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+        throw new BadRequestException(
+            'La fecha debe tener el formato YYYY-MM-DD',
+        );
+    }
+
+    // Construir el rango usando la fecha local para evitar
+    // desplazamientos de día por diferencias de zona horaria.
+    const [anio, mes, dia] = fecha.split('-').map(Number);
+
+    const inicio = new Date(anio, mes - 1, dia);
+
+    if (
+        inicio.getFullYear() !== anio ||
+        inicio.getMonth() !== mes - 1 ||
+        inicio.getDate() !== dia
+    ) {
+        throw new BadRequestException('La fecha no es válida');
+    }
+
+    const fin = new Date(anio, mes - 1, dia + 1);
+
+    // Obtener el perfil médico asociado al usuario autenticado.
+    const medico = await this.medicoService.obtenerPorUsuario(idUsuario);
+
+    // Consultar solamente las reservas de ese médico y de ese día.
+    const reservas = await this.repository
+        .createQueryBuilder('reserva')
+        .leftJoinAndSelect('reserva.paciente', 'paciente')
+        .where('reserva.id_medico = :idMedico', {
+            idMedico: medico.id,
+        })
+        .andWhere('reserva.fecha_hora >= :inicio', { inicio })
+        .andWhere('reserva.fecha_hora < :fin', { fin })
+        .orderBy('reserva.fecha_hora', 'ASC')
+        .getMany();
+
+    return reservas.map((r) => {
+        const dto = new ListReservasDTO() as any;
+        dto.id = r.id;
+        dto.estado = r.estado;
+
+        if ((r as any).paciente) {
+            dto.paciente = new ListPacienteDTO();
+            dto.paciente.id = (r as any).paciente.id;
+            dto.paciente.nombre =
+                `${(r as any).paciente.nombres ?? ''} ${(r as any).paciente.apellidos ?? ''}`.trim();
+        }
+
+        return dto;
+    });
+}
+
+    async obtenerReserva(
+        id: number,
+        idUsuario: number,
+        rol: RolUsuario,
+    ): Promise<ReservaDTO> {
+        const reserva = await this.repository.findOne({
+            where: { id },
+            relations: { paciente: true, medico: true } as any,
         });
 
         if (!reserva) {
-        throw new BadRequestException('Reserva no encontrada');
+            throw new BadRequestException('Reserva no encontrada');
+        }
+
+        if (
+            rol !== RolUsuario.ADMINISTRADOR &&
+            !(
+                rol === RolUsuario.PACIENTE &&
+                reserva.id_paciente === idUsuario
+            )
+        ) {
+            throw new ForbiddenException(
+                'No tenés permisos para consultar esta reserva',
+            );
         }
 
         const dto = new ReservaDTO() as any;
@@ -210,6 +381,7 @@ async actualizarReserva(
 
         return dto;
     }
+
 
     async existeReservaPorIdPaciente(idPaciente: number): Promise<boolean> {
         return await this.repository.exists({

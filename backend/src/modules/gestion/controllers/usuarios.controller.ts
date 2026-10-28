@@ -18,6 +18,9 @@ import { UpdateUsuarioDto } from "../dtos/input/update-usuario.dto.js";
 import { EstadoUsuario } from "../enums/estados-usuarios.enum.js";
 import { AuthGuard } from "../../auth/guardars/auth.guard.js";
 import { UsuarioService } from "../services/usuario.service.js";
+import { RolesGuard } from '../../auth/guardars/roles.guard.js';
+import { Roles } from '../../auth/decorators/roles.decorator.js';
+import { RolUsuario } from '../enums/rol-usuario.enum.js';
 
 @Controller('Usuarios')
 export class UsuarioController {
@@ -25,14 +28,18 @@ export class UsuarioController {
     constructor(private readonly service: UsuarioService) { }
 
     @ApiBearerAuth()
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.ADMINISTRADOR)
     @Post()
-    async crearUsuario(@Body() dto: CreateUsuarioDto): Promise<{ id: number }> {
-        return await this.service.crearUsuario(dto);
+    async crearUsuario(
+        @Body() dto: CreateUsuarioDto,
+    ): Promise<{ id: number }> {
+        return this.service.crearUsuario(dto);
     }
 
     @ApiBearerAuth()
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.ADMINISTRADOR)
     @Put(':id')
 async actualizarusuario(
     @Param('id', ParseIntPipe) id: number,
@@ -48,8 +55,9 @@ async actualizarusuario(
         required: false,
         enum: EstadoUsuario
     })
-    @UseGuards(AuthGuard)
-    @Version('1')
+    @UseGuards(AuthGuard, RolesGuard)
+@Roles(RolUsuario.ADMINISTRADOR)
+@Version('1')
 @Get()
 @ApiBearerAuth()
 @ApiOkResponse({ type: ListUsuarioDTO, isArray: true })
