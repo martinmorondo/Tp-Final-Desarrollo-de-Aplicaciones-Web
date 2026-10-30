@@ -22,4 +22,13 @@ export class UsuariosService {
       ],
     });
   }
+
+  async buscarUsuarioActivoPorId(id: number): Promise<Usuario | null> {
+  return this.repository.findOne({
+    where: {
+      id,
+      estado: EstadoUsuario.ACTIVO,
+    },
+  });
+}
 }

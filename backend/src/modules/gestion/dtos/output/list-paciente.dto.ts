@@ -1,15 +1,9 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { EstadoUsuario } from "../../enums/estados-usuarios.enum.js";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ListPacienteDTO {
-
-    @ApiProperty()
+    @ApiProperty({ example: 15 })
     id!: number;
 
-    @ApiProperty()
+    @ApiProperty({ example: 'Juan Pérez' })
     nombre!: string;
-
-    @ApiProperty()
-    estado!: EstadoUsuario;
-
 }

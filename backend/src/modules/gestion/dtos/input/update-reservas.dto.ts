@@ -1,6 +1,5 @@
-
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty } from 'class-validator';
+import { IsDefined, IsEnum } from 'class-validator';
 import { EstadoReserva } from '../../enums/estados-reserva.enum.js';
 
 export class UpdateReservasDto {
@@ -9,7 +8,9 @@ export class UpdateReservasDto {
         example: EstadoReserva.CANCELADO,
         description: 'Nuevo estado de la reserva',
     })
-    @IsEnum(EstadoReserva)
-    @IsNotEmpty()
+    @IsDefined({ message: 'El estado de la reserva es obligatorio' })
+    @IsEnum(EstadoReserva, {
+        message: 'El estado indicado no es válido',
+    })
     estado!: EstadoReserva;
 }
