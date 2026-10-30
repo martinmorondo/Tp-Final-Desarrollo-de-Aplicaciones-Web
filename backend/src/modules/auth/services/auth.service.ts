@@ -18,7 +18,7 @@ export class AuthService {
             throw new UnauthorizedException("Usuario no encontrado");
         }
 
-        if (!bcrypt.compareSync(dto.clave, usuario.clave)) {
+        if (!(await bcrypt.compare(dto.clave, usuario.clave))) {
             throw new UnauthorizedException();
         }
 

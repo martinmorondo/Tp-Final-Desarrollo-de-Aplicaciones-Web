@@ -1,40 +1,45 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToOne,
+    JoinColumn,
+} from 'typeorm';
+
 import { Medico } from './medico.entity.js';
 import { Usuario } from './usuario.entity.js';
 import { EstadoReserva } from '../enums/estados-reserva.enum.js';
 
-
-@Entity('reservas') // Nombre de la tabla en PostgreSQL
+@Entity('reservas')
 export class Reserva {
     @PrimaryGeneratedColumn()
-    id: number; // Clave primaria (PK)
+    id: number;
 
     @Column()
-    id_medico: number; // FK hacia la tabla medicos
+    id_medico: number;
 
-    // Relación ManyToOne: Muchas reservas pertenecen a un mismo médico
-    @ManyToOne(() => Medico, (medico) => (medico as any).reservas)
+    @ManyToOne(() => Medico, (medico) => medico.reservas)
     @JoinColumn({ name: 'id_medico' })
     medico: Medico;
 
     @Column()
-    id_paciente: number; // FK hacia la tabla usuarios (donde el rol es PACIENTE)
+    id_paciente: number;
 
-    // Relación ManyToOne: Muchas reservas pertenecen a un mismo paciente
     @ManyToOne(() => Usuario)
     @JoinColumn({ name: 'id_paciente' })
     paciente: Usuario;
 
     @Column({ type: 'timestamp' })
-    fecha_hora: Date; // Fecha y hora de la cita programada
+    fecha_hora: Date;
 
     @Column({
         type: 'enum',
         enum: EstadoReserva,
         default: EstadoReserva.ACTIVO,
     })
-    estado: EstadoReserva; // Estado actual de la reserva
+    estado: EstadoReserva;
 
-    @Column({ type: 'int' })
-    valor_consulta: number; // Valor congelado al momento de reservar (Regla de Negocio)
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
+    valor_consulta: number; 
 }

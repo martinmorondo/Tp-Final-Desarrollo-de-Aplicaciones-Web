@@ -1,27 +1,19 @@
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNumber, IsOptional, Min } from 'class-validator';
 
-import { PartialType, ApiPropertyOptional } from '@nestjs/swagger';
-import { OmitType } from '@nestjs/mapped-types';
-import { CreateMedicoDto } from './create-medico.dto.js';
-import { EstadoUsuario } from '../../enums/estados-usuarios.enum.js';
-
-export class UpdateMedicoDto extends PartialType(
-    OmitType(CreateMedicoDto, ['id_usuario'] as const),
-) {
-    @ApiPropertyOptional({
-        description: 'Número de matrícula profesional',
-        example: 'MN-99999',
-    })
-    matricula?: string;
-
+export class UpdateMedicoDto {
     @ApiPropertyOptional({
         description: 'Nuevo valor de la consulta médica',
-        example: 20000.0,
+        example: 20000,
+        minimum: 0.01,
+    })
+    @IsOptional()
+    @IsNumber(
+        { maxDecimalPlaces: 2 },
+        { message: 'El valor de la consulta debe ser un número con hasta dos decimales' },
+    )
+    @Min(0.01, {
+        message: 'El valor de la consulta debe ser mayor que cero',
     })
     valor_consulta?: number;
-
-    @ApiPropertyOptional({
-        enum: EstadoUsuario,
-        description: 'Estado del usuario/médico',
-    })
-    estado?: EstadoUsuario;
 }

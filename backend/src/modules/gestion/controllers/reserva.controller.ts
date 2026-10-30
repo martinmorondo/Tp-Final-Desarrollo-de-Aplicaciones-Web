@@ -32,7 +32,7 @@ export class ReservasController {
 
     @ApiBearerAuth()
     @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RolUsuario.PACIENTE)
+    @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
     @Post()
     async crearReservas(
         @Body() dto: CreateReservasDto,
@@ -40,7 +40,11 @@ export class ReservasController {
             usuario: { sub: number; rol: RolUsuario };
         },
     ): Promise<{ id: number }> {
-        return this.service.crearReserva(dto, request.usuario.sub);
+        return this.service.crearReserva(
+    dto,
+    request.usuario.sub,
+    request.usuario.rol,
+);
     }
 
 
