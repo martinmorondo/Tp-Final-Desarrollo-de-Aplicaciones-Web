@@ -1,0 +1,16 @@
+<p>navbar works!</p>
+
+@if (sesion(); as s) {
+  <nav>
+    <div class="links">
+      @for (item of menu(); track item.ruta) {
+        <a [routerLink]="item.ruta">{{ item.etiqueta }}</a>
+      }
+    </div>
+
+    <div class="usuario">
+      <span>{{ s.nombre }} ({{ s.rol }})</span>
+      <button type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </nav>
+}

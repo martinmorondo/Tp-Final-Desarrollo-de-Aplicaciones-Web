@@ -1,0 +1,23 @@
+.contenedor {
+  max-width: 340px;
+  margin: 80px auto;
+  font-family: sans-serif;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+input,
+button {
+  padding: 8px;
+  font-size: 1rem;
+}
+.error {
+  color: #b00020;
+}
