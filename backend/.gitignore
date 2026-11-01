@@ -1,6 +1,12 @@
-# Ambientes
-.env
-documentation/
-node_modules/
+
+# Archivos generados
 dist/
 *.tsbuildinfo
+
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
