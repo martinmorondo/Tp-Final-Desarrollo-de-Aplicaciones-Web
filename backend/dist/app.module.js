@@ -9,7 +9,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import { UsuariosModule } from './usuarios/usuarios.module.js';
+import { Usuario } from './database/entities/usuario.entity.js';
+import { Medico } from './database/entities/medico.entity.js';
+import { Reserva } from './database/entities/reserva.entity.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,11 +30,11 @@ AppModule = __decorate([
                     username: configService.get('DB_USER'),
                     password: configService.get('DB_PASSWORD'),
                     database: configService.get('DB_NAME'),
+                    entities: [Usuario, Medico, Reserva],
                     autoLoadEntities: true,
                     synchronize: true,
                 }),
             }),
-            UsuariosModule,
         ],
         controllers: [AppController],
         providers: [AppService],

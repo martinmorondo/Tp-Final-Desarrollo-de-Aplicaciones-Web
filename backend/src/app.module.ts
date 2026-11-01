@@ -3,7 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import { UsuariosModule } from './usuarios/usuarios.module.js';
+import { Usuario } from './database/entities/usuario.entity.js';
+import { Medico } from './database/entities/medico.entity.js';
+import { Reserva } from './database/entities/reserva.entity.js';
 
 @Module({
   imports: [
@@ -20,13 +22,14 @@ import { UsuariosModule } from './usuarios/usuarios.module.js';
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
+        entities: [Usuario, Medico, Reserva],
         autoLoadEntities: true,
         synchronize: true, 
       }),
     }),
-    UsuariosModule, 
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
