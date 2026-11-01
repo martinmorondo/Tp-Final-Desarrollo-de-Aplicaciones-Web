@@ -1,1 +1,46 @@
-<p>medico works!</p>
+<div class="pagina">
+  <h2>Mi agenda</h2>
+
+  <label class="selector">
+    Fecha
+    <input type="date" name="fecha" [ngModel]="fecha" (ngModelChange)="cambiarFecha($event)" />
+  </label>
+
+  @if (mensaje(); as m) {
+    <p [class]="m.tipo === 'ok' ? 'ok' : 'error'">{{ m.texto }}</p>
+  }
+
+  @if (turnos().length === 0) {
+    <p>No hay turnos para esta fecha.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Hora</th>
+          <th>Paciente</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of turnos(); track t.id) {
+          <tr>
+            <td>{{ t.fecha_hora | date: 'HH:mm' }}</td>
+            <td>{{ t.paciente.nombre }}</td>
+            <td>{{ t.estado }}</td>
+            <td>
+              @if (t.estado === 'ACTIVO') {
+                @if (yaComenzo(t)) {
+                  <button type="button" (click)="marcar(t, 'ATENDIDO')">Atendido</button>
+                  <button type="button" (click)="marcar(t, 'AUSENTE')">Ausente</button>
+                } @else {
+                  <span class="aviso">Aún no comenzó</span>
+                }
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
