@@ -179,6 +179,11 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                <a href="#reservas" >reservas</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#usuario" >usuario</a>
                             </li>
@@ -234,7 +239,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:7</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -270,7 +275,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -306,7 +311,43 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reservas"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>reservas</b></span>
+                        <a href="#reservas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../entitys/Reserva.html" target="_self" >Reserva[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @OneToMany(&#x27;Reserva&#x27;, reserva &#x3D;&gt; reserva.medico)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -343,7 +384,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -373,13 +414,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({type: &#x27;decimal&#x27;, precision: 10, scale: 2})<br />
+                            @Column({type: &#x27;decimal&#x27;, precision: 10, scale: 2, transformer: decimalTransformer})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/modules/gestion/entities/medico.entity.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -391,8 +432,23 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from &#x27;typeorm&#x27;;
-import type { Usuario } from &#x27;./usuario.entity.js&#x27;; // Importamos como &#x27;type&#x27; para evitar el ciclo en runtime
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    OneToOne,
+    OneToMany,
+    JoinColumn,
+} from &#x27;typeorm&#x27;;
+
+import type { ValueTransformer } from &#x27;typeorm&#x27;;
+import type { Usuario } from &#x27;./usuario.entity.js&#x27;;
+import type { Reserva } from &#x27;./reserva.entity.js&#x27;;
+
+const decimalTransformer: ValueTransformer &#x3D; {
+    to: (value: number): number &#x3D;&gt; value,
+    from: (value: string | number): number &#x3D;&gt; Number(value),
+};
 
 @Entity(&#x27;medicos&#x27;)
 export class Medico {
@@ -405,13 +461,24 @@ export class Medico {
     @Column()
     matricula: string;
 
-    @Column({ type: &#x27;decimal&#x27;, precision: 10, scale: 2 })
+    @Column({
+        type: &#x27;decimal&#x27;,
+        precision: 10,
+        scale: 2,
+        transformer: decimalTransformer,
+    })
     valor_consulta: number;
 
-    @OneToOne(&#x27;Usuario&#x27;, (usuario: any) &#x3D;&gt; usuario.medico, { onDelete: &#x27;CASCADE&#x27; })
+    @OneToOne(&#x27;Usuario&#x27;, (usuario: any) &#x3D;&gt; usuario.medico, {
+        onDelete: &#x27;CASCADE&#x27;,
+    })
     @JoinColumn({ name: &#x27;id_usuario&#x27; })
     usuario: Usuario;
-}</code></pre>
+
+    @OneToMany(&#x27;Reserva&#x27;, (reserva: any) &#x3D;&gt; reserva.medico)
+    reservas: Reserva[];
+}
+</code></pre>
     </div>
 </div>
 

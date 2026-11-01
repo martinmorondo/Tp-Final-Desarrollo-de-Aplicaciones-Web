@@ -152,6 +152,14 @@
 <div class="tab-content">
     <div class="tab-pane fade active in" id="info">
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>DTO utilizado para recibir las credenciales de un usuario
+durante el proceso de autenticación.</p>
+
+            </p>
 
 
 
@@ -227,16 +235,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty()<br />@IsString()<br />@IsNotEmpty()<br />
+                            @ApiProperty({description: &#x27;Contraseña correspondiente a la cuenta del usuario.&#x27;, example: &#x27;********&#x27;, type: String, format: &#x27;password&#x27;})<br />@IsString()<br />@IsNotEmpty()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:34</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Contraseña del usuario.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -265,16 +279,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty()<br />@IsString()<br />@IsNotEmpty({message: &#x27;Se debe indicar el nombre&#x27;})<br />
+                            @ApiProperty({description: &#x27;Nombre o correo electrónico del usuario.&#x27;, example: &#x27;paciente@clinica.com&#x27;, type: String})<br />@IsString()<br />@IsNotEmpty({message: &#x27;Se debe indicar el nombre&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:21</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Nombre o correo electrónico utilizado para iniciar sesión.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -290,20 +310,41 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &quot;@nestjs/swagger&quot;
-import { IsNotEmpty, IsString } from &quot;class-validator&quot;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 
-export class LoginDTO{
+import { IsNotEmpty, IsString } from &#x27;class-validator&#x27;;
 
-    @ApiProperty()
+/**
+ * DTO utilizado para recibir las credenciales de un usuario
+ * durante el proceso de autenticación.
+ */
+export class LoginDTO {
+
+    /**
+     * Nombre o correo electrónico utilizado para iniciar sesión.
+     */
+    @ApiProperty({
+        description: &#x27;Nombre o correo electrónico del usuario.&#x27;,
+        example: &#x27;paciente@clinica.com&#x27;,
+        type: String,
+    })
     @IsString()
-    @IsNotEmpty({message: &quot;Se debe indicar el nombre&quot;})
-    nombre: string
+    @IsNotEmpty({ message: &#x27;Se debe indicar el nombre&#x27; })
+    nombre: string;
 
-    @ApiProperty()
+    /**
+     * Contraseña del usuario.
+     */
+    @ApiProperty({
+        description: &#x27;Contraseña correspondiente a la cuenta del usuario.&#x27;,
+        example: &#x27;********&#x27;,
+        type: String,
+        format: &#x27;password&#x27;,
+    })
     @IsString()
     @IsNotEmpty()
-    clave: string
+    clave: string;
+
 }</code></pre>
     </div>
 </div>

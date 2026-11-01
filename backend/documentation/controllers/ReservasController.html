@@ -152,11 +152,38 @@
             </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Controlador encargado de gestionar las reservas de turnos médicos.
+Permite crear, consultar, listar y actualizar reservas según el rol del usuario.</p>
+
+            </p>
 
 
 
 
+                <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="../modules/GestionModule.html" target="_self" >GestionModule</a></code>
+                                </li>
+                        </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <p class="comment"><i>No results matching.</i></p>
+                </div>
             </div>
+        </section>
+    </div>
 
     <div class="tab-pane fade " id="api">
             <section data-compodoc="block-index">
@@ -175,6 +202,13 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#actualizarReservas" >actualizarReservas</a>
                             </li>
@@ -183,11 +217,24 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#crearReservas" >crearReservas</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -200,8 +247,24 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerReservas" >obtenerReservas</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#obtenerReservasPorMedico" >obtenerReservasPorMedico</a>
                             </li>
                         </ul>
                     </td>
@@ -229,6 +292,13 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>actualizarReservas</b></span>
                         <a href="#actualizarReservas"><span class="icon ion-ios-link"></span></a>
@@ -238,7 +308,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>actualizarReservas(dto: <a href="../classes/UpdateReservasDto.html" target="_self">UpdateReservasDto</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>actualizarReservas(dto: <a href="../classes/UpdateReservasDto.html" target="_self">UpdateReservasDto</a>, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, request: Request & literal type)</code>
                 </td>
             </tr>
 
@@ -246,20 +316,23 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@UseGuards(AuthGuard)<br />@Put(&#x27;:id&#x27;)<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Put(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Actualizar una reserva&#x27;, description: &#x27;Permite cancelar una reserva o actualizar su estado según los permisos del paciente, médico o administrador.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador de la reserva.&#x27;, type: Number, example: 1})<br />@ApiBody({type: UpdateReservasDto})<br />@ApiResponse({status: 200, description: &#x27;Reserva actualizada correctamente.&#x27;})<br />@ApiResponse({status: 400, description: &#x27;El estado solicitado no es válido o no se cumplen las condiciones para modificar la reserva.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para modificar esta reserva.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Reserva no encontrada.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:145</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza el estado de una reserva existente.
+Las operaciones permitidas dependen del rol del usuario.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -270,6 +343,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -284,6 +358,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Nuevo estado de la reserva.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>id</td>
@@ -296,6 +374,26 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Identificador de la reserva.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>Request &amp; literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Información del usuario autenticado.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -320,6 +418,13 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>crearReservas</b></span>
                         <a href="#crearReservas"><span class="icon ion-ios-link"></span></a>
@@ -329,7 +434,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>crearReservas(dto: <a href="../classes/CreateReservasDto.html" target="_self">CreateReservasDto</a>)</code>
+                    <code>crearReservas(dto: <a href="../classes/CreateReservasDto.html" target="_self">CreateReservasDto</a>, request: Request & literal type)</code>
                 </td>
             </tr>
 
@@ -337,20 +442,25 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@UseGuards(AuthGuard)<br />@Post()<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)<br />@Post()<br />@ApiOperation({summary: &#x27;Crear una reserva&#x27;, description: &#x27;Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.&#x27;})<br />@ApiBody({type: CreateReservasDto})<br />@ApiResponse({status: 201, description: &#x27;Reserva creada correctamente.&#x27;, schema: undefined})<br />@ApiResponse({status: 400, description: &#x27;Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para crear reservas.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico o paciente no encontrado.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="18"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:18</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:91</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Registra una nueva reserva.
+Disponible para pacientes y administradores.
+Los pacientes reservan para sí mismos y los administradores
+pueden seleccionar al paciente correspondiente.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -361,6 +471,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -375,6 +486,26 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Datos necesarios para crear la reserva.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>Request &amp; literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Información del usuario autenticado.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -384,7 +515,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Identificador de la reserva creada.</p>
+
                             </div>
                 </td>
             </tr>
@@ -399,6 +531,12 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>obtenerReserva</b></span>
                         <a href="#obtenerReserva"><span class="icon ion-ios-link"></span></a>
@@ -408,7 +546,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>obtenerReserva(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>obtenerReserva(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, request: Request & literal type)</code>
                 </td>
             </tr>
 
@@ -416,20 +554,23 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@UseGuards(AuthGuard)<br />@Get(&#x27;:id&#x27;)<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Consultar reserva por ID&#x27;, description: &#x27;Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas y el administrador puede consultar cualquiera.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador de la reserva.&#x27;, type: Number, example: 1})<br />@ApiResponse({status: 200, description: &#x27;Reserva encontrada.&#x27;, type: ReservaDTO})<br />@ApiResponse({status: 400, description: &#x27;El identificador proporcionado no es válido.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar esta reserva.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Reserva no encontrada.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="300"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:300</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los datos de una reserva específica.
+El acceso está sujeto a las reglas de autorización del servicio.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -440,6 +581,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -454,6 +596,26 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Identificador de la reserva.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>Request &amp; literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Información del usuario autenticado.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -463,7 +625,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Información de la reserva.</p>
+
                             </div>
                 </td>
             </tr>
@@ -479,6 +642,8 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>obtenerReservas</b></span>
                         <a href="#obtenerReservas"><span class="icon ion-ios-link"></span></a>
@@ -488,7 +653,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>obtenerReservas()</code>
+                    <code>obtenerReservas(request: Request & literal type)</code>
                 </td>
             </tr>
 
@@ -496,25 +661,174 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@ApiOkResponse({type: ListReservasDTO, isArray: true})<br />@UseGuards(AuthGuard)<br />@Get()<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Get()<br />@ApiOperation({summary: &#x27;Listar reservas&#x27;, description: &#x27;Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Listado de reservas obtenido correctamente.&#x27;, type: ListReservasDTO, isArray: true})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar este listado de reservas.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="36"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:36</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="188"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:188</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene las reservas correspondientes al usuario autenticado.
+Los pacientes consultan sus propias reservas y los administradores
+pueden consultar todas las reservas.</p>
+</div>
 
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>Request &amp; literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Información del usuario autenticado.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../classes/ListReservasDTO.html" target="_self" >Promise&lt;ListReservasDTO[]&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>Listado de reservas según el rol.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerReservasPorMedico"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>obtenerReservasPorMedico</b></span>
+                        <a href="#obtenerReservasPorMedico"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerReservasPorMedico(fecha: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, request: Request & literal type)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.MEDICO)<br />@Get(&#x27;medico&#x27;)<br />@ApiOperation({summary: &#x27;Consultar reservas del médico&#x27;, description: &#x27;Permite al médico autenticado consultar sus reservas para una fecha determinada.&#x27;})<br />@ApiQuery({name: &#x27;fecha&#x27;, description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;, required: true, type: String, example: &#x27;2026-11-02&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Reservas del médico obtenidas correctamente.&#x27;, type: ListReservasDTO, isArray: true})<br />@ApiResponse({status: 400, description: &#x27;La fecha proporcionada no es válida.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos de médico.&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="247"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:247</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene las reservas de un médico para una fecha determinada.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fecha</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Fecha de consulta en formato YYYY-MM-DD.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>Request &amp; literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Información del médico autenticado.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/ListReservasDTO.html" target="_self" >Promise&lt;ListReservasDTO[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Reservas correspondientes al médico y la fecha indicados.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -524,53 +838,319 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Get, NotImplementedException, Param, ParseIntPipe, Post, Put, UseGuards } from &quot;@nestjs/common&quot;;
-import { CreateReservasDto } from &quot;../dtos/input/create-reservas.dto.js&quot;;
-import { UpdateReservasDto } from &quot;../dtos/input/update-reservas.dto.js&quot;;
-import { ApiBearerAuth, ApiOkResponse } from &quot;@nestjs/swagger&quot;;
-import { ListReservasDTO } from &quot;../dtos/output/list-reservas.dto.js&quot;;
-import { ReservaDTO } from &quot;../dtos/output/reservas.dto.js&quot;;
-import { ReservasService } from &quot;../services/reservas.service.js&quot;;
-import { AuthGuard } from &quot;../../auth/guardars/auth.guard.js&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">
+import {
+    Body,
+    Controller,
+    Get,
+    ForbiddenException,
+    Param,
+    ParseIntPipe,
+    Post,
+    Put,
+    Query,
+    Req,
+    UseGuards,
+} from &#x27;@nestjs/common&#x27;;
 
+import {
+    ApiBearerAuth,
+    ApiTags,
+    ApiOperation,
+    ApiResponse,
+    ApiParam,
+    ApiQuery,
+    ApiBody,
+} from &#x27;@nestjs/swagger&#x27;;
+
+import { CreateReservasDto } from &#x27;../dtos/input/create-reservas.dto.js&#x27;;
+import { UpdateReservasDto } from &#x27;../dtos/input/update-reservas.dto.js&#x27;;
+import { ListReservasDTO } from &#x27;../dtos/output/list-reservas.dto.js&#x27;;
+import { ReservaDTO } from &#x27;../dtos/output/reservas.dto.js&#x27;;
+import { ReservasService } from &#x27;../services/reservas.service.js&#x27;;
+
+import { AuthGuard } from &#x27;../../auth/guardars/auth.guard.js&#x27;;
+import { RolesGuard } from &#x27;../../auth/guardars/roles.guard.js&#x27;;
+import { Roles } from &#x27;../../auth/decorators/roles.decorator.js&#x27;;
+import { RolUsuario } from &#x27;../enums/rol-usuario.enum.js&#x27;;
+
+import type { Request } from &#x27;express&#x27;;
+
+/**
+ * Controlador encargado de gestionar las reservas de turnos médicos.
+ * Permite crear, consultar, listar y actualizar reservas según el rol del usuario.
+ */
+@ApiTags(&#x27;Reservas&#x27;)
+@ApiBearerAuth()
 @Controller(&#x27;Reservas&#x27;)
 export class ReservasController {
 
-    constructor(private readonly service: ReservasService) { }
+    constructor(private readonly service: ReservasService) {}
 
-    @ApiBearerAuth()
-    @UseGuards(AuthGuard)
+    /**
+     * Registra una nueva reserva.
+     * Disponible para pacientes y administradores.
+     * Los pacientes reservan para sí mismos y los administradores
+     * pueden seleccionar al paciente correspondiente.
+     *
+     * @param dto Datos necesarios para crear la reserva.
+     * @param request Información del usuario autenticado.
+     * @returns Identificador de la reserva creada.
+     */
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
     @Post()
-    async crearReservas(@Body() dto: CreateReservasDto): Promise&lt;{ id: number }&gt; {
-
-        return await this.service.crearReserva(dto);
-
+    @ApiOperation({
+        summary: &#x27;Crear una reserva&#x27;,
+        description: &#x27;Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.&#x27;,
+    })
+    @ApiBody({ type: CreateReservasDto })
+    @ApiResponse({
+        status: 201,
+        description: &#x27;Reserva creada correctamente.&#x27;,
+        schema: {
+            example: { id: 1 },
+        },
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.&#x27;,
+    })
+    @ApiResponse({
+        status: 401,
+        description: &#x27;Usuario no autenticado o token inválido.&#x27;,
+    })
+    @ApiResponse({
+        status: 403,
+        description: &#x27;El usuario no tiene permisos para crear reservas.&#x27;,
+    })
+    @ApiResponse({
+        status: 404,
+        description: &#x27;Médico o paciente no encontrado.&#x27;,
+    })
+    async crearReservas(
+        @Body() dto: CreateReservasDto,
+        @Req() request: Request &amp; {
+            usuario: { sub: number; rol: RolUsuario };
+        },
+    ): Promise&lt;{ id: number }&gt; {
+        return this.service.crearReserva(
+            dto,
+            request.usuario.sub,
+            request.usuario.rol,
+        );
     }
 
-    @ApiBearerAuth()
-    @UseGuards(AuthGuard)
+    /**
+     * Actualiza el estado de una reserva existente.
+     * Las operaciones permitidas dependen del rol del usuario.
+     *
+     * @param dto Nuevo estado de la reserva.
+     * @param id Identificador de la reserva.
+     * @param request Información del usuario autenticado.
+     */
+    @UseGuards(AuthGuard, RolesGuard)
     @Put(&#x27;:id&#x27;)
-    async actualizarReservas(@Body() dto: UpdateReservasDto, @Param(&#x27;id&#x27;) id: number): Promise&lt;void&gt; {
-
-        await this.service.actualizarReserva(id, dto);
+    @ApiOperation({
+        summary: &#x27;Actualizar una reserva&#x27;,
+        description: &#x27;Permite cancelar una reserva o actualizar su estado según los permisos del paciente, médico o administrador.&#x27;,
+    })
+    @ApiParam({
+        name: &#x27;id&#x27;,
+        description: &#x27;Identificador de la reserva.&#x27;,
+        type: Number,
+        example: 1,
+    })
+    @ApiBody({ type: UpdateReservasDto })
+    @ApiResponse({
+        status: 200,
+        description: &#x27;Reserva actualizada correctamente.&#x27;,
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;El estado solicitado no es válido o no se cumplen las condiciones para modificar la reserva.&#x27;,
+    })
+    @ApiResponse({
+        status: 401,
+        description: &#x27;Usuario no autenticado o token inválido.&#x27;,
+    })
+    @ApiResponse({
+        status: 403,
+        description: &#x27;El usuario no tiene permisos para modificar esta reserva.&#x27;,
+    })
+    @ApiResponse({
+        status: 404,
+        description: &#x27;Reserva no encontrada.&#x27;,
+    })
+    async actualizarReservas(
+        @Body() dto: UpdateReservasDto,
+        @Param(&#x27;id&#x27;, ParseIntPipe) id: number,
+        @Req() request: Request &amp; {
+            usuario: { sub: number; rol: RolUsuario };
+        },
+    ): Promise&lt;void&gt; {
+        await this.service.actualizarReserva(
+            id,
+            dto,
+            request.usuario.sub,
+            request.usuario.rol,
+        );
     }
 
-    @ApiBearerAuth()
-    @ApiOkResponse({ type: ListReservasDTO, isArray: true })
-    @UseGuards(AuthGuard)
+    /**
+     * Obtiene las reservas correspondientes al usuario autenticado.
+     * Los pacientes consultan sus propias reservas y los administradores
+     * pueden consultar todas las reservas.
+     *
+     * @param request Información del usuario autenticado.
+     * @returns Listado de reservas según el rol.
+     */
+    @UseGuards(AuthGuard, RolesGuard)
     @Get()
-    async obtenerReservas(): Promise&lt;ListReservasDTO[]&gt; {
+    @ApiOperation({
+        summary: &#x27;Listar reservas&#x27;,
+        description: &#x27;Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.&#x27;,
+    })
+    @ApiResponse({
+        status: 200,
+        description: &#x27;Listado de reservas obtenido correctamente.&#x27;,
+        type: ListReservasDTO,
+        isArray: true,
+    })
+    @ApiResponse({
+        status: 401,
+        description: &#x27;Usuario no autenticado o token inválido.&#x27;,
+    })
+    @ApiResponse({
+        status: 403,
+        description: &#x27;El usuario no tiene permisos para consultar este listado de reservas.&#x27;,
+    })
+    async obtenerReservas(
+        @Req() request: Request &amp; {
+            usuario: { sub: number; rol: RolUsuario };
+        },
+    ): Promise&lt;ListReservasDTO[]&gt; {
+        const usuario &#x3D; request.usuario;
 
-        return await this.service.obtenerReservas();
+        if (usuario.rol &#x3D;&#x3D;&#x3D; RolUsuario.PACIENTE) {
+            return this.service.obtenerReservasPorPaciente(usuario.sub);
+        }
+
+        if (usuario.rol &#x3D;&#x3D;&#x3D; RolUsuario.ADMINISTRADOR) {
+            return this.service.obtenerReservas();
+        }
+
+        throw new ForbiddenException(
+            &#x27;No tenés permisos para consultar este listado de reservas&#x27;,
+        );
     }
 
-    @ApiBearerAuth()
-    @UseGuards(AuthGuard)
+    /**
+     * Obtiene las reservas de un médico para una fecha determinada.
+     *
+     * @param fecha Fecha de consulta en formato YYYY-MM-DD.
+     * @param request Información del médico autenticado.
+     * @returns Reservas correspondientes al médico y la fecha indicados.
+     */
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.MEDICO)
+    @Get(&#x27;medico&#x27;)
+    @ApiOperation({
+        summary: &#x27;Consultar reservas del médico&#x27;,
+        description: &#x27;Permite al médico autenticado consultar sus reservas para una fecha determinada.&#x27;,
+    })
+    @ApiQuery({
+        name: &#x27;fecha&#x27;,
+        description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;,
+        required: true,
+        type: String,
+        example: &#x27;2026-11-02&#x27;,
+    })
+    @ApiResponse({
+        status: 200,
+        description: &#x27;Reservas del médico obtenidas correctamente.&#x27;,
+        type: ListReservasDTO,
+        isArray: true,
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;La fecha proporcionada no es válida.&#x27;,
+    })
+    @ApiResponse({
+        status: 401,
+        description: &#x27;Usuario no autenticado o token inválido.&#x27;,
+    })
+    @ApiResponse({
+        status: 403,
+        description: &#x27;El usuario no tiene permisos de médico.&#x27;,
+    })
+    async obtenerReservasPorMedico(
+        @Query(&#x27;fecha&#x27;) fecha: string,
+        @Req() request: Request &amp; {
+            usuario: { sub: number; rol: RolUsuario };
+        },
+    ): Promise&lt;ListReservasDTO[]&gt; {
+        return this.service.obtenerReservasPorMedicoYFecha(
+            request.usuario.sub,
+            fecha,
+        );
+    }
+
+    /**
+     * Obtiene los datos de una reserva específica.
+     * El acceso está sujeto a las reglas de autorización del servicio.
+     *
+     * @param id Identificador de la reserva.
+     * @param request Información del usuario autenticado.
+     * @returns Información de la reserva.
+     */
+    @UseGuards(AuthGuard, RolesGuard)
     @Get(&#x27;:id&#x27;)
-    async obtenerReserva(@Param(&#x27;id&#x27;, ParseIntPipe) id: number): Promise&lt;ReservaDTO&gt; {
-    return await this.service.obtenerReserva(id); // &lt;--- Corregido a singular &#x27;obtenerReserva&#x27;
+    @ApiOperation({
+        summary: &#x27;Consultar reserva por ID&#x27;,
+        description: &#x27;Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas y el administrador puede consultar cualquiera.&#x27;,
+    })
+    @ApiParam({
+        name: &#x27;id&#x27;,
+        description: &#x27;Identificador de la reserva.&#x27;,
+        type: Number,
+        example: 1,
+    })
+    @ApiResponse({
+        status: 200,
+        description: &#x27;Reserva encontrada.&#x27;,
+        type: ReservaDTO,
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;El identificador proporcionado no es válido.&#x27;,
+    })
+    @ApiResponse({
+        status: 401,
+        description: &#x27;Usuario no autenticado o token inválido.&#x27;,
+    })
+    @ApiResponse({
+        status: 403,
+        description: &#x27;El usuario no tiene permisos para consultar esta reserva.&#x27;,
+    })
+    @ApiResponse({
+        status: 404,
+        description: &#x27;Reserva no encontrada.&#x27;,
+    })
+    async obtenerReserva(
+        @Param(&#x27;id&#x27;, ParseIntPipe) id: number,
+        @Req() request: Request &amp; {
+            usuario: { sub: number; rol: RolUsuario };
+        },
+    ): Promise&lt;ReservaDTO&gt; {
+        return this.service.obtenerReserva(
+            id,
+            request.usuario.sub,
+            request.usuario.rol,
+        );
     }
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

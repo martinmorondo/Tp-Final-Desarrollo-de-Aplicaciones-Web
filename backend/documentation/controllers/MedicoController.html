@@ -152,6 +152,13 @@
             </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Controlador encargado de consultar médicos y administrar sus valores de consulta.</p>
+
+            </p>
 
 
 
@@ -196,6 +203,14 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#actualizarMedico" >actualizarMedico</a>
                             </li>
@@ -206,20 +221,13 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
-                                    <span class="modifier">Async</span>
-                                <a href="#crearMedico" >crearMedico</a>
-                            </li>
-                            <li>
-                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerMedicoPorId" >obtenerMedicoPorId</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -255,6 +263,14 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>actualizarMedico</b></span>
                         <a href="#actualizarMedico"><span class="icon ion-ios-link"></span></a>
@@ -272,20 +288,23 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Put(&#x27;:id&#x27;)<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiOperation({summary: &#x27;Actualizar los datos de un médico&#x27;})<br />@ApiResponse({status: 204, description: &#x27;Médico actualizado exitosamente.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
+                    <code>@Put(&#x27;:id&#x27;)<br />@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.ADMINISTRADOR)<br />@HttpCode(HttpStatus.NO_CONTENT)<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;Modificar valor de consulta&#x27;, description: &#x27;Actualiza el valor de consulta de un médico. Disponible exclusivamente para administradores.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador del médico.&#x27;, type: Number, example: 2})<br />@ApiBody({type: UpdateMedicoDto})<br />@ApiResponse({status: 204, description: &#x27;Valor de consulta actualizado correctamente.&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Los datos enviados no son válidos.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;No se proporcionó un token válido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos de administrador.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:165</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza el valor de consulta de un médico.
+Esta operación está restringida al rol ADMINISTRADOR.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -296,6 +315,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -310,6 +330,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Identificador del médico.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>dto</td>
@@ -322,6 +346,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Nuevo valor de consulta.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -341,89 +369,10 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="crearMedico"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier">Async</span>
-                        <span ><b>crearMedico</b></span>
-                        <a href="#crearMedico"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>crearMedico(dto: <a href="../classes/CreateMedicoDto.html" target="_self">CreateMedicoDto</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Post()<br />@HttpCode(HttpStatus.CREATED)<br />@ApiOperation({summary: &#x27;Registrar un nuevo perfil de médico&#x27;})<br />@ApiResponse({status: 201, description: &#x27;Médico registrado exitosamente.&#x27;})<br />@ApiResponse({status: 400, description: &#x27;Datos inválidos o usuario inexistente.&#x27;})<br /></code>
-                </td>
-            </tr>
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="20"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:20</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>dto</td>
-                                            <td>
-                                                            <code><a href="../classes/CreateMedicoDto.html" target="_self" >CreateMedicoDto</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;{ id: number }&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="obtenerMedicoPorId"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
@@ -445,20 +394,22 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Obtener el detalle de un médico por su ID&#x27;})<br />@ApiResponse({status: 200, type: MedicoDTO})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
+                    <code>@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Obtener médico por ID&#x27;, description: &#x27;Devuelve los datos de un médico a partir de su identificador.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador del médico.&#x27;, type: Number, example: 2})<br />@ApiResponse({status: 200, description: &#x27;Médico encontrado.&#x27;, type: MedicoDTO})<br />@ApiResponse({status: 400, description: &#x27;El identificador proporcionado no es válido.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="114"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:114</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los datos de un médico específico.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -469,6 +420,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -483,6 +435,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Identificador del médico.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -492,7 +448,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Información del médico.</p>
+
                             </div>
                 </td>
             </tr>
@@ -504,6 +461,7 @@
                 <td class="col-md-4">
                     <a name="obtenerMedicos"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
@@ -525,20 +483,22 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;Obtener el listado de médicos (filtrable por estado)&#x27;})<br />@ApiQuery({name: &#x27;estado&#x27;, enum: EstadoUsuario, required: false})<br />@ApiResponse({status: 200, type: undefined})<br /></code>
+                    <code>@Get()<br />@ApiOperation({summary: &#x27;Obtener listado de médicos&#x27;, description: &#x27;Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.&#x27;})<br />@ApiQuery({name: &#x27;estado&#x27;, description: &#x27;Estado del médico para filtrar el listado.&#x27;, enum: EstadoUsuario, required: false, example: undefined})<br />@ApiResponse({status: 200, description: &#x27;Listado de médicos obtenido correctamente.&#x27;, type: undefined})<br />@ApiResponse({status: 400, description: &#x27;El estado proporcionado no es válido.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:74</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene el listado de médicos, permitiendo filtrar por estado.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -549,6 +509,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -563,6 +524,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Estado del usuario médico (opcional).</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -572,7 +537,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Listado de médicos.</p>
+
                             </div>
                 </td>
             </tr>
@@ -583,61 +549,178 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Controller,Get,Post,Put,Body,Param,Query,ParseIntPipe,HttpCode,HttpStatus,} from &#x27;@nestjs/common&#x27;;
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">
+import {
+    Controller,
+    Get,
+    Put,
+    Body,
+    Param,
+    Query,
+    ParseIntPipe,
+    ParseEnumPipe,
+    HttpCode,
+    HttpStatus,
+    UseGuards,
+} from &#x27;@nestjs/common&#x27;;
+
+import {
+    ApiTags,
+    ApiOperation,
+    ApiResponse,
+    ApiQuery,
+    ApiParam,
+    ApiBody,
+    ApiBearerAuth,
+} from &#x27;@nestjs/swagger&#x27;;
+
 import { MedicoService } from &#x27;../services/medico.service.js&#x27;;
-import { CreateMedicoDto } from &#x27;../dtos/input/create-medico.dto.js&#x27;;
 import { UpdateMedicoDto } from &#x27;../dtos/input/update-medico.dato.js&#x27;;
 import { ListMedicoDTO } from &#x27;../dtos/output/list-medico.dto.js&#x27;;
 import { MedicoDTO } from &#x27;../dtos/output/medico.dto.js&#x27;;
 import { EstadoUsuario } from &#x27;../enums/estados-usuarios.enum.js&#x27;;
 
+import { AuthGuard } from &#x27;../../auth/guardars/auth.guard.js&#x27;;
+import { RolesGuard } from &#x27;../../auth/guardars/roles.guard.js&#x27;;
+import { Roles } from &#x27;../../auth/decorators/roles.decorator.js&#x27;;
+import { RolUsuario } from &#x27;../enums/rol-usuario.enum.js&#x27;;
+
+/**
+ * Controlador encargado de consultar médicos y administrar sus valores de consulta.
+ */
 @ApiTags(&#x27;Médicos&#x27;)
 @Controller(&#x27;medicos&#x27;)
 export class MedicoController {
-    constructor(private readonly medicoService: MedicoService) {}
+    constructor(
+        private readonly medicoService: MedicoService,
+    ) {}
 
-    @Post()
-    @HttpCode(HttpStatus.CREATED)
-    @ApiOperation({ summary: &#x27;Registrar un nuevo perfil de médico&#x27; })
-    @ApiResponse({ status: 201, description: &#x27;Médico registrado exitosamente.&#x27; })
-    @ApiResponse({ status: 400, description: &#x27;Datos inválidos o usuario inexistente.&#x27; })
-    async crearMedico(@Body() dto: CreateMedicoDto): Promise&lt;{ id: number }&gt; {
-        return await this.medicoService.crearMedico(dto);
-    }
-
+    /**
+     * Obtiene el listado de médicos, permitiendo filtrar por estado.
+     *
+     * @param estado Estado del usuario médico (opcional).
+     * @returns Listado de médicos.
+     */
     @Get()
-    @ApiOperation({ summary: &#x27;Obtener el listado de médicos (filtrable por estado)&#x27; })
-    @ApiQuery({ name: &#x27;estado&#x27;, enum: EstadoUsuario, required: false })
-    @ApiResponse({ status: 200, type: [ListMedicoDTO] })
+    @ApiOperation({
+        summary: &#x27;Obtener listado de médicos&#x27;,
+        description: &#x27;Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.&#x27;,
+    })
+    @ApiQuery({
+        name: &#x27;estado&#x27;,
+        description: &#x27;Estado del médico para filtrar el listado.&#x27;,
+        enum: EstadoUsuario,
+        required: false,
+        example: EstadoUsuario.ACTIVO,
+    })
+    @ApiResponse({
+        status: 200,
+        description: &#x27;Listado de médicos obtenido correctamente.&#x27;,
+        type: [ListMedicoDTO],
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;El estado proporcionado no es válido.&#x27;,
+    })
     async obtenerMedicos(
-        @Query(&#x27;estado&#x27;) estado?: EstadoUsuario,
+        @Query(
+            &#x27;estado&#x27;,
+            new ParseEnumPipe(EstadoUsuario, { optional: true }),
+        )
+        estado?: EstadoUsuario,
     ): Promise&lt;ListMedicoDTO[]&gt; {
-        return await (this.medicoService as any).obtenerMedicos(estado);
+        return this.medicoService.obtenerMedicos(estado);
     }
 
+    /**
+     * Obtiene los datos de un médico específico.
+     *
+     * @param id Identificador del médico.
+     * @returns Información del médico.
+     */
     @Get(&#x27;:id&#x27;)
-    @ApiOperation({ summary: &#x27;Obtener el detalle de un médico por su ID&#x27; })
-    @ApiResponse({ status: 200, type: MedicoDTO })
-    @ApiResponse({ status: 404, description: &#x27;Médico no encontrado.&#x27; })
+    @ApiOperation({
+        summary: &#x27;Obtener médico por ID&#x27;,
+        description: &#x27;Devuelve los datos de un médico a partir de su identificador.&#x27;,
+    })
+    @ApiParam({
+        name: &#x27;id&#x27;,
+        description: &#x27;Identificador del médico.&#x27;,
+        type: Number,
+        example: 2,
+    })
+    @ApiResponse({
+        status: 200,
+        description: &#x27;Médico encontrado.&#x27;,
+        type: MedicoDTO,
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;El identificador proporcionado no es válido.&#x27;,
+    })
+    @ApiResponse({
+        status: 404,
+        description: &#x27;Médico no encontrado.&#x27;,
+    })
     async obtenerMedicoPorId(
         @Param(&#x27;id&#x27;, ParseIntPipe) id: number,
     ): Promise&lt;MedicoDTO&gt; {
-        return await (this.medicoService as any).obtenerMedico(id);
+        return this.medicoService.obtenerMedico(id);
     }
 
+    /**
+     * Actualiza el valor de consulta de un médico.
+     * Esta operación está restringida al rol ADMINISTRADOR.
+     *
+     * @param id Identificador del médico.
+     * @param dto Nuevo valor de consulta.
+     */
     @Put(&#x27;:id&#x27;)
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.ADMINISTRADOR)
     @HttpCode(HttpStatus.NO_CONTENT)
-    @ApiOperation({ summary: &#x27;Actualizar los datos de un médico&#x27; })
-    @ApiResponse({ status: 204, description: &#x27;Médico actualizado exitosamente.&#x27; })
-    @ApiResponse({ status: 404, description: &#x27;Médico no encontrado.&#x27; })
+    @ApiBearerAuth()
+    @ApiOperation({
+        summary: &#x27;Modificar valor de consulta&#x27;,
+        description: &#x27;Actualiza el valor de consulta de un médico. Disponible exclusivamente para administradores.&#x27;,
+    })
+    @ApiParam({
+        name: &#x27;id&#x27;,
+        description: &#x27;Identificador del médico.&#x27;,
+        type: Number,
+        example: 2,
+    })
+    @ApiBody({
+        type: UpdateMedicoDto,
+    })
+    @ApiResponse({
+        status: 204,
+        description: &#x27;Valor de consulta actualizado correctamente.&#x27;,
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;Los datos enviados no son válidos.&#x27;,
+    })
+    @ApiResponse({
+        status: 401,
+        description: &#x27;No se proporcionó un token válido.&#x27;,
+    })
+    @ApiResponse({
+        status: 403,
+        description: &#x27;El usuario no tiene permisos de administrador.&#x27;,
+    })
+    @ApiResponse({
+        status: 404,
+        description: &#x27;Médico no encontrado.&#x27;,
+    })
     async actualizarMedico(
         @Param(&#x27;id&#x27;, ParseIntPipe) id: number,
         @Body() dto: UpdateMedicoDto,
     ): Promise&lt;void&gt; {
         await this.medicoService.actualizarMedico(id, dto);
     }
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

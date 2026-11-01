@@ -1,19 +1,60 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { EstadoUsuario } from '../../enums/estados-usuarios.enum.js';
 
+/**
+ * DTO que representa la información resumida de un médico.
+ *
+ * Se utiliza para devolver los datos principales de los médicos
+ * en las consultas de listado.
+ */
 export class ListMedicoDTO {
-    @ApiProperty({ example: 1 })
+
+    /**
+     * Identificador único del médico.
+     */
+    @ApiProperty({
+        example: 1,
+        description: 'Identificador único del médico.',
+    })
     id: number;
 
-    @ApiProperty({ example: 'Dr. Gregory House' })
+    /**
+     * Nombre completo del médico.
+     */
+    @ApiProperty({
+        example: 'Dr. Gregory House',
+        description: 'Nombre completo del médico.',
+    })
     nombre: string;
 
-    @ApiProperty({ example: 'MN-12345' })
+    /**
+     * Número de matrícula profesional del médico.
+     */
+    @ApiProperty({
+        example: 'MN-12345',
+        description: 'Número de matrícula profesional del médico.',
+    })
     matricula: string;
 
-    @ApiProperty({ example: 15000.0 })
+    /**
+     * Valor actual de la consulta médica.
+     */
+    @ApiProperty({
+        example: 15000.00,
+        description: 'Valor actual de la consulta médica.',
+        type: Number,
+    })
     valor_consulta: number;
 
-    @ApiProperty({ enum: EstadoUsuario, example: EstadoUsuario.ACTIVO })
+    /**
+     * Estado actual del usuario asociado al médico.
+     */
+    @ApiProperty({
+        enum: EstadoUsuario,
+        example: EstadoUsuario.ACTIVO,
+        description: 'Estado del usuario asociado al médico.',
+    })
     estado: EstadoUsuario;
+
 }

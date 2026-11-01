@@ -215,12 +215,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(jwtService: JwtService)</code>
+<code>constructor(jwtService: JwtService, usuariosService: <a href="../injectables/UsuariosService.html" target="_self">UsuariosService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/modules/auth/guardars/auth.guard.ts:6</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/modules/auth/guardars/auth.guard.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -242,6 +242,18 @@
                                                   
                                                         <td>
                                                                     <code>JwtService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usuariosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsuariosService.html" target="_self" >UsuariosService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -285,8 +297,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="9"
-                                    class="link-to-prism">src/modules/auth/guardars/auth.guard.ts:9</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="18"
+                                    class="link-to-prism">src/modules/auth/guardars/auth.guard.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -354,8 +366,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="24"
-                                    class="link-to-prism">src/modules/auth/guardars/auth.guard.ts:24</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/modules/auth/guardars/auth.guard.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -407,26 +419,47 @@
 
 
         <div class="tab-pane fade  tab-source-code" id="source">
-            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from &quot;@nestjs/common&quot;;
-import { JwtService } from &quot;@nestjs/jwt&quot;;
-import type { Request } from &quot;express&quot;;
+            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+    CanActivate,
+    ExecutionContext,
+    Injectable,
+    UnauthorizedException,
+} from &#x27;@nestjs/common&#x27;;
+import { JwtService } from &#x27;@nestjs/jwt&#x27;;
+import type { Request } from &#x27;express&#x27;;
+import { UsuariosService } from &#x27;../services/usuario.service.js&#x27;;
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private jwtService: JwtService) { }
+    constructor(
+        private jwtService: JwtService,
+        private usuariosService: UsuariosService,
+    ) {}
 
     async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
         const request &#x3D; context.switchToHttp().getRequest();
         const token &#x3D; this.extractTokenFromHeader(request);
+
         if (!token) {
             throw new UnauthorizedException();
         }
+
         try {
             const payload &#x3D; await this.jwtService.verifyAsync(token);
+
+            const usuario &#x3D; await this.usuariosService.buscarUsuarioActivoPorId(
+                Number(payload.sub),
+            );
+
+            if (!usuario) {
+                throw new UnauthorizedException(&#x27;Usuario inactivo o inexistente&#x27;);
+            }
+
             request[&#x27;usuario&#x27;] &#x3D; payload;
         } catch {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException(&#x27;Token inválido o usuario inactivo&#x27;);
         }
+
         return true;
     }
 
