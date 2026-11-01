@@ -2,14 +2,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
 import { Usuario } from './database/entities/usuario.entity.js';
 import { Medico } from './database/entities/medico.entity.js';
 import { Reserva } from './database/entities/reserva.entity.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { GestionModule } from './modules/gestion/gestion.module.js';
-
 
 @Module({
   imports: [
@@ -34,8 +31,5 @@ import { GestionModule } from './modules/gestion/gestion.module.js';
     AuthModule,
     GestionModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
-
