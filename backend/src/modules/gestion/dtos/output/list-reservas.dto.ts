@@ -1,29 +1,72 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { EstadoReserva } from '../../enums/estados-reserva.enum.js';
 import { ListPacienteDTO } from './list-paciente.dto.js';
 
+/**
+ * DTO que representa una reserva dentro de los listados de turnos.
+ *
+ * Incluye los datos principales del turno, el médico asignado,
+ * el paciente asociado, su estado y el valor de la consulta.
+ */
 export class ListReservasDTO {
-    @ApiProperty({ example: 1 })
+
+    /**
+     * Identificador único de la reserva.
+     */
+    @ApiProperty({
+        example: 1,
+        description: 'Identificador único de la reserva.',
+    })
     id!: number;
 
+    /**
+     * Fecha y hora programada para el turno.
+     */
     @ApiProperty({
         example: '2026-11-15T10:00:00.000Z',
-        description: 'Fecha y hora del turno',
+        description: 'Fecha y hora programada para el turno, en formato ISO 8601.',
+        type: String,
+        format: 'date-time',
     })
     fecha_hora!: Date;
 
+    /**
+     * Nombre completo del médico asignado a la reserva.
+     */
     @ApiProperty({
         example: 'Dr. Gregory House',
-        description: 'Nombre del médico',
+        description: 'Nombre del médico asignado al turno.',
     })
     medico!: string;
 
-    @ApiProperty({ enum: EstadoReserva })
+    /**
+     * Estado actual de la reserva.
+     */
+    @ApiProperty({
+        enum: EstadoReserva,
+        example: EstadoReserva.ACTIVO,
+        description: 'Estado actual de la reserva.',
+    })
     estado!: EstadoReserva;
 
-    @ApiProperty({ type: () => ListPacienteDTO })
+    /**
+     * Información del paciente asociado a la reserva.
+     */
+    @ApiProperty({
+        type: () => ListPacienteDTO,
+        description: 'Datos del paciente para quien se realizó la reserva.',
+    })
     paciente!: ListPacienteDTO;
 
-    @ApiProperty({ example: 15000 })
+    /**
+     * Valor de la consulta registrado al momento de realizar la reserva.
+     */
+    @ApiProperty({
+        example: 15000,
+        description: 'Valor de la consulta médica congelado al momento de reservar.',
+        type: Number,
+    })
     valor_consulta!: number;
+
 }

@@ -193,11 +193,6 @@
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
-                                <a href="#crearMedico" >crearMedico</a>
-                            </li>
-                            <li>
-                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
-                                    <span class="modifier">Async</span>
                                 <a href="#obtenerMedico" >obtenerMedico</a>
                             </li>
                             <li>
@@ -209,6 +204,11 @@
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerPorId" >obtenerPorId</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#obtenerPorUsuario" >obtenerPorUsuario</a>
                             </li>
                         </ul>
                     </td>
@@ -228,12 +228,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(repository: <a href="../entitys/Medico.html" target="_self">Repository&lt;Medico&gt;</a>, reservasService: <a href="../injectables/ReservasService.html" target="_self">ReservasService</a>)</code>
+<code>constructor(repository: <a href="../entitys/Medico.html" target="_self">Repository&lt;Medico&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/modules/gestion/services/medico.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/modules/gestion/services/medico.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -255,18 +255,6 @@
                                                   
                                                         <td>
                                                                         <code><a href="../entitys/Medico.html" target="_self" >Repository&lt;Medico&gt;</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>reservasService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/ReservasService.html" target="_self" >ReservasService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -310,8 +298,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="85"
-                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:85</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:94</a></div>
                         </td>
                     </tr>
 
@@ -373,75 +361,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="crearMedico"></a>
-                    <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>crearMedico</b></span>
-                        <a href="#crearMedico"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>crearMedico(dto: <a href="../classes/CreateMedicoDto.html" target="_self">CreateMedicoDto</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="24"
-                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:24</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>dto</td>
-                                            <td>
-                                                            <code><a href="../classes/CreateMedicoDto.html" target="_self" >CreateMedicoDto</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;{ id: number }&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="obtenerMedico"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -460,8 +379,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -529,8 +448,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="18"
+                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -598,8 +517,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="72"
-                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:72</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:66</a></div>
                         </td>
                     </tr>
 
@@ -645,6 +564,75 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerPorUsuario"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>obtenerPorUsuario</b></span>
+                        <a href="#obtenerPorUsuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerPorUsuario(idUsuario: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/modules/gestion/services/medico.service.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idUsuario</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../entitys/Medico.html" target="_self" >Promise&lt;Medico&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 
@@ -652,72 +640,66 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, BadRequestException, Inject, forwardRef, NotFoundException } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, BadRequestException, NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 
 import { Medico } from &#x27;../entities/medico.entity.js&#x27;;
-import { CreateMedicoDto } from &#x27;../dtos/input/create-medico.dto.js&#x27;;
 import { UpdateMedicoDto } from &#x27;../dtos/input/update-medico.dato.js&#x27;;
 import { ListMedicoDTO } from &#x27;../dtos/output/list-medico.dto.js&#x27;;
 import { MedicoDTO } from &#x27;../dtos/output/medico.dto.js&#x27;;
 import { EstadoUsuario } from &#x27;../enums/estados-usuarios.enum.js&#x27;;
-
-import type { ReservasService } from &#x27;./reservas.service.js&#x27;;
 
 @Injectable()
 export class MedicoService {
     constructor(
         @InjectRepository(Medico)
         private readonly repository: Repository&lt;Medico&gt;,
-
-        @Inject(forwardRef(() &#x3D;&gt; Symbol.for(&#x27;ReservasService&#x27;)))
-        private readonly reservasService: ReservasService,
     ) {}
-
-    async crearMedico(dto: CreateMedicoDto): Promise&lt;{ id: number }&gt; {
-        const medico &#x3D; this.repository.create(dto as any);
-        const guardado &#x3D; await this.repository.save(medico as any);
-        return { id: (guardado as any).id };
-    }
 
     async obtenerMedicos(estado?: EstadoUsuario): Promise&lt;ListMedicoDTO[]&gt; {
         const medicos &#x3D; await this.repository.find({
-        relations: { usuario: true } as any,
-        order: { id: &#x27;ASC&#x27; },
+            relations: { usuario: true },
+            where: estado ? { usuario: { estado } } : {},
+            order: { id: &#x27;ASC&#x27; },
         });
 
-        return medicos.map((m: any) &#x3D;&gt; {
-        const dto &#x3D; new ListMedicoDTO() as any;
-        dto.id &#x3D; m.id;
-        dto.matricula &#x3D; m.matricula;
-        dto.valor_consulta &#x3D; m.valor_consulta;
-        if (m.usuario) {
-            dto.nombre &#x3D; &#x60;${m.usuario.nombres ?? &#x27;&#x27;} ${m.usuario.apellidos ?? &#x27;&#x27;}&#x60;;
-            dto.estado &#x3D; m.usuario.estado;
-        }
-        return dto;
+        return medicos.map((medico) &#x3D;&gt; {
+            const dto &#x3D; new ListMedicoDTO();
+
+            dto.id &#x3D; medico.id;
+            dto.matricula &#x3D; medico.matricula;
+            dto.valor_consulta &#x3D; medico.valor_consulta;
+
+            if (medico.usuario) {
+                dto.nombre &#x3D; &#x60;${medico.usuario.nombres} ${medico.usuario.apellidos}&#x60;;
+                dto.estado &#x3D; medico.usuario.estado;
+            }
+
+            return dto;
         });
     }
 
     async obtenerMedico(id: number): Promise&lt;MedicoDTO&gt; {
         const medico &#x3D; await this.repository.findOne({
-        where: { id },
-        relations: { usuario: true } as any,
+            where: { id },
+            relations: { usuario: true },
         });
 
         if (!medico) {
-        throw new NotFoundException(&#x27;Médico no encontrado&#x27;);
+            throw new NotFoundException(&#x27;Médico no encontrado&#x27;);
         }
 
-        const dto &#x3D; new MedicoDTO() as any;
+        const dto &#x3D; new MedicoDTO();
+
         dto.id &#x3D; medico.id;
         dto.matricula &#x3D; medico.matricula;
         dto.valor_consulta &#x3D; medico.valor_consulta;
-        if ((medico as any).usuario) {
-        dto.nombre &#x3D; &#x60;${(medico as any).usuario.nombres ?? &#x27;&#x27;} ${(medico as any).usuario.apellidos ?? &#x27;&#x27;}&#x60;;
-        dto.email &#x3D; (medico as any).usuario.email;
-        dto.estado &#x3D; (medico as any).usuario.estado;
+
+        if (medico.usuario) {
+            dto.nombre &#x3D; &#x60;${medico.usuario.nombres} ${medico.usuario.apellidos}&#x60;;
+            dto.email &#x3D; medico.usuario.email;
+            dto.estado &#x3D; medico.usuario.estado;
         }
 
         return dto;
@@ -725,12 +707,27 @@ export class MedicoService {
 
     async obtenerPorId(id: number): Promise&lt;Medico&gt; {
         const medico &#x3D; await this.repository.findOne({
-        where: { id },
-        relations: { usuario: true } as any,
+            where: { id },
+            relations: { usuario: true },
         });
 
         if (!medico) {
-        throw new NotFoundException(&#x27;Médico no encontrado&#x27;);
+            throw new NotFoundException(&#x27;Médico no encontrado&#x27;);
+        }
+
+        return medico;
+    }
+
+    async obtenerPorUsuario(idUsuario: number): Promise&lt;Medico&gt; {
+        const medico &#x3D; await this.repository.findOne({
+            where: { id_usuario: idUsuario },
+            relations: { usuario: true },
+        });
+
+        if (!medico) {
+            throw new NotFoundException(
+                &#x27;No se encontró un perfil médico para este usuario&#x27;,
+            );
         }
 
         return medico;
@@ -740,19 +737,21 @@ export class MedicoService {
         const medico &#x3D; await this.repository.findOneBy({ id });
 
         if (!medico) {
-        throw new NotFoundException(&#x27;Médico no encontrado&#x27;);
+            throw new NotFoundException(&#x27;Médico no encontrado&#x27;);
         }
 
-        const relacionadoConReservas &#x3D; await (this.reservasService as any).existeReservaPorIdMedico(id);
-
-        if (relacionadoConReservas &amp;&amp; dto.estado &#x3D;&#x3D;&#x3D; EstadoUsuario.BAJA) {
-        throw new BadRequestException(&#x27;No se puede dar de baja un médico con reservas activas&#x27;);
+        if (dto.valor_consulta &#x3D;&#x3D;&#x3D; undefined) {
+            throw new BadRequestException(
+                &#x27;Debe indicar el nuevo valor de la consulta&#x27;,
+            );
         }
 
-        this.repository.merge(medico, dto as any);
-        await this.repository.save(medico as any);
+        medico.valor_consulta &#x3D; dto.valor_consulta;
+
+        await this.repository.save(medico);
     }
-}</code></pre>
+}
+</code></pre>
     </div>
 
 </div>

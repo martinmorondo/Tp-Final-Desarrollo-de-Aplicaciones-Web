@@ -152,6 +152,15 @@
 <div class="tab-content">
     <div class="tab-pane fade active in" id="info">
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>DTO que representa la información resumida de un médico.</p>
+<p>Se utiliza para devolver los datos principales de los médicos
+en las consultas de listado.</p>
+
+            </p>
 
 
 
@@ -236,16 +245,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({enum: EstadoUsuario, example: undefined})<br />
+                            @ApiProperty({enum: EstadoUsuario, example: undefined, description: &#x27;Estado del usuario asociado al médico.&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:58</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado actual del usuario asociado al médico.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -272,16 +287,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: 1})<br />
+                            @ApiProperty({example: 1, description: &#x27;Identificador único del médico.&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:6</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Identificador único del médico.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -308,16 +329,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;MN-12345&#x27;})<br />
+                            @ApiProperty({example: &#x27;MN-12345&#x27;, description: &#x27;Número de matrícula profesional del médico.&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:38</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Número de matrícula profesional del médico.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -344,16 +371,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;Dr. Gregory House&#x27;})<br />
+                            @ApiProperty({example: &#x27;Dr. Gregory House&#x27;, description: &#x27;Nombre completo del médico.&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:29</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Nombre completo del médico.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -380,16 +413,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: 15000})<br />
+                            @ApiProperty({example: 15000, description: &#x27;Valor actual de la consulta médica.&#x27;, type: Number})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/modules/gestion/dtos/output/list-medico.dto.ts:48</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Valor actual de la consulta médica.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -406,23 +445,64 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+
 import { EstadoUsuario } from &#x27;../../enums/estados-usuarios.enum.js&#x27;;
 
+/**
+ * DTO que representa la información resumida de un médico.
+ *
+ * Se utiliza para devolver los datos principales de los médicos
+ * en las consultas de listado.
+ */
 export class ListMedicoDTO {
-    @ApiProperty({ example: 1 })
+
+    /**
+     * Identificador único del médico.
+     */
+    @ApiProperty({
+        example: 1,
+        description: &#x27;Identificador único del médico.&#x27;,
+    })
     id: number;
 
-    @ApiProperty({ example: &#x27;Dr. Gregory House&#x27; })
+    /**
+     * Nombre completo del médico.
+     */
+    @ApiProperty({
+        example: &#x27;Dr. Gregory House&#x27;,
+        description: &#x27;Nombre completo del médico.&#x27;,
+    })
     nombre: string;
 
-    @ApiProperty({ example: &#x27;MN-12345&#x27; })
+    /**
+     * Número de matrícula profesional del médico.
+     */
+    @ApiProperty({
+        example: &#x27;MN-12345&#x27;,
+        description: &#x27;Número de matrícula profesional del médico.&#x27;,
+    })
     matricula: string;
 
-    @ApiProperty({ example: 15000.0 })
+    /**
+     * Valor actual de la consulta médica.
+     */
+    @ApiProperty({
+        example: 15000.00,
+        description: &#x27;Valor actual de la consulta médica.&#x27;,
+        type: Number,
+    })
     valor_consulta: number;
 
-    @ApiProperty({ enum: EstadoUsuario, example: EstadoUsuario.ACTIVO })
+    /**
+     * Estado actual del usuario asociado al médico.
+     */
+    @ApiProperty({
+        enum: EstadoUsuario,
+        example: EstadoUsuario.ACTIVO,
+        description: &#x27;Estado del usuario asociado al médico.&#x27;,
+    })
     estado: EstadoUsuario;
+
 }</code></pre>
     </div>
 </div>
