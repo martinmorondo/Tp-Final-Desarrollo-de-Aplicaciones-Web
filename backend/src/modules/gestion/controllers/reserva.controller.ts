@@ -255,6 +255,23 @@ export class ReservasController {
             fecha,
         );
     }
+    @ApiBearerAuth()
+@ApiOperation({ summary: 'Reservar un turno' })
+@ApiResponse({ status: 201, description: 'Reserva creada.' })
+@ApiResponse({ status: 400, description: 'Horario inválido u ocupado.' })
+@ApiOperation({ summary: 'Cambiar el estado de una reserva (cancelar, atendido, ausente)' })
+@ApiResponse({ status: 404, description: 'Reserva no encontrada.' })
+@ApiOperation({ summary: 'Listar reservas (las propias si sos paciente, todas si sos administrador)' })
+@ApiOkResponse({ type: DisponibilidadDTO })
+@UseGuards(AuthGuard, RolesGuard)
+@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
+@Get('disponibilidad')
+async obtenerDisponibilidad(
+    @Query('id_medico', ParseIntPipe) idMedico: number,
+    @Query('fecha') fecha: string,
+): Promise<DisponibilidadDTO> {
+    return this.service.obtenerDisponibilidad(idMedico, fecha);
+}
 
     /**
      * Obtiene los datos de una reserva específica.

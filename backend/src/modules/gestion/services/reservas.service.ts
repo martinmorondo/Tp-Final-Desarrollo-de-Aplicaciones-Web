@@ -467,4 +467,63 @@ async existeReservaPorIdMedico(idMedico: number): Promise<boolean> {
         },
     });
 }
+async obtenerDisponibilidad(
+    idMedico: number,
+    fecha: string,
+): Promise<DisponibilidadDTO> {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+        throw new BadRequestException(
+            'La fecha debe tener el formato YYYY-MM-DD',
+        );
+    }
+
+    const [anio, mes, dia] = fecha.split('-').map(Number);
+    const inicioDia = new Date(anio, mes - 1, dia, 0, 0, 0, 0);
+
+    if (
+        inicioDia.getMonth() !== mes - 1 ||
+        inicioDia.getDate() !== dia
+    ) {
+        throw new BadRequestException('La fecha ingresada no es válida');
+    }
+
+    const medico = await this.medicoService.obtenerPorId(idMedico);
+    const finDia = new Date(anio, mes - 1, dia + 1, 0, 0, 0, 0);
+
+    const ocupadas = await this.repository
+        .createQueryBuilder('reserva')
+        .where('reserva.id_medico = :idMedico', { idMedico: medico.id })
+        .andWhere('reserva.estado = :estado', {
+            estado: EstadoReserva.ACTIVO,
+        })
+        .andWhere('reserva.fecha_hora >= :inicioDia', { inicioDia })
+        .andWhere('reserva.fecha_hora < :finDia', { finDia })
+        .getMany();
+
+    const horasOcupadas = new Set(
+        ocupadas.map((r) => r.fecha_hora.getHours()),
+    );
+
+    const ahora = new Date();
+    const limite = new Date(ahora);
+    limite.setDate(limite.getDate() + 30);
+
+    const dto = new DisponibilidadDTO();
+    dto.fecha = fecha;
+    dto.horas_libres = [];
+
+    for (let hora = 8; hora < 16; hora++) {
+        const inicioTurno = new Date(anio, mes - 1, dia, hora, 0, 0, 0);
+
+        if (
+            inicioTurno > ahora &&
+            inicioTurno <= limite &&
+            !horasOcupadas.has(hora)
+        ) {
+            dto.horas_libres.push(hora);
+        }
+    }
+
+    return dto;
+}
 }
