@@ -1,25 +1,10 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module.js';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-<<<<<<< HEAD
-  app.setGlobalPrefix('api');
-
-  const config = new DocumentBuilder()
-    .setTitle('API Clínica - Turnos')
-    .setDescription('Reservas, turnos y roles (médico, paciente, administrador)')
-=======
-
-  app.useGlobalPipes(
-  new ValidationPipe({
-    whitelist: true,
-    transform: true,
-  }),
-);
 
   // Habilitar CORS
   app.enableCors();
@@ -31,23 +16,26 @@ async function bootstrap() {
     defaultVersion: '1',
   });
 
+  // Configurar validaciones globales
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
+
   // Configurar Swagger en /api/docs
   const config = new DocumentBuilder()
     .setTitle('API Gestión de Clínica')
-    .setDescription('Documentación de los endpoints del backend')
->>>>>>> 56ed50f15198c335a72487e317d36460c410386e
+    .setDescription('Documentación de los endpoints del backend: Reservas, turnos y roles (médico, paciente, administrador)')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
+  
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-<<<<<<< HEAD
+  // Iniciar el servidor
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
-=======
-  await app.listen(3000);
-}
-bootstrap();
->>>>>>> 56ed50f15198c335a72487e317d36460c410386e
