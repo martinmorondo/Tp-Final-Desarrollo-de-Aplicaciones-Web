@@ -42,7 +42,6 @@ import type { Request } from 'express';
  */
 @ApiTags('Reservas')
 @ApiBearerAuth()
-@ApiTags('Reservas')
 @Controller('Reservas')
 export class ReservasController {
 
