@@ -1,1 +1,111 @@
-<p>admin works!</p>
+<div class="pagina">
+  @if (mensaje(); as m) {
+    <p [class]="m.tipo === 'ok' ? 'ok' : 'error'">{{ m.texto }}</p>
+  }
+
+  <h2>Reservar turno para un paciente</h2>
+
+  <form (ngSubmit)="reservar()" class="formulario">
+    <label>
+      Paciente
+      <select name="paciente" [(ngModel)]="pacienteId" required>
+        <option [ngValue]="null" disabled>Elegí un paciente</option>
+        @for (p of pacientes(); track p.id) {
+          <option [ngValue]="p.id">{{ p.nombre }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Médico
+      <select name="medico" [(ngModel)]="medicoId" required>
+        <option [ngValue]="null" disabled>Elegí un médico</option>
+        @for (m of medicosActivos(); track m.id) {
+          <option [ngValue]="m.id">
+            {{ m.nombre }} - {{ m.valor_consulta | currency: 'ARS' : 'symbol-narrow' : '1.0-0' }}
+          </option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Fecha
+      <input type="date" name="fecha" [(ngModel)]="fecha" [min]="fechaMin" [max]="fechaMax" required />
+    </label>
+
+    <label>
+      Hora
+      <select name="hora" [(ngModel)]="hora">
+        @for (h of horas; track h) {
+          <option [ngValue]="h">{{ h < 10 ? '0' + h : h }}:00</option>
+        }
+      </select>
+    </label>
+
+    <button type="submit" [disabled]="enviando()">
+      {{ enviando() ? 'Reservando...' : 'Reservar' }}
+    </button>
+  </form>
+
+  <h2>Todos los turnos</h2>
+
+  @if (turnos().length === 0) {
+    <p>No hay turnos registrados.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha y hora</th>
+          <th>Paciente</th>
+          <th>Médico</th>
+          <th>Valor</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of turnos(); track t.id) {
+          <tr>
+            <td>{{ t.fecha_hora | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ t.paciente.nombre }}</td>
+            <td>{{ t.medico }}</td>
+            <td>{{ t.valor_consulta | currency: 'ARS' : 'symbol-narrow' : '1.0-0' }}</td>
+            <td>{{ t.estado }}</td>
+            <td>
+              @if (puedeCancelar(t)) {
+                <button type="button" (click)="cancelar(t)">Cancelar</button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <h2>Valor de la consulta por médico</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Médico</th>
+        <th>Matrícula</th>
+        <th>Estado</th>
+        <th>Valor de la consulta</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (m of medicos(); track m.id) {
+        <tr>
+          <td>{{ m.nombre }}</td>
+          <td>{{ m.matricula }}</td>
+          <td>{{ m.estado }}</td>
+          <td>
+            <input type="number" min="1" step="1" [name]="'valor' + m.id" [(ngModel)]="valores[m.id]" />
+          </td>
+          <td><button type="button" (click)="guardarValor(m)">Guardar</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

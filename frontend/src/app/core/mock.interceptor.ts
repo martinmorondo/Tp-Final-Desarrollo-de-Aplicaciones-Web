@@ -3,12 +3,18 @@ import { inject } from '@angular/core';
 import { delay, of, throwError } from 'rxjs';
 import { USAR_MOCK } from './config';
 import { AuthService } from './auth.service';
-import { CrearReservaRequest, EstadoReserva, Medico, Reserva } from './modelos';
+import { CrearReservaRequest, EstadoReserva, Medico, PacienteResumen, Reserva } from './modelos';
 
 const USUARIOS = [
   { email: 'paciente@test.com', clave: '1234', id: 3, nombre: 'Paula', rol: 'PACIENTE' },
   { email: 'medico@test.com', clave: '1234', id: 2, nombre: 'Gregory House', rol: 'MEDICO' },
   { email: 'admin@test.com', clave: '1234', id: 1, nombre: 'Ana', rol: 'ADMINISTRADOR' },
+];
+
+const pacientes: PacienteResumen[] = [
+  { id: 3, nombre: 'Paula' },
+  { id: 4, nombre: 'Pedro' },
+  { id: 5, nombre: 'Lucía' },
 ];
 
 function enDias(n: number, hora: number): string {
@@ -38,8 +44,7 @@ const reservas: ReservaMock[] = [
     paciente: { id: 4, nombre: 'Pedro' }, valor_consulta: 15000 },
   { id: 3, id_medico: 2, medico: 'Meredith Grey', fecha_hora: enDias(-5, 9), estado: 'ATENDIDO',
     paciente: { id: 3, nombre: 'Paula' }, valor_consulta: 18000 },
-
-      { id: 4, id_medico: 1, medico: 'Gregory House', fecha_hora: enDias(-1, 9), estado: 'ACTIVO',
+  { id: 4, id_medico: 1, medico: 'Gregory House', fecha_hora: enDias(-1, 9), estado: 'ACTIVO',
     paciente: { id: 4, nombre: 'Pedro' }, valor_consulta: 15000 },
   { id: 5, id_medico: 1, medico: 'Gregory House', fecha_hora: enDias(-1, 10), estado: 'ACTIVO',
     paciente: { id: 5, nombre: 'Lucía' }, valor_consulta: 15000 },
@@ -61,6 +66,11 @@ function inicioDelDia(d: Date): number {
   const c = new Date(d);
   c.setHours(0, 0, 0, 0);
   return c.getTime();
+}
+
+// Devuelve copias para que Angular detecte los cambios.
+function copiaReservas(lista: ReservaMock[]): Reserva[] {
+  return lista.map((r) => ({ ...r, paciente: { ...r.paciente } }));
 }
 
 export const mockInterceptor: HttpInterceptorFn = (req, next) => {
@@ -87,7 +97,42 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   // ---- Médicos ----
   if (req.method === 'GET' && req.url === '/api/v1/medicos') {
     const estado = req.params.get('estado');
-    return ok(estado ? medicos.filter((m) => m.estado === estado) : medicos);
+    const lista = estado ? medicos.filter((m) => m.estado === estado) : medicos;
+    return ok(lista.map((m) => ({ ...m })));
+  }
+
+  const medicoUrl = req.url.match(/^\/api\/v1\/medicos\/(\d+)$/);
+  if (req.method === 'PUT' && medicoUrl) {
+    const sesion = auth.sesion();
+    if (!sesion) return fallo(401, 'Unauthorized');
+    if (sesion.rol !== 'ADMINISTRADOR') {
+      return fallo(403, 'No tenés permisos para realizar esta operación');
+    }
+    const medico = medicos.find((m) => m.id === Number(medicoUrl[1]));
+    if (!medico) return fallo(404, 'Médico no encontrado');
+
+    const { valor_consulta } = req.body as { valor_consulta?: number };
+    if (valor_consulta === undefined) {
+      return fallo(400, 'Debe indicar el nuevo valor de la consulta');
+    }
+    if (typeof valor_consulta !== 'number' || Number.isNaN(valor_consulta) || valor_consulta < 0.01) {
+      return fallo(400, 'El valor de la consulta debe ser mayor que cero');
+    }
+    if (Math.round(valor_consulta * 100) !== valor_consulta * 100) {
+      return fallo(400, 'El valor de la consulta debe ser un número con hasta dos decimales');
+    }
+    medico.valor_consulta = valor_consulta;
+    return ok(null, 204);
+  }
+
+  // ---- Pacientes (endpoint a crear en el backend) ----
+  if (req.method === 'GET' && req.url === '/api/v1/usuarios/pacientes') {
+    const sesion = auth.sesion();
+    if (!sesion) return fallo(401, 'Unauthorized');
+    if (sesion.rol !== 'ADMINISTRADOR') {
+      return fallo(403, 'No tenés permisos para realizar esta operación');
+    }
+    return ok(pacientes.map((p) => ({ ...p })));
   }
 
   // ---- Reservas ----
@@ -95,7 +140,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     const sesion = auth.sesion();
     if (!sesion) return fallo(401, 'Unauthorized');
 
-        // Turnos del médico para una fecha
+    // Turnos del médico para una fecha
     if (req.method === 'GET' && req.url === '/api/v1/reservas/medico') {
       if (sesion.rol !== 'MEDICO') return fallo(403, 'No tenés permisos para esta operación');
       const fecha = req.params.get('fecha') ?? '';
@@ -106,26 +151,42 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       const delDia = reservas
         .filter((r) => r.id_medico === idMedico && r.fecha_hora.startsWith(fecha))
         .sort((a, b) => a.fecha_hora.localeCompare(b.fecha_hora));
-      return ok(delDia);
+      return ok(copiaReservas(delDia));
     }
 
-    // Listar mis turnos (paciente)
+    // Listar: paciente ve las suyas, administrador ve todas
     if (req.method === 'GET' && req.url === '/api/v1/reservas') {
       if (sesion.rol === 'PACIENTE') {
         const mias = reservas
           .filter((r) => r.paciente.id === sesion.id)
           .sort((a, b) => a.fecha_hora.localeCompare(b.fecha_hora));
-        return ok(mias);
+        return ok(copiaReservas(mias));
       }
-      return fallo(403, 'Este rol todavía no está simulado en el mock');
+      if (sesion.rol === 'ADMINISTRADOR') {
+        const todas = [...reservas].sort((a, b) => a.fecha_hora.localeCompare(b.fecha_hora));
+        return ok(copiaReservas(todas));
+      }
+      return fallo(403, 'No tenés permisos para consultar este listado de reservas');
     }
 
-    // Crear reserva (paciente)
+    // Crear reserva (paciente para sí mismo, administrador para un paciente)
     if (req.method === 'POST' && req.url === '/api/v1/reservas') {
-      if (sesion.rol !== 'PACIENTE') {
-        return fallo(403, 'Este rol todavía no está simulado en el mock');
+      if (sesion.rol !== 'PACIENTE' && sesion.rol !== 'ADMINISTRADOR') {
+        return fallo(403, 'No tenés permisos para crear reservas');
       }
       const dto = req.body as CrearReservaRequest;
+
+      let paciente: PacienteResumen | undefined;
+      if (sesion.rol === 'PACIENTE') {
+        paciente = { id: sesion.id, nombre: sesion.nombre };
+      } else {
+        if (dto.id_paciente === undefined) {
+          return fallo(400, 'Debe indicar el paciente para quien se realiza la reserva');
+        }
+        paciente = pacientes.find((p) => p.id === dto.id_paciente);
+        if (!paciente) return fallo(404, 'Usuario no encontrado');
+      }
+
       const medico = medicos.find((m) => m.id === dto.id_medico);
       if (!medico) return fallo(404, 'Médico no encontrado');
 
@@ -157,7 +218,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
         medico: medico.nombre,
         fecha_hora: dto.fecha_hora,
         estado: 'ACTIVO',
-        paciente: { id: sesion.id, nombre: sesion.nombre },
+        paciente: { ...paciente },
         valor_consulta: medico.valor_consulta, // se congela al reservar
       };
       reservas.push(nueva);
@@ -187,9 +248,21 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
         return ok(null, 204);
       }
 
-      if (sesion.rol !== 'PACIENTE') {
-        return fallo(403, 'Este rol todavía no está simulado en el mock');
+      if (sesion.rol === 'ADMINISTRADOR') {
+        if (estado !== 'CANCELADO') {
+          return fallo(
+            403,
+            'El administrador solo puede cambiar el estado de un turno mediante esta operación para cancelarlo',
+          );
+        }
+        if (new Date(reserva.fecha_hora) <= new Date()) {
+          return fallo(400, 'El administrador solo puede cancelar hasta el inicio de la consulta');
+        }
+        reserva.estado = estado;
+        return ok(null, 204);
       }
+
+      // Paciente
       if (reserva.paciente.id !== sesion.id) {
         return fallo(403, 'No tenés permisos para modificar esta reserva');
       }
