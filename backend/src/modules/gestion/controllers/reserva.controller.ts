@@ -21,11 +21,13 @@ import {
     ApiParam,
     ApiQuery,
     ApiBody,
+    ApiOkResponse,
 } from '@nestjs/swagger';
 
 import { CreateReservasDto } from '../dtos/input/create-reservas.dto.js';
 import { UpdateReservasDto } from '../dtos/input/update-reservas.dto.js';
 import { ListReservasDTO } from '../dtos/output/list-reservas.dto.js';
+import { DisponibilidadDTO } from '../dtos/output/disponibilidad.dto.js';
 import { ReservaDTO } from '../dtos/output/reservas.dto.js';
 import { ReservasService } from '../services/reservas.service.js';
 
@@ -255,23 +257,60 @@ export class ReservasController {
             fecha,
         );
     }
-    @ApiBearerAuth()
-@ApiOperation({ summary: 'Reservar un turno' })
-@ApiResponse({ status: 201, description: 'Reserva creada.' })
-@ApiResponse({ status: 400, description: 'Horario inválido u ocupado.' })
-@ApiOperation({ summary: 'Cambiar el estado de una reserva (cancelar, atendido, ausente)' })
-@ApiResponse({ status: 404, description: 'Reserva no encontrada.' })
-@ApiOperation({ summary: 'Listar reservas (las propias si sos paciente, todas si sos administrador)' })
-@ApiOkResponse({ type: DisponibilidadDTO })
-@UseGuards(AuthGuard, RolesGuard)
-@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
-@Get('disponibilidad')
-async obtenerDisponibilidad(
-    @Query('id_medico', ParseIntPipe) idMedico: number,
-    @Query('fecha') fecha: string,
-): Promise<DisponibilidadDTO> {
-    return this.service.obtenerDisponibilidad(idMedico, fecha);
-}
+    /**
+     * Consulta los horarios disponibles de un médico para una fecha determinada.
+     *
+     * @param idMedico Identificador del médico.
+     * @param fecha Fecha de consulta en formato YYYY-MM-DD.
+     * @returns Horarios disponibles para reservar.
+     */
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
+    @Get('disponibilidad')
+    @ApiOperation({
+        summary: 'Consultar disponibilidad de turnos',
+        description: 'Devuelve los horarios disponibles de un médico para una fecha determinada.',
+    })
+    @ApiQuery({
+        name: 'id_medico',
+        description: 'Identificador del médico.',
+        required: true,
+        type: Number,
+        example: 1,
+    })
+    @ApiQuery({
+        name: 'fecha',
+        description: 'Fecha de consulta en formato YYYY-MM-DD.',
+        required: true,
+        type: String,
+        example: '2026-11-10',
+    })
+    @ApiOkResponse({
+        description: 'Disponibilidad obtenida correctamente.',
+        type: DisponibilidadDTO,
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'La fecha no es válida o el médico no está activo.',
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Usuario no autenticado o token inválido.',
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'El usuario no tiene permisos para consultar disponibilidad.',
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Médico no encontrado.',
+    })
+    async obtenerDisponibilidad(
+        @Query('id_medico', ParseIntPipe) idMedico: number,
+        @Query('fecha') fecha: string,
+    ): Promise<DisponibilidadDTO> {
+        return this.service.obtenerDisponibilidad(idMedico, fecha);
+    }
 
     /**
      * Obtiene los datos de una reserva específica.
