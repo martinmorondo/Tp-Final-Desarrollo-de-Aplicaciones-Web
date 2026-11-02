@@ -14,6 +14,7 @@ import { RolUsuario } from "../enums/rol-usuario.enum.js";
 import { CreateReservasDto } from "../dtos/input/create-reservas.dto.js";
 import { UpdateReservasDto } from "../dtos/input/update-reservas.dto.js";
 import { ListReservasDTO } from "../dtos/output/list-reservas.dto.js";
+import { DisponibilidadDTO } from "../dtos/output/disponibilidad.dto.js";
 import { ReservaDTO } from "../dtos/output/reservas.dto.js";
 import { ListPacienteDTO } from "../dtos/output/list-paciente.dto.js";
 
@@ -478,9 +479,11 @@ async obtenerDisponibilidad(
     }
 
     const [anio, mes, dia] = fecha.split('-').map(Number);
+
     const inicioDia = new Date(anio, mes - 1, dia, 0, 0, 0, 0);
 
     if (
+        inicioDia.getFullYear() !== anio ||
         inicioDia.getMonth() !== mes - 1 ||
         inicioDia.getDate() !== dia
     ) {
@@ -488,11 +491,20 @@ async obtenerDisponibilidad(
     }
 
     const medico = await this.medicoService.obtenerPorId(idMedico);
+
+    if (medico.usuario?.estado !== EstadoUsuario.ACTIVO) {
+        throw new BadRequestException(
+            'El médico debe estar activo para recibir reservas',
+        );
+    }
+
     const finDia = new Date(anio, mes - 1, dia + 1, 0, 0, 0, 0);
 
     const ocupadas = await this.repository
         .createQueryBuilder('reserva')
-        .where('reserva.id_medico = :idMedico', { idMedico: medico.id })
+        .where('reserva.id_medico = :idMedico', {
+            idMedico: medico.id,
+        })
         .andWhere('reserva.estado = :estado', {
             estado: EstadoReserva.ACTIVO,
         })
@@ -501,7 +513,7 @@ async obtenerDisponibilidad(
         .getMany();
 
     const horasOcupadas = new Set(
-        ocupadas.map((r) => r.fecha_hora.getHours()),
+        ocupadas.map((reserva) => reserva.fecha_hora.getHours()),
     );
 
     const ahora = new Date();

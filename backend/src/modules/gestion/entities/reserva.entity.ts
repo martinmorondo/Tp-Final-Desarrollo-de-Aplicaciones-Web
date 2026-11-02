@@ -1,4 +1,3 @@
-
 import {
     Entity,
     PrimaryGeneratedColumn,
@@ -7,9 +6,17 @@ import {
     JoinColumn,
 } from 'typeorm';
 
+import type { ValueTransformer } from 'typeorm';;
+
+
 import { Medico } from './medico.entity.js';
 import { Usuario } from './usuario.entity.js';
 import { EstadoReserva } from '../enums/estados-reserva.enum.js';
+
+const decimalTransformer: ValueTransformer = {
+    to: (value: number): number => value,
+    from: (value: string | number): number => Number(value),
+};
 
 @Entity('reservas')
 export class Reserva {
@@ -40,6 +47,12 @@ export class Reserva {
     })
     estado: EstadoReserva;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2 })
-    valor_consulta: number; 
+    @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: decimalTransformer,
+})
+valor_consulta: number;
+
 }
