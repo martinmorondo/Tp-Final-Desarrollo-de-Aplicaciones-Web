@@ -152,6 +152,15 @@
 <div class="tab-content">
     <div class="tab-pane fade active in" id="info">
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>DTO que representa la información resumida de un paciente.</p>
+<p>Se utiliza para incluir los datos básicos del paciente
+en las respuestas de las reservas.</p>
+
+            </p>
 
 
 
@@ -169,11 +178,6 @@
                     </td>
                     <td class="col-md-9">
                         <ul class="index-list">
-                            <li>
-                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
-                                    <span class="modifier"></span>
-                                <a href="#estado" >estado</a>
-                            </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
@@ -207,42 +211,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="estado"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                        <span ><b>estado</b></span>
-                        <a href="#estado"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#EstadoUsuario" target="_self" >EstadoUsuario</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @ApiProperty()<br />
-                        </code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:13</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="id"></a>
                     <span class="name">
                             <span class="modifier"></span>
@@ -262,16 +230,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty()<br />
+                            @ApiProperty({example: 15, description: &#x27;Identificador único del paciente.&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:7</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:18</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Identificador único del paciente.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -298,16 +272,22 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty()<br />
+                            @ApiProperty({example: &#x27;Juan Pérez&#x27;, description: &#x27;Nombre completo del paciente.&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:27</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Nombre completo del paciente.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -323,19 +303,33 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &quot;@nestjs/swagger&quot;;
-import { EstadoUsuario } from &quot;../../enums/estados-usuarios.enum.js&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 
+/**
+ * DTO que representa la información resumida de un paciente.
+ *
+ * Se utiliza para incluir los datos básicos del paciente
+ * en las respuestas de las reservas.
+ */
 export class ListPacienteDTO {
 
-    @ApiProperty()
+    /**
+     * Identificador único del paciente.
+     */
+    @ApiProperty({
+        example: 15,
+        description: &#x27;Identificador único del paciente.&#x27;,
+    })
     id!: number;
 
-    @ApiProperty()
+    /**
+     * Nombre completo del paciente.
+     */
+    @ApiProperty({
+        example: &#x27;Juan Pérez&#x27;,
+        description: &#x27;Nombre completo del paciente.&#x27;,
+    })
     nombre!: string;
-
-    @ApiProperty()
-    estado!: EstadoUsuario;
 
 }</code></pre>
     </div>

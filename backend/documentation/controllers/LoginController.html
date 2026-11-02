@@ -152,6 +152,13 @@
             </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Controlador encargado de gestionar la autenticación de usuarios.</p>
+
+            </p>
 
 
 
@@ -192,6 +199,11 @@
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#login" >login</a>
                             </li>
@@ -219,6 +231,11 @@
                     <a name="login"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>login</b></span>
                         <a href="#login"><span class="icon ion-ios-link"></span></a>
@@ -236,20 +253,22 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br /></code>
+                    <code>@Post()<br />@ApiOperation({summary: &#x27;Iniciar sesión&#x27;, description: &#x27;Valida las credenciales y devuelve un token JWT si el usuario está activo.&#x27;})<br />@ApiBody({type: LoginDTO})<br />@ApiCreatedResponse({description: &#x27;Inicio de sesión exitoso. Devuelve el token de acceso.&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;Credenciales incorrectas o usuario inactivo.&#x27;})<br />@ApiBadRequestResponse({description: &#x27;Los datos enviados no cumplen las validaciones.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="11"
-                                    class="link-to-prism">src/modules/auth/controllers/login.controllers.ts:11</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/modules/auth/controllers/login.controllers.ts:45</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Autentica a un usuario mediante sus credenciales.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -260,6 +279,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -274,6 +294,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Datos de acceso del usuario.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -283,7 +307,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Token JWT para las solicitudes autenticadas.</p>
+
                             </div>
                 </td>
             </tr>
@@ -294,21 +319,56 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, NotImplementedException, Post } from &quot;@nestjs/common&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">
+import { Body, Controller, Post } from &quot;@nestjs/common&quot;;
+import {
+    ApiBadRequestResponse,
+    ApiBody,
+    ApiCreatedResponse,
+    ApiOperation,
+    ApiTags,
+    ApiUnauthorizedResponse,
+} from &quot;@nestjs/swagger&quot;;
+
 import { LoginDTO } from &quot;../dtos/input/login.dto.js&quot;;
 import { AuthService } from &quot;../services/auth.service.js&quot;;
 
+/**
+ * Controlador encargado de gestionar la autenticación de usuarios.
+ */
+@ApiTags(&quot;Autenticación&quot;)
 @Controller(&quot;/auth&quot;)
 export class LoginController {
 
     constructor(private readonly service: AuthService) { }
 
+    /**
+     * Autentica a un usuario mediante sus credenciales.
+     *
+     * @param dto Datos de acceso del usuario.
+     * @returns Token JWT para las solicitudes autenticadas.
+     */
     @Post()
+    @ApiOperation({
+        summary: &quot;Iniciar sesión&quot;,
+        description: &quot;Valida las credenciales y devuelve un token JWT si el usuario está activo.&quot;
+    })
+    @ApiBody({ type: LoginDTO })
+    @ApiCreatedResponse({
+        description: &quot;Inicio de sesión exitoso. Devuelve el token de acceso.&quot;
+    })
+    @ApiUnauthorizedResponse({
+        description: &quot;Credenciales incorrectas o usuario inactivo.&quot;
+    })
+    @ApiBadRequestResponse({
+        description: &quot;Los datos enviados no cumplen las validaciones.&quot;
+    })
     async login(@Body() dto: LoginDTO): Promise&lt;{ accessToken: string }&gt; {
         return await this.service.login(dto);
     }
 
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

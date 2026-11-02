@@ -36,10 +36,11 @@ export class Reserva {
     @Column({
         type: 'enum',
         enum: EstadoReserva,
+        enumName: 'estados_reservas',
         default: EstadoReserva.ACTIVO,
     })
     estado: EstadoReserva;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2 })
-    valor_consulta: number; 
+    @Column({ type: 'int' })
+    valor_consulta: number;
 }
