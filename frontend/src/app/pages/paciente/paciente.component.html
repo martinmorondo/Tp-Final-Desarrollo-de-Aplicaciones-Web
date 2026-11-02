@@ -1,0 +1,77 @@
+<div class="pagina">
+  <h2>Reservar turno</h2>
+
+  <form (ngSubmit)="reservar()" class="formulario">
+    <label>
+      Médico
+      <select name="medico" [ngModel]="medicoId" (ngModelChange)="cambiarMedico($event)" required>
+        <option [ngValue]="null" disabled>Elegí un médico</option>
+        @for (m of medicos(); track m.id) {
+          <option [ngValue]="m.id">
+            {{ m.nombre }} - {{ m.valor_consulta | currency: 'ARS' : 'symbol-narrow' : '1.0-0' }}
+          </option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Fecha
+      <input type="date" name="fecha" [ngModel]="fecha" (ngModelChange)="cambiarFecha($event)" [min]="fechaMin" [max]="fechaMax" required />
+    </label>
+
+    <label>
+      Hora
+      <select name="hora" [(ngModel)]="hora" [disabled]="horasLibres().length === 0">
+        @if (horasLibres().length === 0) {
+          <option [ngValue]="null">
+            {{ medicoId === null || !fecha ? 'Elegí médico y fecha' : cargandoHoras() ? 'Buscando...' : 'Sin horarios libres' }}
+          </option>
+        }
+        @for (h of horasLibres(); track h) {
+          <option [ngValue]="h">{{ h < 10 ? '0' + h : h }}:00</option>
+        }
+      </select>
+    </label>
+
+    <button type="submit" [disabled]="enviando() || hora === null">
+      {{ enviando() ? 'Reservando...' : 'Reservar' }}
+    </button>
+  </form>
+
+  @if (mensaje(); as m) {
+    <p [class]="m.tipo === 'ok' ? 'ok' : 'error'">{{ m.texto }}</p>
+  }
+
+  <h2>Mis turnos</h2>
+
+  @if (turnos().length === 0) {
+    <p>No tenés turnos reservados.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha y hora</th>
+          <th>Médico</th>
+          <th>Valor</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of turnos(); track t.id) {
+          <tr>
+            <td>{{ t.fecha_hora | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ t.medico }}</td>
+            <td>{{ t.valor_consulta | currency: 'ARS' : 'symbol-narrow' : '1.0-0' }}</td>
+            <td>{{ t.estado }}</td>
+            <td>
+              @if (puedeCancelar(t)) {
+                <button type="button" (click)="cancelar(t)">Cancelar</button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
