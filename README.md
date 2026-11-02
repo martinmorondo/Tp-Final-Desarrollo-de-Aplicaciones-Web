@@ -1,7 +1,6 @@
 # Sistema de turnos - Clínica
 
 Trabajo Integrador - Desarrollo de Aplicaciones Web 2026.
-Stack: NestJS, TypeORM, PostgreSQL, Angular (nginx y PM2 pendientes).
 
 ## Estructura
 
@@ -62,27 +61,27 @@ Si cambian `PORT` del backend, hay que cambiar también el `target` de ese archi
 
 El login es solo por email. Al ingresar, cada rol va a su pantalla.
 
-## Cómo se opera
+## Como funciona??
 
 **Paciente**
-- Reservar: elegir médico y fecha; el selector de hora muestra solo los horarios libres.
-- "Mis turnos" lista sus turnos y permite cancelar hasta el día anterior a la consulta.
+- Reservar: elegir médico y fecha; el selector de hora muestra solo los horarios libres
+- "Mis turnos" lista sus turnos y permite cancelar hasta el día anterior a la consulta
 
 **Médico**
-- "Mi agenda": elegir una fecha para ver sus turnos.
-- Si el turno ya comenzó, puede marcarlo como **Atendido** o **Ausente**.
+- "Mi agenda": elegir una fecha para ver sus turnos
+- Si el turno ya comenzó, puede marcarlo como **Atendido** o **Ausente**
 
 **Administrador**
-- Reservar un turno a nombre de un paciente.
-- Ver todos los turnos y cancelar (hasta el inicio de la consulta).
-- Modificar el valor de la consulta de cada médico. Los turnos ya reservados conservan el valor que tenían.
+- Reservar un turno a nombre de un paciente
+- Ver todos los turnos y cancelar (hasta el inicio de la consulta)
+- Modificar el valor de la consulta de cada médico. Los turnos ya reservados conservan el valor que tenían
 
 ## Reglas de negocio (las valida el backend)
 
-- Atención de 8 a 16 hs, turnos de una hora.
-- No se puede reservar un horario ocupado.
-- Máximo 30 días de anticipación.
-- El valor de la consulta se congela al reservar.
+- Atención de 8 a 16 hs, turnos de una hora
+- No se puede reservar un horario ocupado
+- Máximo 30 días de anticipación
+- El valor de la consulta se congela al reservar
 
 ## Endpoints principales
 
@@ -100,15 +99,12 @@ El login es solo por email. Al ingresar, cada rol va a su pantalla.
 
 ## Estado
 
-- [x] Backend: login, roles, reservas, médicos, disponibilidad, DTOs
-- [x] Modelo de datos según la consigna y script SQL
-- [x] Frontend: login, guards por rol, pantallas de paciente, médico y administrador
-- [x] Probado de punta a punta con el backend real
-- [ ] PM2 y nginx
-- [ ] Regenerar Compodoc
-- [ ] README final, video y zip de entrega
+- Backend: login, roles, reservas, médicos, disponibilidad, DTOs
+- Modelo de datos según la consigna y script SQL
+- Frontend: login, guards por rol, pantallas de paciente, médico y administrador
+- Probado de punta a punta con el backend real
 
-## Convenciones
-
-- Commits locales con mensajes claros (`feat(backend): ...`, `feat(frontend): ...`).
-- Nunca subir `.env` ni `node_modules`.
+## Falta
+- PM2 y nginx
+-  Regenerar Compodoc
+   README final, video y zip para entregar
