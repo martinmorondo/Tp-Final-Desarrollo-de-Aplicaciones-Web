@@ -12,6 +12,7 @@ import { ReservasService } from './services/reservas.service.js';
 
 import { MedicoController } from './controllers/medicos.controller.js';
 import { ReservasController } from './controllers/reserva.controller.js';
+import { UsuariosController } from './controllers/usuarios.controller.js';
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { ReservasController } from './controllers/reserva.controller.js';
     controllers: [
         MedicoController,
         ReservasController,
+        UsuariosController,
     ],
     providers: [
         UsuarioService,

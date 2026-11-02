@@ -27,8 +27,8 @@ import {
 import { CreateReservasDto } from '../dtos/input/create-reservas.dto.js';
 import { UpdateReservasDto } from '../dtos/input/update-reservas.dto.js';
 import { ListReservasDTO } from '../dtos/output/list-reservas.dto.js';
-import { DisponibilidadDTO } from '../dtos/output/disponibilidad.dto.js';
 import { ReservaDTO } from '../dtos/output/reservas.dto.js';
+import { DisponibilidadDTO } from '../dtos/output/disponibilidad.dto.js';
 import { ReservasService } from '../services/reservas.service.js';
 
 import { AuthGuard } from '../../auth/guardars/auth.guard.js';
@@ -257,19 +257,22 @@ export class ReservasController {
             fecha,
         );
     }
+
     /**
-     * Consulta los horarios disponibles de un médico para una fecha determinada.
+     * Obtiene los horarios libres de un médico para una fecha determinada.
+     * Solo se informan horas futuras, dentro de los 30 días de anticipación
+     * permitidos y que no estén ocupadas por una reserva activa.
      *
      * @param idMedico Identificador del médico.
      * @param fecha Fecha de consulta en formato YYYY-MM-DD.
-     * @returns Horarios disponibles para reservar.
+     * @returns Horas de inicio de los turnos libres.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
     @Get('disponibilidad')
     @ApiOperation({
-        summary: 'Consultar disponibilidad de turnos',
-        description: 'Devuelve los horarios disponibles de un médico para una fecha determinada.',
+        summary: 'Consultar horarios libres de un médico',
+        description: 'Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.',
     })
     @ApiQuery({
         name: 'id_medico',
@@ -286,12 +289,12 @@ export class ReservasController {
         example: '2026-11-10',
     })
     @ApiOkResponse({
-        description: 'Disponibilidad obtenida correctamente.',
+        description: 'Horarios libres obtenidos correctamente.',
         type: DisponibilidadDTO,
     })
     @ApiResponse({
         status: 400,
-        description: 'La fecha no es válida o el médico no está activo.',
+        description: 'La fecha o el identificador del médico no son válidos.',
     })
     @ApiResponse({
         status: 401,
@@ -299,7 +302,7 @@ export class ReservasController {
     })
     @ApiResponse({
         status: 403,
-        description: 'El usuario no tiene permisos para consultar disponibilidad.',
+        description: 'El usuario no tiene permisos para consultar la disponibilidad.',
     })
     @ApiResponse({
         status: 404,

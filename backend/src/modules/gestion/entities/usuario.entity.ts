@@ -18,16 +18,16 @@ export class Usuario {
     @Column()
     nombres: string;
 
-    @Column({ unique: true })
+    @Column()
     email: string;
 
     @Column()
     clave: string;
 
-    @Column({ type: 'enum', enum: EstadoUsuario, default: EstadoUsuario.ACTIVO })
+    @Column({ type: 'enum', enum: EstadoUsuario, enumName: 'estados_usuarios', default: EstadoUsuario.ACTIVO })
     estado: EstadoUsuario;
 
-    @Column({ type: 'enum', enum: RolUsuario })
+    @Column({ type: 'enum', enum: RolUsuario, enumName: 'roles_usuarios' })
     rol: RolUsuario;
 
     @OneToOne('Medico', (medico: any) => medico.usuario)

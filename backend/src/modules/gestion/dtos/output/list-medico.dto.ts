@@ -32,16 +32,16 @@ export class ListMedicoDTO {
      * Número de matrícula profesional del médico.
      */
     @ApiProperty({
-        example: 'MN-12345',
+        example: 12345,
         description: 'Número de matrícula profesional del médico.',
     })
-    matricula: string;
+    matricula: number;
 
     /**
      * Valor actual de la consulta médica.
      */
     @ApiProperty({
-        example: 15000.00,
+        example: 15000,
         description: 'Valor actual de la consulta médica.',
         type: Number,
     })

@@ -7,14 +7,8 @@ import {
     JoinColumn,
 } from 'typeorm';
 
-import type { ValueTransformer } from 'typeorm';
 import type { Usuario } from './usuario.entity.js';
 import type { Reserva } from './reserva.entity.js';
-
-const decimalTransformer: ValueTransformer = {
-    to: (value: number): number => value,
-    from: (value: string | number): number => Number(value),
-};
 
 @Entity('medicos')
 export class Medico {
@@ -24,15 +18,10 @@ export class Medico {
     @Column()
     id_usuario: number;
 
-    @Column()
-    matricula: string;
+    @Column({ type: 'int' })
+    matricula: number;
 
-    @Column({
-        type: 'decimal',
-        precision: 10,
-        scale: 2,
-        transformer: decimalTransformer,
-    })
+    @Column({ type: 'int' })
     valor_consulta: number;
 
     @OneToOne('Usuario', (usuario: any) => usuario.medico, {
