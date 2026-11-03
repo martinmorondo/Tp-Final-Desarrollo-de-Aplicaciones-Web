@@ -356,7 +356,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({unique: true})<br />
+                            @Column()<br />
                         </code>
                     </td>
                 </tr>
@@ -392,7 +392,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({type: &#x27;enum&#x27;, enum: EstadoUsuario, default: undefined})<br />
+                            @Column({type: &#x27;enum&#x27;, enum: EstadoUsuario, enumName: &#x27;estados_usuarios&#x27;, default: undefined})<br />
                         </code>
                     </td>
                 </tr>
@@ -537,7 +537,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({type: &#x27;enum&#x27;, enum: RolUsuario})<br />
+                            @Column({type: &#x27;enum&#x27;, enum: RolUsuario, enumName: &#x27;roles_usuarios&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -575,16 +575,16 @@ export class Usuario {
     @Column()
     nombres: string;
 
-    @Column({ unique: true })
+    @Column()
     email: string;
 
     @Column()
     clave: string;
 
-    @Column({ type: &#x27;enum&#x27;, enum: EstadoUsuario, default: EstadoUsuario.ACTIVO })
+    @Column({ type: &#x27;enum&#x27;, enum: EstadoUsuario, enumName: &#x27;estados_usuarios&#x27;, default: EstadoUsuario.ACTIVO })
     estado: EstadoUsuario;
 
-    @Column({ type: &#x27;enum&#x27;, enum: RolUsuario })
+    @Column({ type: &#x27;enum&#x27;, enum: RolUsuario, enumName: &#x27;roles_usuarios&#x27; })
     rol: RolUsuario;
 
     @OneToOne(&#x27;Medico&#x27;, (medico: any) &#x3D;&gt; medico.usuario)

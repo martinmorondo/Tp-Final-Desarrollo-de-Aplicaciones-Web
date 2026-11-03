@@ -188,6 +188,11 @@
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
+                                <a href="#obtenerPacientes" >obtenerPacientes</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#obtenerPorId" >obtenerPorId</a>
                             </li>
                         </ul>
@@ -213,7 +218,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/modules/gestion/services/usuario.service.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/modules/gestion/services/usuario.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -260,6 +265,48 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="obtenerPacientes"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>obtenerPacientes</b></span>
+                        <a href="#obtenerPacientes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerPacientes()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/modules/gestion/services/usuario.service.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los pacientes activos, ordenados por apellido y nombre.
+Lo utiliza el administrador para elegir a quién le reserva un turno.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/ListPacienteDTO.html" target="_self" >Promise&lt;ListPacienteDTO[]&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="obtenerPorId"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -278,8 +325,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/modules/gestion/services/usuario.service.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">src/modules/gestion/services/usuario.service.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -340,6 +387,9 @@ import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 
 import { Usuario } from &#x27;../entities/usuario.entity.js&#x27;;
+import { EstadoUsuario } from &#x27;../enums/estados-usuarios.enum.js&#x27;;
+import { RolUsuario } from &#x27;../enums/rol-usuario.enum.js&#x27;;
+import { ListPacienteDTO } from &#x27;../dtos/output/list-paciente.dto.js&#x27;;
 
 @Injectable()
 export class UsuarioService {
@@ -357,7 +407,26 @@ export class UsuarioService {
 
         return usuario;
     }
-}</code></pre>
+
+    /**
+     * Obtiene los pacientes activos, ordenados por apellido y nombre.
+     * Lo utiliza el administrador para elegir a quién le reserva un turno.
+     */
+    async obtenerPacientes(): Promise&lt;ListPacienteDTO[]&gt; {
+        const pacientes &#x3D; await this.repository.find({
+            where: { rol: RolUsuario.PACIENTE, estado: EstadoUsuario.ACTIVO },
+            order: { apellidos: &#x27;ASC&#x27;, nombres: &#x27;ASC&#x27; },
+        });
+
+        return pacientes.map((paciente) &#x3D;&gt; {
+            const dto &#x3D; new ListPacienteDTO();
+            dto.id &#x3D; paciente.id;
+            dto.nombre &#x3D; &#x60;${paciente.nombres} ${paciente.apellidos}&#x60;;
+            return dto;
+        });
+    }
+}
+</code></pre>
     </div>
 
 </div>

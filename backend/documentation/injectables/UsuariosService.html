@@ -188,12 +188,12 @@
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
-                                <a href="#buscarUsuarioActivoPorId" >buscarUsuarioActivoPorId</a>
+                                <a href="#buscarUsuarioActivoPorEmail" >buscarUsuarioActivoPorEmail</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
-                                <a href="#buscarUsuarioActivoPorNombre" >buscarUsuarioActivoPorNombre</a>
+                                <a href="#buscarUsuarioActivoPorId" >buscarUsuarioActivoPorId</a>
                             </li>
                         </ul>
                     </td>
@@ -218,7 +218,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/modules/auth/services/usuario.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/modules/auth/services/usuario.service.ts:8</a></div>
                             </td>
                         </tr>
 
@@ -265,6 +265,75 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="buscarUsuarioActivoPorEmail"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>buscarUsuarioActivoPorEmail</b></span>
+                        <a href="#buscarUsuarioActivoPorEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buscarUsuarioActivoPorEmail(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="14"
+                                    class="link-to-prism">src/modules/auth/services/usuario.service.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;Usuario | null&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="buscarUsuarioActivoPorId"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -283,8 +352,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/modules/auth/services/usuario.service.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">src/modules/auth/services/usuario.service.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -330,75 +399,6 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="buscarUsuarioActivoPorNombre"></a>
-                    <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>buscarUsuarioActivoPorNombre</b></span>
-                        <a href="#buscarUsuarioActivoPorNombre"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>buscarUsuarioActivoPorNombre(nombre: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="15"
-                                    class="link-to-prism">src/modules/auth/services/usuario.service.ts:15</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>nombre</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;Usuario | null&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </section>
 
 
@@ -419,27 +419,18 @@ export class UsuariosService {
     private readonly repository: Repository&lt;Usuario&gt;,
   ) {}
 
-  async buscarUsuarioActivoPorNombre(
-    nombre: string,
-  ): Promise&lt;Usuario | null&gt; {
+  async buscarUsuarioActivoPorEmail(email: string): Promise&lt;Usuario | null&gt; {
     return this.repository.findOne({
-      where: [
-        { nombres: nombre, estado: EstadoUsuario.ACTIVO },
-        { email: nombre, estado: EstadoUsuario.ACTIVO },
-      ],
+      where: { email, estado: EstadoUsuario.ACTIVO },
     });
   }
 
   async buscarUsuarioActivoPorId(id: number): Promise&lt;Usuario | null&gt; {
-  return this.repository.findOne({
-    where: {
-      id,
-      estado: EstadoUsuario.ACTIVO,
-    },
-  });
-}
-}
-</code></pre>
+    return this.repository.findOne({
+      where: { id, estado: EstadoUsuario.ACTIVO },
+    });
+  }
+}</code></pre>
     </div>
 
 </div>
