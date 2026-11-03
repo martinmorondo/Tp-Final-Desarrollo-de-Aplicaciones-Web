@@ -191,9 +191,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <li class="link">
                                     <a href="entities/Usuario.html" data-type="entity-link" >Usuario</a>
                                 </li>
-                                <li class="link">
-                                    <a href="entities/Usuario-1.html" data-type="entity-link" >Usuario</a>
-                                </li>
                             </ul>
                         </li>
                     <li class="chapter">
