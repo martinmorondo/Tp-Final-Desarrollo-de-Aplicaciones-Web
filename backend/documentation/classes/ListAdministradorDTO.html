@@ -172,15 +172,20 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#estado" >estado</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#id" >id</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#nombre" >nombre</a>
                             </li>
@@ -210,6 +215,7 @@
                     <a name="estado"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>estado</b></span>
                         <a href="#estado"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -226,13 +232,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty()<br />
+                            @ApiProperty({enum: EstadoUsuario, example: undefined, description: &#x27;Estado del usuario administrador.&#x27;})<br />@IsEnum(EstadoUsuario)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/modules/gestion/dtos/output/list-administrador.dto.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/modules/gestion/dtos/output/list-administrador.dto.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -245,6 +251,8 @@
                 <td class="col-md-4">
                     <a name="id"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>id</b></span>
                         <a href="#id"><span class="icon ion-ios-link"></span></a>
@@ -262,13 +270,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty()<br />
+                            @ApiProperty({example: 1, description: &#x27;Identificador único del administrador.&#x27;})<br />@IsInt()<br />@Min(1)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/modules/gestion/dtos/output/list-administrador.dto.ts:7</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/modules/gestion/dtos/output/list-administrador.dto.ts:14</a></div>
                         </td>
                     </tr>
 
@@ -281,6 +289,8 @@
                 <td class="col-md-4">
                     <a name="nombre"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>nombre</b></span>
                         <a href="#nombre"><span class="icon ion-ios-link"></span></a>
@@ -298,13 +308,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty()<br />
+                            @ApiProperty({example: &#x27;Administrador Principal&#x27;, description: &#x27;Nombre completo del administrador.&#x27;})<br />@IsString()<br />@MinLength(1)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/modules/gestion/dtos/output/list-administrador.dto.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/modules/gestion/dtos/output/list-administrador.dto.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -323,21 +333,37 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &quot;@nestjs/swagger&quot;;
-import { EstadoUsuario } from &quot;../../enums/estados-usuarios.enum.js&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { IsEnum, IsInt, IsString, Min, MinLength } from &#x27;class-validator&#x27;;
+
+import { EstadoUsuario } from &#x27;../../enums/estados-usuarios.enum.js&#x27;;
 
 export class ListAdministradorDTO {
-
-    @ApiProperty()
+    @ApiProperty({
+        example: 1,
+        description: &#x27;Identificador único del administrador.&#x27;,
+    })
+    @IsInt()
+    @Min(1)
     id!: number;
 
-    @ApiProperty()
+    @ApiProperty({
+        example: &#x27;Administrador Principal&#x27;,
+        description: &#x27;Nombre completo del administrador.&#x27;,
+    })
+    @IsString()
+    @MinLength(1)
     nombre!: string;
 
-    @ApiProperty()
+    @ApiProperty({
+        enum: EstadoUsuario,
+        example: EstadoUsuario.ACTIVO,
+        description: &#x27;Estado del usuario administrador.&#x27;,
+    })
+    @IsEnum(EstadoUsuario)
     estado!: EstadoUsuario;
-
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

@@ -152,15 +152,6 @@
 <div class="tab-content">
     <div class="tab-pane fade active in" id="info">
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>DTO que representa una reserva dentro de los listados de turnos.</p>
-<p>Incluye los datos principales del turno, el médico asignado,
-el paciente asociado, su estado y el valor de la consulta.</p>
-
-            </p>
 
 
 
@@ -181,30 +172,41 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#estado" >estado</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#fecha_hora" >fecha_hora</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#id" >id</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#medico" >medico</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#paciente" >paciente</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#valor_consulta" >valor_consulta</a>
                             </li>
@@ -234,6 +236,7 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                     <a name="estado"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>estado</b></span>
                         <a href="#estado"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -250,7 +253,7 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({enum: EstadoReserva, example: undefined, description: &#x27;Estado actual de la reserva.&#x27;})<br />
+                            @ApiProperty({enum: EstadoReserva, example: undefined, description: &#x27;Estado actual de la reserva.&#x27;})<br />@IsEnum(EstadoReserva)<br />
                         </code>
                     </td>
                 </tr>
@@ -260,12 +263,6 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Estado actual de la reserva.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -275,6 +272,8 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                 <td class="col-md-4">
                     <a name="fecha_hora"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>fecha_hora</b></span>
                         <a href="#fecha_hora"><span class="icon ion-ios-link"></span></a>
@@ -292,22 +291,16 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;2026-11-15T10:00:00.000Z&#x27;, description: &#x27;Fecha y hora programada para el turno, en formato ISO 8601.&#x27;, type: String, format: &#x27;date-time&#x27;})<br />
+                            @ApiProperty({example: &#x27;2026-11-15T10:00:00.000Z&#x27;, description: &#x27;Fecha y hora programada para el turno, en formato ISO 8601.&#x27;, type: String, format: &#x27;date-time&#x27;})<br />@Type(undefined)<br />@IsDate()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:35</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Fecha y hora programada para el turno.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -317,6 +310,8 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                 <td class="col-md-4">
                     <a name="id"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>id</b></span>
                         <a href="#id"><span class="icon ion-ios-link"></span></a>
@@ -334,22 +329,16 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: 1, description: &#x27;Identificador único de la reserva.&#x27;})<br />
+                            @ApiProperty({example: 1, description: &#x27;Identificador único de la reserva.&#x27;})<br />@IsInt()<br />@Min(1)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:25</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Identificador único de la reserva.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -359,6 +348,8 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                 <td class="col-md-4">
                     <a name="medico"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>medico</b></span>
                         <a href="#medico"><span class="icon ion-ios-link"></span></a>
@@ -376,22 +367,16 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;Dr. Gregory House&#x27;, description: &#x27;Nombre del médico asignado al turno.&#x27;})<br />
+                            @ApiProperty({example: &#x27;Dr. Gregory House&#x27;, description: &#x27;Nombre del médico asignado al turno.&#x27;})<br />@IsString()<br />@MinLength(1)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:43</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Nombre completo del médico asignado a la reserva.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -401,6 +386,8 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                 <td class="col-md-4">
                     <a name="paciente"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>paciente</b></span>
                         <a href="#paciente"><span class="icon ion-ios-link"></span></a>
@@ -418,22 +405,16 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: () &#x3D;&gt; ListPacienteDTO, description: &#x27;Datos del paciente para quien se realizó la reserva.&#x27;})<br />
+                            @ApiProperty({type: () &#x3D;&gt; ListPacienteDTO, description: &#x27;Datos del paciente para quien se realizó la reserva.&#x27;})<br />@ValidateNested()<br />@Type(undefined)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:60</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:59</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Información del paciente asociado a la reserva.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -443,6 +424,8 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                 <td class="col-md-4">
                     <a name="valor_consulta"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>valor_consulta</b></span>
                         <a href="#valor_consulta"><span class="icon ion-ios-link"></span></a>
@@ -460,22 +443,16 @@ el paciente asociado, su estado y el valor de la consulta.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: 15000, description: &#x27;Valor de la consulta médica congelado al momento de reservar.&#x27;, type: Number})<br />
+                            @ApiProperty({example: 15000, description: &#x27;Valor de la consulta médica congelado al momento de reservar.&#x27;, type: Number})<br />@IsNumber({allowNaN: false, allowInfinity: false})<br />@Min(0)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:70</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/modules/gestion/dtos/output/list-reservas.dto.ts:68</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Valor de la consulta registrado al momento de realizar la reserva.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -492,77 +469,74 @@ el paciente asociado, su estado y el valor de la consulta.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import {
+    IsDate,
+    IsEnum,
+    IsInt,
+    IsNumber,
+    IsString,
+    Min,
+    MinLength,
+    ValidateNested,
+} from &#x27;class-validator&#x27;;
+import { Type } from &#x27;class-transformer&#x27;;
 
 import { EstadoReserva } from &#x27;../../enums/estados-reserva.enum.js&#x27;;
 import { ListPacienteDTO } from &#x27;./list-paciente.dto.js&#x27;;
 
-/**
- * DTO que representa una reserva dentro de los listados de turnos.
- *
- * Incluye los datos principales del turno, el médico asignado,
- * el paciente asociado, su estado y el valor de la consulta.
- */
 export class ListReservasDTO {
-
-    /**
-     * Identificador único de la reserva.
-     */
     @ApiProperty({
         example: 1,
         description: &#x27;Identificador único de la reserva.&#x27;,
     })
+    @IsInt()
+    @Min(1)
     id!: number;
 
-    /**
-     * Fecha y hora programada para el turno.
-     */
     @ApiProperty({
         example: &#x27;2026-11-15T10:00:00.000Z&#x27;,
         description: &#x27;Fecha y hora programada para el turno, en formato ISO 8601.&#x27;,
         type: String,
         format: &#x27;date-time&#x27;,
     })
+    @Type(() &#x3D;&gt; Date)
+    @IsDate()
     fecha_hora!: Date;
 
-    /**
-     * Nombre completo del médico asignado a la reserva.
-     */
     @ApiProperty({
         example: &#x27;Dr. Gregory House&#x27;,
         description: &#x27;Nombre del médico asignado al turno.&#x27;,
     })
+    @IsString()
+    @MinLength(1)
     medico!: string;
 
-    /**
-     * Estado actual de la reserva.
-     */
     @ApiProperty({
         enum: EstadoReserva,
         example: EstadoReserva.ACTIVO,
         description: &#x27;Estado actual de la reserva.&#x27;,
     })
+    @IsEnum(EstadoReserva)
     estado!: EstadoReserva;
 
-    /**
-     * Información del paciente asociado a la reserva.
-     */
     @ApiProperty({
         type: () &#x3D;&gt; ListPacienteDTO,
         description: &#x27;Datos del paciente para quien se realizó la reserva.&#x27;,
     })
+    @ValidateNested()
+    @Type(() &#x3D;&gt; ListPacienteDTO)
     paciente!: ListPacienteDTO;
 
-    /**
-     * Valor de la consulta registrado al momento de realizar la reserva.
-     */
     @ApiProperty({
         example: 15000,
         description: &#x27;Valor de la consulta médica congelado al momento de reservar.&#x27;,
         type: Number,
     })
+    @IsNumber({ allowNaN: false, allowInfinity: false })
+    @Min(0)
     valor_consulta!: number;
-
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

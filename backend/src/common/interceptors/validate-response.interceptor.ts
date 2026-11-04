@@ -1,4 +1,3 @@
-
 import {
     CallHandler,
     ExecutionContext,
@@ -46,6 +45,8 @@ export class ValidateResponseInterceptor<T extends object>
                         const errors = await validate(instance);
 
                         if (errors.length > 0) {
+                            
+
                             throw new InternalServerErrorException(
                                 'La respuesta de la API no cumple con el DTO definido.',
                             );
@@ -69,6 +70,8 @@ export class ValidateResponseInterceptor<T extends object>
                 const errors = await validate(instance);
 
                 if (errors.length > 0) {
+                    
+
                     throw new InternalServerErrorException(
                         'La respuesta de la API no cumple con el DTO definido.',
                     );

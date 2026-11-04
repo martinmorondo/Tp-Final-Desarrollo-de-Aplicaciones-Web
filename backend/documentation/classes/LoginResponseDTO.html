@@ -179,6 +179,8 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#accessToken" >accessToken</a>
                             </li>
                         </ul>
@@ -207,6 +209,8 @@
                     <a name="accessToken"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>accessToken</b></span>
                         <a href="#accessToken"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -223,7 +227,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;Token JWT que se envía en el encabezado Authorization como Bearer.&#x27;, example: &#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&#x27;, type: String})<br />
+                            @ApiProperty({description: &#x27;Token JWT que se envía en el encabezado Authorization como Bearer.&#x27;, example: &#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&#x27;, type: String})<br />@IsString()<br />@MinLength(1)<br />
                         </code>
                     </td>
                 </tr>
@@ -233,12 +237,6 @@
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Token JWT para autenticar las solicitudes siguientes.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -255,22 +253,22 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { IsString, MinLength } from &#x27;class-validator&#x27;;
 
 /**
  * DTO de salida del inicio de sesión.
  */
 export class LoginResponseDTO {
-
-    /**
-     * Token JWT para autenticar las solicitudes siguientes.
-     */
     @ApiProperty({
         description: &#x27;Token JWT que se envía en el encabezado Authorization como Bearer.&#x27;,
         example: &#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&#x27;,
         type: String,
     })
+    @IsString()
+    @MinLength(1)
     accessToken!: string;
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

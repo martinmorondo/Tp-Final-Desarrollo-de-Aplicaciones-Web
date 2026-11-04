@@ -18,8 +18,8 @@ export class Medico {
     @Column()
     id_usuario: number;
 
-    @Column({ type: 'int' })
-    matricula: number;
+    @Column({ type: 'varchar', length: 20 })
+    matricula: string;
 
     @Column({ type: 'int' })
     valor_consulta: number;

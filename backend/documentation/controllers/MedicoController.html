@@ -222,11 +222,13 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerMedicoPorId" >obtenerMedicoPorId</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -294,8 +296,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="165"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:165</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:177</a></div>
                         </td>
                     </tr>
 
@@ -377,6 +379,7 @@ Esta operación está restringida al rol ADMINISTRADOR.</p>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>obtenerMedicoPorId</b></span>
                         <a href="#obtenerMedicoPorId"><span class="icon ion-ios-link"></span></a>
@@ -394,14 +397,14 @@ Esta operación está restringida al rol ADMINISTRADOR.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Obtener médico por ID&#x27;, description: &#x27;Devuelve los datos de un médico a partir de su identificador.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador del médico.&#x27;, type: Number, example: 2})<br />@ApiResponse({status: 200, description: &#x27;Médico encontrado.&#x27;, type: MedicoDTO})<br />@ApiResponse({status: 400, description: &#x27;El identificador proporcionado no es válido.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
+                    <code>@Get(&#x27;:id&#x27;)<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Obtener médico por ID&#x27;, description: &#x27;Devuelve los datos de un médico a partir de su identificador.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador del médico.&#x27;, type: Number, example: 2})<br />@ApiResponse({status: 200, description: &#x27;Médico encontrado.&#x27;, type: MedicoDTO})<br />@ApiResponse({status: 400, description: &#x27;El identificador proporcionado no es válido.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="114"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:114</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:125</a></div>
                         </td>
                     </tr>
 
@@ -466,6 +469,7 @@ Esta operación está restringida al rol ADMINISTRADOR.</p>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>obtenerMedicos</b></span>
                         <a href="#obtenerMedicos"><span class="icon ion-ios-link"></span></a>
@@ -483,14 +487,14 @@ Esta operación está restringida al rol ADMINISTRADOR.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@ApiOperation({summary: &#x27;Obtener listado de médicos&#x27;, description: &#x27;Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.&#x27;})<br />@ApiQuery({name: &#x27;estado&#x27;, description: &#x27;Estado del médico para filtrar el listado.&#x27;, enum: EstadoUsuario, required: false, example: undefined})<br />@ApiResponse({status: 200, description: &#x27;Listado de médicos obtenido correctamente.&#x27;, type: undefined})<br />@ApiResponse({status: 400, description: &#x27;El estado proporcionado no es válido.&#x27;})<br /></code>
+                    <code>@Get()<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Obtener listado de médicos&#x27;, description: &#x27;Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.&#x27;})<br />@ApiQuery({name: &#x27;estado&#x27;, description: &#x27;Estado del médico para filtrar el listado.&#x27;, enum: EstadoUsuario, required: false, example: undefined})<br />@ApiResponse({status: 200, description: &#x27;Listado de médicos obtenido correctamente.&#x27;, type: undefined})<br />@ApiResponse({status: 400, description: &#x27;El estado proporcionado no es válido.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="74"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:74</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:81</a></div>
                         </td>
                     </tr>
 
@@ -562,6 +566,7 @@ import {
     HttpCode,
     HttpStatus,
     UseGuards,
+    UseInterceptors,
 } from &#x27;@nestjs/common&#x27;;
 
 import {
@@ -585,6 +590,8 @@ import { RolesGuard } from &#x27;../../auth/guardars/roles.guard.js&#x27;;
 import { Roles } from &#x27;../../auth/decorators/roles.decorator.js&#x27;;
 import { RolUsuario } from &#x27;../enums/rol-usuario.enum.js&#x27;;
 
+import { ValidateResponseInterceptor } from &#x27;../../../common/interceptors/validate-response.interceptor.js&#x27;;
+
 /**
  * Controlador encargado de consultar médicos y administrar sus valores de consulta.
  */
@@ -602,9 +609,13 @@ export class MedicoController {
      * @returns Listado de médicos.
      */
     @Get()
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListMedicoDTO, true),
+    )
     @ApiOperation({
         summary: &#x27;Obtener listado de médicos&#x27;,
-        description: &#x27;Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.&#x27;,
+        description:
+            &#x27;Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.&#x27;,
     })
     @ApiQuery({
         name: &#x27;estado&#x27;,
@@ -639,9 +650,13 @@ export class MedicoController {
      * @returns Información del médico.
      */
     @Get(&#x27;:id&#x27;)
+    @UseInterceptors(
+        new ValidateResponseInterceptor(MedicoDTO),
+    )
     @ApiOperation({
         summary: &#x27;Obtener médico por ID&#x27;,
-        description: &#x27;Devuelve los datos de un médico a partir de su identificador.&#x27;,
+        description:
+            &#x27;Devuelve los datos de un médico a partir de su identificador.&#x27;,
     })
     @ApiParam({
         name: &#x27;id&#x27;,
@@ -682,7 +697,8 @@ export class MedicoController {
     @ApiBearerAuth()
     @ApiOperation({
         summary: &#x27;Modificar valor de consulta&#x27;,
-        description: &#x27;Actualiza el valor de consulta de un médico. Disponible exclusivamente para administradores.&#x27;,
+        description:
+            &#x27;Actualiza el valor de consulta de un médico. Disponible exclusivamente para administradores.&#x27;,
     })
     @ApiParam({
         name: &#x27;id&#x27;,

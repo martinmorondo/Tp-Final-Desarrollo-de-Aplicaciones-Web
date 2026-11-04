@@ -152,15 +152,6 @@
 <div class="tab-content">
     <div class="tab-pane fade active in" id="info">
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>DTO que representa la información resumida de un paciente.</p>
-<p>Se utiliza para incluir los datos básicos del paciente
-en las respuestas de las reservas.</p>
-
-            </p>
 
 
 
@@ -181,10 +172,14 @@ en las respuestas de las reservas.</p>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#id" >id</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#nombre" >nombre</a>
                             </li>
@@ -214,6 +209,8 @@ en las respuestas de las reservas.</p>
                     <a name="id"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>id</b></span>
                         <a href="#id"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -230,22 +227,16 @@ en las respuestas de las reservas.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: 15, description: &#x27;Identificador único del paciente.&#x27;})<br />
+                            @ApiProperty({example: 15, description: &#x27;Identificador único del paciente.&#x27;})<br />@IsInt()<br />@Min(1)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:12</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Identificador único del paciente.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -255,6 +246,8 @@ en las respuestas de las reservas.</p>
                 <td class="col-md-4">
                     <a name="nombre"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>nombre</b></span>
                         <a href="#nombre"><span class="icon ion-ios-link"></span></a>
@@ -272,22 +265,16 @@ en las respuestas de las reservas.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;Juan Pérez&#x27;, description: &#x27;Nombre completo del paciente.&#x27;})<br />
+                            @ApiProperty({example: &#x27;Juan Pérez&#x27;, description: &#x27;Nombre completo del paciente.&#x27;})<br />@IsString()<br />@MinLength(1)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/modules/gestion/dtos/output/list-paciente.dto.ts:20</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Nombre completo del paciente.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -304,34 +291,26 @@ en las respuestas de las reservas.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { IsInt, IsString, Min, MinLength } from &#x27;class-validator&#x27;;
 
-/**
- * DTO que representa la información resumida de un paciente.
- *
- * Se utiliza para incluir los datos básicos del paciente
- * en las respuestas de las reservas.
- */
 export class ListPacienteDTO {
-
-    /**
-     * Identificador único del paciente.
-     */
     @ApiProperty({
         example: 15,
         description: &#x27;Identificador único del paciente.&#x27;,
     })
+    @IsInt()
+    @Min(1)
     id!: number;
 
-    /**
-     * Nombre completo del paciente.
-     */
     @ApiProperty({
         example: &#x27;Juan Pérez&#x27;,
         description: &#x27;Nombre completo del paciente.&#x27;,
     })
+    @IsString()
+    @MinLength(1)
     nombre!: string;
-
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

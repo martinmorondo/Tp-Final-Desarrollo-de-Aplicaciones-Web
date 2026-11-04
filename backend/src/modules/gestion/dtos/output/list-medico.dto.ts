@@ -29,12 +29,12 @@ export class ListMedicoDTO {
     nombre!: string;
 
     @ApiProperty({
-        example: 12345,
+        example: 'MN-12345',
         description: 'Número de matrícula profesional del médico.',
     })
-    @IsInt()
-    @Min(1)
-    matricula!: number;
+    @IsString()
+    @MinLength(1)
+    matricula!: string;
 
     @ApiProperty({
         example: 15000,
