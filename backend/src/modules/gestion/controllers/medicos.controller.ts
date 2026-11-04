@@ -11,6 +11,7 @@ import {
     HttpCode,
     HttpStatus,
     UseGuards,
+    UseInterceptors,
 } from '@nestjs/common';
 
 import {
@@ -34,6 +35,8 @@ import { RolesGuard } from '../../auth/guardars/roles.guard.js';
 import { Roles } from '../../auth/decorators/roles.decorator.js';
 import { RolUsuario } from '../enums/rol-usuario.enum.js';
 
+import { ValidateResponseInterceptor } from '../../../common/interceptors/validate-response.interceptor.js';
+
 /**
  * Controlador encargado de consultar médicos y administrar sus valores de consulta.
  */
@@ -51,9 +54,13 @@ export class MedicoController {
      * @returns Listado de médicos.
      */
     @Get()
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListMedicoDTO, true),
+    )
     @ApiOperation({
         summary: 'Obtener listado de médicos',
-        description: 'Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.',
+        description:
+            'Devuelve los médicos registrados y permite filtrar por estado ACTIVO o INACTIVO.',
     })
     @ApiQuery({
         name: 'estado',
@@ -88,9 +95,13 @@ export class MedicoController {
      * @returns Información del médico.
      */
     @Get(':id')
+    @UseInterceptors(
+        new ValidateResponseInterceptor(MedicoDTO),
+    )
     @ApiOperation({
         summary: 'Obtener médico por ID',
-        description: 'Devuelve los datos de un médico a partir de su identificador.',
+        description:
+            'Devuelve los datos de un médico a partir de su identificador.',
     })
     @ApiParam({
         name: 'id',
@@ -131,7 +142,8 @@ export class MedicoController {
     @ApiBearerAuth()
     @ApiOperation({
         summary: 'Modificar valor de consulta',
-        description: 'Actualiza el valor de consulta de un médico. Disponible exclusivamente para administradores.',
+        description:
+            'Actualiza el valor de consulta de un médico. Disponible exclusivamente para administradores.',
     })
     @ApiParam({
         name: 'id',

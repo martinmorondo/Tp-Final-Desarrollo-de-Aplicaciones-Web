@@ -359,7 +359,7 @@ export class AuthService {
 
     async login(dto: LoginDTO): Promise&lt;LoginResponseDTO&gt; {
 
-        const usuario &#x3D; await this.usuariosService.buscarUsuarioActivoPorEmail(dto.nombre);
+        const usuario &#x3D; await this.usuariosService.buscarUsuarioActivoPorEmail(dto.email);
 
         if (!usuario) {
             throw new UnauthorizedException(&quot;Usuario no encontrado&quot;);

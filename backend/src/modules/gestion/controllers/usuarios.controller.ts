@@ -1,4 +1,11 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+
+import {
+    Controller,
+    Get,
+    UseGuards,
+    UseInterceptors,
+} from '@nestjs/common';
+
 import {
     ApiBearerAuth,
     ApiOkResponse,
@@ -14,6 +21,8 @@ import { RolUsuario } from '../enums/rol-usuario.enum.js';
 import { AuthGuard } from '../../auth/guardars/auth.guard.js';
 import { RolesGuard } from '../../auth/guardars/roles.guard.js';
 import { Roles } from '../../auth/decorators/roles.decorator.js';
+
+import { ValidateResponseInterceptor } from '../../../common/interceptors/validate-response.interceptor.js';
 
 /**
  * Controlador de consulta de usuarios.
@@ -34,9 +43,13 @@ export class UsuariosController {
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.ADMINISTRADOR)
     @Get('pacientes')
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListPacienteDTO, true),
+    )
     @ApiOperation({
         summary: 'Listar pacientes activos',
-        description: 'Devuelve los pacientes activos para que el administrador pueda reservar un turno a su nombre.',
+        description:
+            'Devuelve los pacientes activos para que el administrador pueda reservar un turno a su nombre.',
     })
     @ApiOkResponse({
         description: 'Listado de pacientes obtenido correctamente.',

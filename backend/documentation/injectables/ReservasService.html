@@ -540,8 +540,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="463"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:463</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="468"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:468</a></div>
                         </td>
                     </tr>
 
@@ -609,8 +609,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="454"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:454</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="459"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:459</a></div>
                         </td>
                     </tr>
 
@@ -678,8 +678,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="471"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:471</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="476"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:476</a></div>
                         </td>
                     </tr>
 
@@ -759,8 +759,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="397"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:397</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="396"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:396</a></div>
                         </td>
                     </tr>
 
@@ -852,8 +852,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="261"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:261</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="260"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:260</a></div>
                         </td>
                     </tr>
 
@@ -891,8 +891,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="337"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:337</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="336"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:336</a></div>
                         </td>
                     </tr>
 
@@ -972,8 +972,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="297"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:297</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="296"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:296</a></div>
                         </td>
                     </tr>
 
@@ -1208,13 +1208,6 @@ async actualizarReserva(
     if (!reserva) {
     throw new NotFoundException(&#x27;Reserva no encontrada&#x27;);
 }
-
-    if (reserva.estado !&#x3D;&#x3D; EstadoReserva.ACTIVO) {
-        throw new BadRequestException(
-            &#x27;Solo se pueden modificar reservas activas&#x27;,
-        );
-    }
-
     const ahora &#x3D; new Date();
     const fechaTurno &#x3D; reserva.fecha_hora;
 
@@ -1278,6 +1271,12 @@ async actualizarReserva(
     } else {
         throw new ForbiddenException(
             &#x27;No tenés permisos para modificar reservas&#x27;,
+        );
+    }
+
+    if (reserva.estado !&#x3D;&#x3D; EstadoReserva.ACTIVO) {
+        throw new BadRequestException(
+            &#x27;Solo se pueden modificar reservas activas&#x27;,
         );
     }
 
@@ -1422,7 +1421,7 @@ async obtenerReservasPorMedicoYFecha(
     });
 }
 
-   async obtenerReserva(
+  async obtenerReserva(
     id: number,
     idUsuario: number,
     rol: RolUsuario,
@@ -1441,18 +1440,24 @@ async obtenerReservasPorMedicoYFecha(
         throw new NotFoundException(&#x27;Reserva no encontrada&#x27;);
     }
 
-    if (
+    // El paciente solamente puede consultar sus propias reservas.
+    const esPacientePropietario &#x3D;
         rol &#x3D;&#x3D;&#x3D; RolUsuario.PACIENTE &amp;&amp;
-        reserva.id_paciente !&#x3D;&#x3D; idUsuario
-    ) {
-        throw new ForbiddenException(
-            &#x27;No tenés permiso para consultar esta reserva&#x27;,
-        );
-    }
+        reserva.id_paciente &#x3D;&#x3D;&#x3D; idUsuario;
+
+    // El médico solamente puede consultar los turnos que tiene asignados.
+    const esMedicoPropietario &#x3D;
+        rol &#x3D;&#x3D;&#x3D; RolUsuario.MEDICO &amp;&amp;
+        reserva.medico?.id_usuario &#x3D;&#x3D;&#x3D; idUsuario;
+
+    // El administrador puede consultar cualquier reserva.
+    const esAdministrador &#x3D;
+        rol &#x3D;&#x3D;&#x3D; RolUsuario.ADMINISTRADOR;
 
     if (
-        rol !&#x3D;&#x3D; RolUsuario.PACIENTE &amp;&amp;
-        rol !&#x3D;&#x3D; RolUsuario.ADMINISTRADOR
+        !esPacientePropietario &amp;&amp;
+        !esMedicoPropietario &amp;&amp;
+        !esAdministrador
     ) {
         throw new ForbiddenException(
             &#x27;No tenés permiso para consultar esta reserva&#x27;,
@@ -1517,6 +1522,12 @@ async obtenerDisponibilidad(
     }
 
     const medico &#x3D; await this.medicoService.obtenerPorId(idMedico);
+
+    if (medico.usuario?.estado !&#x3D;&#x3D; EstadoUsuario.ACTIVO) {
+        throw new BadRequestException(
+            &#x27;No se puede consultar la disponibilidad de un médico inactivo&#x27;,
+        );
+    }
     const finDia &#x3D; new Date(anio, mes - 1, dia + 1, 0, 0, 0, 0);
 
     const ocupadas &#x3D; await this.repository

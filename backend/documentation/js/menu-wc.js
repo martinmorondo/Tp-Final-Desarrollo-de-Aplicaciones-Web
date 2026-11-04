@@ -77,13 +77,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AuthModule.html" data-type="entity-link" >AuthModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                            'data-bs-target="#controllers-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' : 'data-bs-target="#xs-controllers-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' }>
+                                            'data-bs-target="#controllers-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' : 'data-bs-target="#xs-controllers-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' }>
                                             <span class="icon ion-md-swap"></span>
                                             <span>Controllers</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' :
-                                            'id="xs-controllers-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' :
+                                            'id="xs-controllers-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' }>
                                             <li class="link">
                                                 <a href="controllers/LoginController.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >LoginController</a>
                                             </li>
@@ -91,13 +91,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                        'data-bs-target="#injectables-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' : 'data-bs-target="#xs-injectables-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' }>
+                                        'data-bs-target="#injectables-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' : 'data-bs-target="#xs-injectables-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' :
-                                        'id="xs-injectables-links-module-AuthModule-a08f3bb58a58221a74ee29cd4a6bbb80fe5d7ac153bd2ef816e7c6632275e5b02411c0c85527669db7f93b3c1d7e8f748a6d715f632950fb0def79f9c7cdb507"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' :
+                                        'id="xs-injectables-links-module-AuthModule-b3245303b7af40e2f5a321c8c654628a17dfc0ec1c9e2cb70efa2cc00b28c91657236c558d26505b5abed5d1e3fe788f20cdfd0a10443f872039888695a77e3d"' }>
                                         <li class="link">
                                             <a href="injectables/AuthService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >AuthService</a>
                                         </li>
@@ -111,13 +111,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/GestionModule.html" data-type="entity-link" >GestionModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                            'data-bs-target="#controllers-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' : 'data-bs-target="#xs-controllers-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' }>
+                                            'data-bs-target="#controllers-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' : 'data-bs-target="#xs-controllers-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' }>
                                             <span class="icon ion-md-swap"></span>
                                             <span>Controllers</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' :
-                                            'id="xs-controllers-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' :
+                                            'id="xs-controllers-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' }>
                                             <li class="link">
                                                 <a href="controllers/MedicoController.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >MedicoController</a>
                                             </li>
@@ -131,13 +131,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                        'data-bs-target="#injectables-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' : 'data-bs-target="#xs-injectables-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' }>
+                                        'data-bs-target="#injectables-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' : 'data-bs-target="#xs-injectables-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' :
-                                        'id="xs-injectables-links-module-GestionModule-96c9cb896f6352ff7a2325ae72ca850a4301e52d5a5c4cdc684c263f907048032d3d938c068b6d2ac5606de28915aaff3567bd0667e45cd817410c67794d9a55"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' :
+                                        'id="xs-injectables-links-module-GestionModule-95124b7c0ce632971cf933f1fe2f85c2ef7e5f612e00d2e342ca431fb477a464855e5e0a071617c1a62d1c46ff748dc1082dd477b1ae238ddf9ffc641edc14f6"' }>
                                         <li class="link">
                                             <a href="injectables/MedicoService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >MedicoService</a>
                                         </li>
@@ -191,6 +191,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <li class="link">
                                     <a href="entities/Usuario.html" data-type="entity-link" >Usuario</a>
                                 </li>
+                                <li class="link">
+                                    <a href="entities/Usuario-1.html" data-type="entity-link" >Usuario</a>
+                                </li>
                             </ul>
                         </li>
                     <li class="chapter">
@@ -201,6 +204,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <span class="icon ion-ios-arrow-down"></span>
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
+                            <li class="link">
+                                <a href="classes/ChangeReservaValorConsulta1761800000000.html" data-type="entity-link" >ChangeReservaValorConsulta1761800000000</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/ChangeReservaValorConsultaToInteger1761900000000.html" data-type="entity-link" >ChangeReservaValorConsultaToInteger1761900000000</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/CreateReservaResponseDTO.html" data-type="entity-link" >CreateReservaResponseDTO</a>
+                            </li>
                             <li class="link">
                                 <a href="classes/CreateReservasDto.html" data-type="entity-link" >CreateReservasDto</a>
                             </li>
@@ -261,6 +273,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/UsuariosService.html" data-type="entity-link" >UsuariosService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/ValidateResponseInterceptor.html" data-type="entity-link" >ValidateResponseInterceptor</a>
                                 </li>
                             </ul>
                         </li>

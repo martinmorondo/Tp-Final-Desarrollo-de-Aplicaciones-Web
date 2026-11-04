@@ -281,7 +281,7 @@ import { GestionModule } from &#x27;./modules/gestion/gestion.module.js&#x27;;
       useFactory: (configService: ConfigService) &#x3D;&gt; ({
         type: &#x27;postgres&#x27;,
         host: configService.get&lt;string&gt;(&#x27;DB_HOST&#x27;),
-        port: configService.get&lt;number&gt;(&#x27;DB_PORT&#x27;),
+        port: Number(configService.get&lt;string&gt;(&#x27;DB_PORT&#x27;) ?? 5432),
         username: configService.get&lt;string&gt;(&#x27;DB_USERNAME&#x27;),
         password: configService.get&lt;string&gt;(&#x27;DB_PASSWORD&#x27;),
         database: configService.get&lt;string&gt;(&#x27;DB_NAME&#x27;),

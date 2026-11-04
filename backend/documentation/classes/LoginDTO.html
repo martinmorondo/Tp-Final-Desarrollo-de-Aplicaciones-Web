@@ -189,7 +189,7 @@ durante el proceso de autenticación.</p>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
-                                <a href="#nombre" >nombre</a>
+                                <a href="#email" >email</a>
                             </li>
                         </ul>
                     </td>
@@ -241,7 +241,7 @@ durante el proceso de autenticación.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -258,13 +258,13 @@ durante el proceso de autenticación.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="nombre"></a>
+                    <a name="email"></a>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
-                        <span ><b>nombre</b></span>
-                        <a href="#nombre"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>email</b></span>
+                        <a href="#email"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -279,19 +279,19 @@ durante el proceso de autenticación.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;Nombre o correo electrónico del usuario.&#x27;, example: &#x27;paciente@clinica.com&#x27;, type: String})<br />@IsString()<br />@IsNotEmpty({message: &#x27;Se debe indicar el nombre&#x27;})<br />
+                            @ApiProperty({description: &#x27;Correo electrónico del usuario.&#x27;, example: &#x27;paciente@clinica.com&#x27;, type: String})<br />@IsEmail({}, {message: &#x27;Se debe indicar un correo electrónico válido&#x27;})<br />@IsNotEmpty({message: &#x27;Se debe indicar el correo electrónico&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/modules/auth/dtos/input/login.dto.ts:20</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Nombre o correo electrónico utilizado para iniciar sesión.</p>
+                    <div class="io-description"><p>Correo electrónico utilizado para iniciar sesión.</p>
 </div>
                 </td>
             </tr>
@@ -311,26 +311,24 @@ durante el proceso de autenticación.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-
-import { IsNotEmpty, IsString } from &#x27;class-validator&#x27;;
+import { IsEmail, IsNotEmpty, IsString } from &#x27;class-validator&#x27;;
 
 /**
  * DTO utilizado para recibir las credenciales de un usuario
  * durante el proceso de autenticación.
  */
 export class LoginDTO {
-
     /**
-     * Nombre o correo electrónico utilizado para iniciar sesión.
+     * Correo electrónico utilizado para iniciar sesión.
      */
     @ApiProperty({
-        description: &#x27;Nombre o correo electrónico del usuario.&#x27;,
+        description: &#x27;Correo electrónico del usuario.&#x27;,
         example: &#x27;paciente@clinica.com&#x27;,
         type: String,
     })
-    @IsString()
-    @IsNotEmpty({ message: &#x27;Se debe indicar el nombre&#x27; })
-    nombre: string;
+    @IsEmail({}, { message: &#x27;Se debe indicar un correo electrónico válido&#x27; })
+    @IsNotEmpty({ message: &#x27;Se debe indicar el correo electrónico&#x27; })
+    email: string;
 
     /**
      * Contraseña del usuario.
@@ -344,8 +342,8 @@ export class LoginDTO {
     @IsString()
     @IsNotEmpty()
     clave: string;
-
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

@@ -206,6 +206,7 @@ La gestión (alta, baja y modificación) de usuarios queda fuera de esta etapa.<
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerPacientes" >obtenerPacientes</a>
                             </li>
@@ -239,6 +240,7 @@ La gestión (alta, baja y modificación) de usuarios queda fuera de esta etapa.<
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>obtenerPacientes</b></span>
                         <a href="#obtenerPacientes"><span class="icon ion-ios-link"></span></a>
@@ -256,14 +258,14 @@ La gestión (alta, baja y modificación) de usuarios queda fuera de esta etapa.<
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.ADMINISTRADOR)<br />@Get(&#x27;pacientes&#x27;)<br />@ApiOperation({summary: &#x27;Listar pacientes activos&#x27;, description: &#x27;Devuelve los pacientes activos para que el administrador pueda reservar un turno a su nombre.&#x27;})<br />@ApiOkResponse({description: &#x27;Listado de pacientes obtenido correctamente.&#x27;, type: ListPacienteDTO, isArray: true})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos de administrador.&#x27;})<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.ADMINISTRADOR)<br />@Get(&#x27;pacientes&#x27;)<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Listar pacientes activos&#x27;, description: &#x27;Devuelve los pacientes activos para que el administrador pueda reservar un turno a su nombre.&#x27;})<br />@ApiOkResponse({description: &#x27;Listado de pacientes obtenido correctamente.&#x27;, type: ListPacienteDTO, isArray: true})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos de administrador.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="54"
-                                    class="link-to-prism">src/modules/gestion/controllers/usuarios.controller.ts:54</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/modules/gestion/controllers/usuarios.controller.ts:67</a></div>
                         </td>
                     </tr>
 
@@ -291,7 +293,14 @@ Operación restringida al rol ADMINISTRADOR.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, UseGuards } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">
+import {
+    Controller,
+    Get,
+    UseGuards,
+    UseInterceptors,
+} from &#x27;@nestjs/common&#x27;;
+
 import {
     ApiBearerAuth,
     ApiOkResponse,
@@ -307,6 +316,8 @@ import { RolUsuario } from &#x27;../enums/rol-usuario.enum.js&#x27;;
 import { AuthGuard } from &#x27;../../auth/guardars/auth.guard.js&#x27;;
 import { RolesGuard } from &#x27;../../auth/guardars/roles.guard.js&#x27;;
 import { Roles } from &#x27;../../auth/decorators/roles.decorator.js&#x27;;
+
+import { ValidateResponseInterceptor } from &#x27;../../../common/interceptors/validate-response.interceptor.js&#x27;;
 
 /**
  * Controlador de consulta de usuarios.
@@ -327,9 +338,13 @@ export class UsuariosController {
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.ADMINISTRADOR)
     @Get(&#x27;pacientes&#x27;)
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListPacienteDTO, true),
+    )
     @ApiOperation({
         summary: &#x27;Listar pacientes activos&#x27;,
-        description: &#x27;Devuelve los pacientes activos para que el administrador pueda reservar un turno a su nombre.&#x27;,
+        description:
+            &#x27;Devuelve los pacientes activos para que el administrador pueda reservar un turno a su nombre.&#x27;,
     })
     @ApiOkResponse({
         description: &#x27;Listado de pacientes obtenido correctamente.&#x27;,

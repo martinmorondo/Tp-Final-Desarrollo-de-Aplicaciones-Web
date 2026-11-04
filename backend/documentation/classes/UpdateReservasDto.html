@@ -152,15 +152,6 @@
 <div class="tab-content">
     <div class="tab-pane fade active in" id="info">
 
-            <p class="comment">
-                <h3>Description</h3>
-            </p>
-            <p class="comment">
-                <p>DTO utilizado para recibir el nuevo estado de una reserva.</p>
-<p>Permite solicitar la actualización del estado de un turno,
-de acuerdo con los permisos y las reglas de negocio del sistema.</p>
-
-            </p>
 
 
 
@@ -229,23 +220,16 @@ de acuerdo con los permisos y las reglas de negocio del sistema.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({enum: EstadoReserva, example: undefined, description: &#x27;Nuevo estado que se desea asignar a la reserva.&#x27;})<br />@IsDefined({message: &#x27;El estado de la reserva es obligatorio&#x27;})<br />@IsEnum(EstadoReserva, {message: &#x27;El estado indicado no es válido&#x27;})<br />
+                            @ApiProperty({enum: undefined, example: undefined, description: &#x27;Nuevo estado de la reserva.&#x27;})<br />@IsDefined({message: &#x27;El estado de la reserva es obligatorio&#x27;})<br />@IsEnum({ATENDIDO: undefined, AUSENTE: undefined, CANCELADO: undefined}, {message: &#x27;El estado indicado no es válido&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/modules/gestion/dtos/input/update-reservas.dto.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/modules/gestion/dtos/input/update-reservas.dto.ts:21</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Nuevo estado que se desea asignar a la reserva.</p>
-<p>Los valores permitidos están definidos en el enum EstadoReserva.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -266,30 +250,22 @@ import { IsDefined, IsEnum } from &#x27;class-validator&#x27;;
 
 import { EstadoReserva } from &#x27;../../enums/estados-reserva.enum.js&#x27;;
 
-/**
- * DTO utilizado para recibir el nuevo estado de una reserva.
- *
- * Permite solicitar la actualización del estado de un turno,
- * de acuerdo con los permisos y las reglas de negocio del sistema.
- */
 export class UpdateReservasDto {
-
-    /**
-     * Nuevo estado que se desea asignar a la reserva.
-     *
-     * Los valores permitidos están definidos en el enum EstadoReserva.
-     */
     @ApiProperty({
-        enum: EstadoReserva,
+        enum: [EstadoReserva.ATENDIDO, EstadoReserva.AUSENTE, EstadoReserva.CANCELADO],
         example: EstadoReserva.CANCELADO,
-        description: &#x27;Nuevo estado que se desea asignar a la reserva.&#x27;,
+        description: &#x27;Nuevo estado de la reserva.&#x27;,
     })
     @IsDefined({ message: &#x27;El estado de la reserva es obligatorio&#x27; })
-    @IsEnum(EstadoReserva, {
-        message: &#x27;El estado indicado no es válido&#x27;,
-    })
+    @IsEnum(
+        {
+            ATENDIDO: EstadoReserva.ATENDIDO,
+            AUSENTE: EstadoReserva.AUSENTE,
+            CANCELADO: EstadoReserva.CANCELADO,
+        },
+        { message: &#x27;El estado indicado no es válido&#x27; },
+    )
     estado!: EstadoReserva;
-
 }</code></pre>
     </div>
 </div>

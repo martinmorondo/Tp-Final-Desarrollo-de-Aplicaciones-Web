@@ -172,10 +172,16 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#fecha" >fecha</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#horas_libres" >horas_libres</a>
                             </li>
@@ -205,6 +211,8 @@
                     <a name="fecha"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>fecha</b></span>
                         <a href="#fecha"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -221,13 +229,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: &#x27;2026-11-10&#x27;})<br />
+                            @ApiProperty({example: &#x27;2026-11-10&#x27;, description: &#x27;Fecha consultada en formato YYYY-MM-DD.&#x27;})<br />@IsString()<br />@Matches(/^\d{4}-\d{2}-\d{2}$/)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/modules/gestion/dtos/output/disponibilidad.dto.ts:5</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/modules/gestion/dtos/output/disponibilidad.dto.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -240,6 +248,10 @@
                 <td class="col-md-4">
                     <a name="horas_libres"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>horas_libres</b></span>
                         <a href="#horas_libres"><span class="icon ion-ios-link"></span></a>
@@ -257,13 +269,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({example: undefined, description: &#x27;Horas de inicio de los turnos libres&#x27;})<br />
+                            @ApiProperty({example: undefined, description: &#x27;Horas de inicio de los turnos libres.&#x27;})<br />@IsArray()<br />@IsInt({each: true})<br />@Min(8, {each: true})<br />@Max(15, {each: true})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/modules/gestion/dtos/output/disponibilidad.dto.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/modules/gestion/dtos/output/disponibilidad.dto.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -283,17 +295,35 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import {
+    IsArray,
+    IsInt,
+    IsString,
+    Matches,
+    Max,
+    Min,
+} from &#x27;class-validator&#x27;;
 
 export class DisponibilidadDTO {
-    @ApiProperty({ example: &#x27;2026-11-10&#x27; })
+    @ApiProperty({
+        example: &#x27;2026-11-10&#x27;,
+        description: &#x27;Fecha consultada en formato YYYY-MM-DD.&#x27;,
+    })
+    @IsString()
+    @Matches(/^\d{4}-\d{2}-\d{2}$/)
     fecha!: string;
 
     @ApiProperty({
         example: [8, 9, 11],
-        description: &#x27;Horas de inicio de los turnos libres&#x27;,
+        description: &#x27;Horas de inicio de los turnos libres.&#x27;,
     })
+    @IsArray()
+    @IsInt({ each: true })
+    @Min(8, { each: true })
+    @Max(15, { each: true })
     horas_libres!: number[];
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

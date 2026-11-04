@@ -56,7 +56,6 @@ export class MedicoService {
 
         if (medico.usuario) {
             dto.nombre = `${medico.usuario.nombres} ${medico.usuario.apellidos}`;
-            dto.email = medico.usuario.email;
             dto.estado = medico.usuario.estado;
         }
 

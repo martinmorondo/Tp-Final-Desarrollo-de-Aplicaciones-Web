@@ -224,11 +224,13 @@ Permite crear, consultar, listar y actualizar reservas según el rol del usuario
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#crearReservas" >crearReservas</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -254,6 +256,7 @@ Permite crear, consultar, listar y actualizar reservas según el rol del usuario
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerReserva" >obtenerReserva</a>
                             </li>
@@ -265,11 +268,13 @@ Permite crear, consultar, listar y actualizar reservas según el rol del usuario
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerReservas" >obtenerReservas</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -338,8 +343,8 @@ Permite crear, consultar, listar y actualizar reservas según el rol del usuario
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="147"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:147</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:151</a></div>
                         </td>
                     </tr>
 
@@ -359,7 +364,6 @@ Las operaciones permitidas dependen del rol del usuario.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -374,10 +378,6 @@ Las operaciones permitidas dependen del rol del usuario.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Nuevo estado de la reserva.</p>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>id</td>
@@ -390,10 +390,6 @@ Las operaciones permitidas dependen del rol del usuario.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Identificador de la reserva.</p>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>request</td>
@@ -406,10 +402,6 @@ Las operaciones permitidas dependen del rol del usuario.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Información del usuario autenticado.</p>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -441,6 +433,7 @@ Las operaciones permitidas dependen del rol del usuario.</p>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>crearReservas</b></span>
                         <a href="#crearReservas"><span class="icon ion-ios-link"></span></a>
@@ -458,14 +451,14 @@ Las operaciones permitidas dependen del rol del usuario.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)<br />@Post()<br />@ApiOperation({summary: &#x27;Crear una reserva&#x27;, description: &#x27;Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.&#x27;})<br />@ApiBody({type: CreateReservasDto})<br />@ApiResponse({status: 201, description: &#x27;Reserva creada correctamente.&#x27;, schema: undefined})<br />@ApiResponse({status: 400, description: &#x27;Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para crear reservas.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico o paciente no encontrado.&#x27;})<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)<br />@Post()<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Crear una reserva&#x27;, description: &#x27;Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.&#x27;})<br />@ApiBody({type: CreateReservasDto})<br />@ApiResponse({status: 201, description: &#x27;Reserva creada correctamente.&#x27;, type: CreateReservaResponseDTO})<br />@ApiResponse({status: 400, description: &#x27;Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para crear reservas.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico o paciente no encontrado.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="93"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:93</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:99</a></div>
                         </td>
                     </tr>
 
@@ -473,9 +466,7 @@ Las operaciones permitidas dependen del rol del usuario.</p>
             <tr>
                 <td class="col-md-4">
                         <div class="io-description"><p>Registra una nueva reserva.
-Disponible para pacientes y administradores.
-Los pacientes reservan para sí mismos y los administradores
-pueden seleccionar al paciente correspondiente.</p>
+Disponible para pacientes y administradores.</p>
 </div>
 
                             <div class="io-description">
@@ -527,7 +518,7 @@ pueden seleccionar al paciente correspondiente.</p>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;{ id: number }&gt;</code>
+                            <b>Returns : </b>        <code><a href="../classes/CreateReservaResponseDTO.html" target="_self" >Promise&lt;CreateReservaResponseDTO&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -544,6 +535,7 @@ pueden seleccionar al paciente correspondiente.</p>
                 <td class="col-md-4">
                     <a name="obtenerDisponibilidad"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
@@ -572,23 +564,21 @@ pueden seleccionar al paciente correspondiente.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)<br />@Get(&#x27;disponibilidad&#x27;)<br />@ApiOperation({summary: &#x27;Consultar horarios libres de un médico&#x27;, description: &#x27;Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.&#x27;})<br />@ApiQuery({name: &#x27;id_medico&#x27;, description: &#x27;Identificador del médico.&#x27;, required: true, type: Number, example: 1})<br />@ApiQuery({name: &#x27;fecha&#x27;, description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;, required: true, type: String, example: &#x27;2026-11-10&#x27;})<br />@ApiOkResponse({description: &#x27;Horarios libres obtenidos correctamente.&#x27;, type: DisponibilidadDTO})<br />@ApiResponse({status: 400, description: &#x27;La fecha o el identificador del médico no son válidos.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar la disponibilidad.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)<br />@Get(&#x27;disponibilidad&#x27;)<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Consultar horarios libres de un médico&#x27;, description: &#x27;Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.&#x27;})<br />@ApiQuery({name: &#x27;id_medico&#x27;, description: &#x27;Identificador del médico.&#x27;, required: true, type: Number, example: 1})<br />@ApiQuery({name: &#x27;fecha&#x27;, description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;, required: true, type: String, example: &#x27;2026-11-10&#x27;})<br />@ApiOkResponse({description: &#x27;Horarios libres obtenidos correctamente.&#x27;, type: DisponibilidadDTO})<br />@ApiResponse({status: 400, description: &#x27;La fecha o el identificador del médico no son válidos.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar la disponibilidad.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="311"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:311</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="314"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:314</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene los horarios libres de un médico para una fecha determinada.
-Solo se informan horas futuras, dentro de los 30 días de anticipación
-permitidos y que no estén ocupadas por una reserva activa.</p>
+                        <div class="io-description"><p>Obtiene los horarios libres de un médico para una fecha determinada.</p>
 </div>
 
                             <div class="io-description">
@@ -600,7 +590,6 @@ permitidos y que no estén ocupadas por una reserva activa.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -615,10 +604,6 @@ permitidos y que no estén ocupadas por una reserva activa.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Identificador del médico.</p>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>fecha</td>
@@ -631,10 +616,6 @@ permitidos y que no estén ocupadas por una reserva activa.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Fecha de consulta en formato YYYY-MM-DD.</p>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -644,8 +625,7 @@ permitidos y que no estén ocupadas por una reserva activa.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Horas de inicio de los turnos libres.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -657,6 +637,7 @@ permitidos y que no estén ocupadas por una reserva activa.</p>
                 <td class="col-md-4">
                     <a name="obtenerReserva"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
@@ -683,14 +664,14 @@ permitidos y que no estén ocupadas por una reserva activa.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Get(&#x27;:id&#x27;)<br />@ApiOperation({summary: &#x27;Consultar reserva por ID&#x27;, description: &#x27;Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas y el administrador puede consultar cualquiera.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador de la reserva.&#x27;, type: Number, example: 1})<br />@ApiResponse({status: 200, description: &#x27;Reserva encontrada.&#x27;, type: ReservaDTO})<br />@ApiResponse({status: 400, description: &#x27;El identificador proporcionado no es válido.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar esta reserva.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Reserva no encontrada.&#x27;})<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Get(&#x27;:id&#x27;)<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Consultar reserva por ID&#x27;, description: &#x27;Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas, el médico las asignadas a su cuenta y el administrador puede consultar cualquiera.&#x27;})<br />@ApiParam({name: &#x27;id&#x27;, description: &#x27;Identificador de la reserva.&#x27;, type: Number, example: 1})<br />@ApiResponse({status: 200, description: &#x27;Reserva encontrada.&#x27;, type: ReservaDTO})<br />@ApiResponse({status: 400, description: &#x27;El identificador proporcionado no es válido.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar esta reserva.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Reserva no encontrada.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="359"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:359</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="362"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:362</a></div>
                         </td>
                     </tr>
 
@@ -710,7 +691,6 @@ El acceso está sujeto a las reglas de autorización del servicio.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -725,10 +705,6 @@ El acceso está sujeto a las reglas de autorización del servicio.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Identificador de la reserva.</p>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>request</td>
@@ -741,10 +717,6 @@ El acceso está sujeto a las reglas de autorización del servicio.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Información del usuario autenticado.</p>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -754,8 +726,7 @@ El acceso está sujeto a las reglas de autorización del servicio.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Información de la reserva.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -767,6 +738,7 @@ El acceso está sujeto a las reglas de autorización del servicio.</p>
                 <td class="col-md-4">
                     <a name="obtenerReservas"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
@@ -790,23 +762,21 @@ El acceso está sujeto a las reglas de autorización del servicio.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Get()<br />@ApiOperation({summary: &#x27;Listar reservas&#x27;, description: &#x27;Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Listado de reservas obtenido correctamente.&#x27;, type: ListReservasDTO, isArray: true})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar este listado de reservas.&#x27;})<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Get()<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Listar reservas&#x27;, description: &#x27;Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Listado de reservas obtenido correctamente.&#x27;, type: ListReservasDTO, isArray: true})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar este listado de reservas.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="190"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:190</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:194</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene las reservas correspondientes al usuario autenticado.
-Los pacientes consultan sus propias reservas y los administradores
-pueden consultar todas las reservas.</p>
+                        <div class="io-description"><p>Obtiene las reservas correspondientes al usuario autenticado.</p>
 </div>
 
                             <div class="io-description">
@@ -818,7 +788,6 @@ pueden consultar todas las reservas.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -833,10 +802,6 @@ pueden consultar todas las reservas.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Información del usuario autenticado.</p>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -846,8 +811,7 @@ pueden consultar todas las reservas.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Listado de reservas según el rol.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -859,6 +823,7 @@ pueden consultar todas las reservas.</p>
                 <td class="col-md-4">
                     <a name="obtenerReservasPorMedico"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
@@ -885,14 +850,14 @@ pueden consultar todas las reservas.</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.MEDICO)<br />@Get(&#x27;medico&#x27;)<br />@ApiOperation({summary: &#x27;Consultar reservas del médico&#x27;, description: &#x27;Permite al médico autenticado consultar sus reservas para una fecha determinada.&#x27;})<br />@ApiQuery({name: &#x27;fecha&#x27;, description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;, required: true, type: String, example: &#x27;2026-11-02&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Reservas del médico obtenidas correctamente.&#x27;, type: ListReservasDTO, isArray: true})<br />@ApiResponse({status: 400, description: &#x27;La fecha proporcionada no es válida.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos de médico.&#x27;})<br /></code>
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.MEDICO)<br />@Get(&#x27;medico&#x27;)<br />@UseInterceptors(new ValidateResponseInterceptor())<br />@ApiOperation({summary: &#x27;Consultar reservas del médico&#x27;, description: &#x27;Permite al médico autenticado consultar sus reservas para una fecha determinada.&#x27;})<br />@ApiQuery({name: &#x27;fecha&#x27;, description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;, required: true, type: String, example: &#x27;2026-11-02&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Reservas del médico obtenidas correctamente.&#x27;, type: ListReservasDTO, isArray: true})<br />@ApiResponse({status: 400, description: &#x27;La fecha proporcionada no es válida.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos de médico.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="249"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:249</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="253"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:253</a></div>
                         </td>
                     </tr>
 
@@ -911,7 +876,6 @@ pueden consultar todas las reservas.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
-                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -926,10 +890,6 @@ pueden consultar todas las reservas.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Fecha de consulta en formato YYYY-MM-DD.</p>
-
-                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>request</td>
@@ -942,10 +902,6 @@ pueden consultar todas las reservas.</p>
                                             </td>
 
 
-                                            <td>
-                                                    <p>Información del médico autenticado.</p>
-
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -955,8 +911,7 @@ pueden consultar todas las reservas.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Reservas correspondientes al médico y la fecha indicados.</p>
-
+                                
                             </div>
                 </td>
             </tr>
@@ -980,6 +935,7 @@ import {
     Query,
     Req,
     UseGuards,
+    UseInterceptors,
 } from &#x27;@nestjs/common&#x27;;
 
 import {
@@ -995,15 +951,20 @@ import {
 
 import { CreateReservasDto } from &#x27;../dtos/input/create-reservas.dto.js&#x27;;
 import { UpdateReservasDto } from &#x27;../dtos/input/update-reservas.dto.js&#x27;;
+
+import { CreateReservaResponseDTO } from &#x27;../dtos/output/create-reserva-response.dto.js&#x27;;
 import { ListReservasDTO } from &#x27;../dtos/output/list-reservas.dto.js&#x27;;
 import { ReservaDTO } from &#x27;../dtos/output/reservas.dto.js&#x27;;
 import { DisponibilidadDTO } from &#x27;../dtos/output/disponibilidad.dto.js&#x27;;
+
 import { ReservasService } from &#x27;../services/reservas.service.js&#x27;;
 
 import { AuthGuard } from &#x27;../../auth/guardars/auth.guard.js&#x27;;
 import { RolesGuard } from &#x27;../../auth/guardars/roles.guard.js&#x27;;
 import { Roles } from &#x27;../../auth/decorators/roles.decorator.js&#x27;;
 import { RolUsuario } from &#x27;../enums/rol-usuario.enum.js&#x27;;
+
+import { ValidateResponseInterceptor } from &#x27;../../../common/interceptors/validate-response.interceptor.js&#x27;;
 
 import type { Request } from &#x27;express&#x27;;
 
@@ -1015,14 +976,11 @@ import type { Request } from &#x27;express&#x27;;
 @ApiBearerAuth()
 @Controller(&#x27;Reservas&#x27;)
 export class ReservasController {
-
     constructor(private readonly service: ReservasService) {}
 
     /**
      * Registra una nueva reserva.
      * Disponible para pacientes y administradores.
-     * Los pacientes reservan para sí mismos y los administradores
-     * pueden seleccionar al paciente correspondiente.
      *
      * @param dto Datos necesarios para crear la reserva.
      * @param request Información del usuario autenticado.
@@ -1031,21 +989,24 @@ export class ReservasController {
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
     @Post()
+    @UseInterceptors(
+        new ValidateResponseInterceptor(CreateReservaResponseDTO),
+    )
     @ApiOperation({
         summary: &#x27;Crear una reserva&#x27;,
-        description: &#x27;Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.&#x27;,
+        description:
+            &#x27;Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.&#x27;,
     })
     @ApiBody({ type: CreateReservasDto })
     @ApiResponse({
         status: 201,
         description: &#x27;Reserva creada correctamente.&#x27;,
-        schema: {
-            example: { id: 1 },
-        },
+        type: CreateReservaResponseDTO,
     })
     @ApiResponse({
         status: 400,
-        description: &#x27;Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.&#x27;,
+        description:
+            &#x27;Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.&#x27;,
     })
     @ApiResponse({
         status: 401,
@@ -1064,7 +1025,7 @@ export class ReservasController {
         @Req() request: Request &amp; {
             usuario: { sub: number; rol: RolUsuario };
         },
-    ): Promise&lt;{ id: number }&gt; {
+    ): Promise&lt;CreateReservaResponseDTO&gt; {
         return this.service.crearReserva(
             dto,
             request.usuario.sub,
@@ -1075,16 +1036,13 @@ export class ReservasController {
     /**
      * Actualiza el estado de una reserva existente.
      * Las operaciones permitidas dependen del rol del usuario.
-     *
-     * @param dto Nuevo estado de la reserva.
-     * @param id Identificador de la reserva.
-     * @param request Información del usuario autenticado.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Put(&#x27;:id&#x27;)
     @ApiOperation({
         summary: &#x27;Actualizar una reserva&#x27;,
-        description: &#x27;Permite cancelar una reserva o actualizar su estado según los permisos del paciente, médico o administrador.&#x27;,
+        description:
+            &#x27;Permite cancelar una reserva o actualizar su estado según los permisos del paciente, médico o administrador.&#x27;,
     })
     @ApiParam({
         name: &#x27;id&#x27;,
@@ -1099,7 +1057,8 @@ export class ReservasController {
     })
     @ApiResponse({
         status: 400,
-        description: &#x27;El estado solicitado no es válido o no se cumplen las condiciones para modificar la reserva.&#x27;,
+        description:
+            &#x27;El estado solicitado no es válido o no se cumplen las condiciones para modificar la reserva.&#x27;,
     })
     @ApiResponse({
         status: 401,
@@ -1130,17 +1089,16 @@ export class ReservasController {
 
     /**
      * Obtiene las reservas correspondientes al usuario autenticado.
-     * Los pacientes consultan sus propias reservas y los administradores
-     * pueden consultar todas las reservas.
-     *
-     * @param request Información del usuario autenticado.
-     * @returns Listado de reservas según el rol.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Get()
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListReservasDTO, true),
+    )
     @ApiOperation({
         summary: &#x27;Listar reservas&#x27;,
-        description: &#x27;Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.&#x27;,
+        description:
+            &#x27;Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.&#x27;,
     })
     @ApiResponse({
         status: 200,
@@ -1154,7 +1112,8 @@ export class ReservasController {
     })
     @ApiResponse({
         status: 403,
-        description: &#x27;El usuario no tiene permisos para consultar este listado de reservas.&#x27;,
+        description:
+            &#x27;El usuario no tiene permisos para consultar este listado de reservas.&#x27;,
     })
     async obtenerReservas(
         @Req() request: Request &amp; {
@@ -1178,17 +1137,17 @@ export class ReservasController {
 
     /**
      * Obtiene las reservas de un médico para una fecha determinada.
-     *
-     * @param fecha Fecha de consulta en formato YYYY-MM-DD.
-     * @param request Información del médico autenticado.
-     * @returns Reservas correspondientes al médico y la fecha indicados.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.MEDICO)
     @Get(&#x27;medico&#x27;)
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListReservasDTO, true),
+    )
     @ApiOperation({
         summary: &#x27;Consultar reservas del médico&#x27;,
-        description: &#x27;Permite al médico autenticado consultar sus reservas para una fecha determinada.&#x27;,
+        description:
+            &#x27;Permite al médico autenticado consultar sus reservas para una fecha determinada.&#x27;,
     })
     @ApiQuery({
         name: &#x27;fecha&#x27;,
@@ -1229,19 +1188,17 @@ export class ReservasController {
 
     /**
      * Obtiene los horarios libres de un médico para una fecha determinada.
-     * Solo se informan horas futuras, dentro de los 30 días de anticipación
-     * permitidos y que no estén ocupadas por una reserva activa.
-     *
-     * @param idMedico Identificador del médico.
-     * @param fecha Fecha de consulta en formato YYYY-MM-DD.
-     * @returns Horas de inicio de los turnos libres.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
     @Get(&#x27;disponibilidad&#x27;)
+    @UseInterceptors(
+        new ValidateResponseInterceptor(DisponibilidadDTO),
+    )
     @ApiOperation({
         summary: &#x27;Consultar horarios libres de un médico&#x27;,
-        description: &#x27;Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.&#x27;,
+        description:
+            &#x27;Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.&#x27;,
     })
     @ApiQuery({
         name: &#x27;id_medico&#x27;,
@@ -1271,7 +1228,8 @@ export class ReservasController {
     })
     @ApiResponse({
         status: 403,
-        description: &#x27;El usuario no tiene permisos para consultar la disponibilidad.&#x27;,
+        description:
+            &#x27;El usuario no tiene permisos para consultar la disponibilidad.&#x27;,
     })
     @ApiResponse({
         status: 404,
@@ -1287,16 +1245,16 @@ export class ReservasController {
     /**
      * Obtiene los datos de una reserva específica.
      * El acceso está sujeto a las reglas de autorización del servicio.
-     *
-     * @param id Identificador de la reserva.
-     * @param request Información del usuario autenticado.
-     * @returns Información de la reserva.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Get(&#x27;:id&#x27;)
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ReservaDTO),
+    )
     @ApiOperation({
         summary: &#x27;Consultar reserva por ID&#x27;,
-        description: &#x27;Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas y el administrador puede consultar cualquiera.&#x27;,
+        description:
+            &#x27;Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas, el médico las asignadas a su cuenta y el administrador puede consultar cualquiera.&#x27;,
     })
     @ApiParam({
         name: &#x27;id&#x27;,

@@ -180,13 +180,6 @@ async actualizarReserva(
     if (!reserva) {
     throw new NotFoundException('Reserva no encontrada');
 }
-
-    if (reserva.estado !== EstadoReserva.ACTIVO) {
-        throw new BadRequestException(
-            'Solo se pueden modificar reservas activas',
-        );
-    }
-
     const ahora = new Date();
     const fechaTurno = reserva.fecha_hora;
 
@@ -250,6 +243,12 @@ async actualizarReserva(
     } else {
         throw new ForbiddenException(
             'No tenés permisos para modificar reservas',
+        );
+    }
+
+    if (reserva.estado !== EstadoReserva.ACTIVO) {
+        throw new BadRequestException(
+            'Solo se pueden modificar reservas activas',
         );
     }
 
@@ -495,6 +494,12 @@ async obtenerDisponibilidad(
     }
 
     const medico = await this.medicoService.obtenerPorId(idMedico);
+
+    if (medico.usuario?.estado !== EstadoUsuario.ACTIVO) {
+        throw new BadRequestException(
+            'No se puede consultar la disponibilidad de un médico inactivo',
+        );
+    }
     const finDia = new Date(anio, mes - 1, dia + 1, 0, 0, 0, 0);
 
     const ocupadas = await this.repository
