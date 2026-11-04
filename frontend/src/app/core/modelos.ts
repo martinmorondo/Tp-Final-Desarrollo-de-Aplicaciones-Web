@@ -42,7 +42,7 @@ export interface CrearReservaRequest {
 export interface Medico {
   id: number;
   nombre: string;
-  matricula: number;
+  matricula: string;
   valor_consulta: number;
   estado: EstadoUsuario;
 }
