@@ -2,7 +2,7 @@
 export type Rol = 'MEDICO' | 'PACIENTE' | 'ADMINISTRADOR';
 
 export interface LoginRequest {
-  nombre: string;
+  email: string;
   clave: string;
 }
 

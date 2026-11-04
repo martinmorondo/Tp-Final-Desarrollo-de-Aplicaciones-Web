@@ -13,7 +13,7 @@ export class AuthService {
 
     async login(dto: LoginDTO): Promise<LoginResponseDTO> {
 
-        const usuario = await this.usuariosService.buscarUsuarioActivoPorEmail(dto.nombre);
+        const usuario = await this.usuariosService.buscarUsuarioActivoPorEmail(dto.email);
 
         if (!usuario) {
             throw new UnauthorizedException("Usuario no encontrado");

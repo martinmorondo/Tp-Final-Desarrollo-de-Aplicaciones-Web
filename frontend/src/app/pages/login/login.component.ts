@@ -32,7 +32,7 @@ export class LoginComponent {
     this.error.set('');
     this.cargando.set(true);
 
-    this.auth.login({ nombre: this.email, clave: this.clave }).subscribe({
+    this.auth.login({ email: this.email, clave: this.clave }).subscribe({
       next: () => {
         this.cargando.set(false);
         const rol = this.auth.rol();

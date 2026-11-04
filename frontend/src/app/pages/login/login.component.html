@@ -1,17 +1,27 @@
-<p>login works!</p>
-
 <div class="contenedor">
   <h1>Clínica - Iniciar sesión</h1>
 
   <form (ngSubmit)="ingresar()">
     <label>
-      Email
-      <input type="text" name="email" [(ngModel)]="email" required />
+      Correo electrónico
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        autocomplete="username"
+        required
+      />
     </label>
 
     <label>
       Contraseña
-      <input type="password" name="clave" [(ngModel)]="clave" required />
+      <input
+        type="password"
+        name="clave"
+        [(ngModel)]="clave"
+        autocomplete="current-password"
+        required
+      />
     </label>
 
     <button type="submit" [disabled]="cargando()">

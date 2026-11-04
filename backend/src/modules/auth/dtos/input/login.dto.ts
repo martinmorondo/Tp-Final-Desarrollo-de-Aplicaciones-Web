@@ -1,24 +1,23 @@
-import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 /**
  * DTO utilizado para recibir las credenciales de un usuario
  * durante el proceso de autenticación.
  */
 export class LoginDTO {
-
     /**
-     * Nombre o correo electrónico utilizado para iniciar sesión.
+     * Correo electrónico utilizado para iniciar sesión.
      */
     @ApiProperty({
-        description: 'Nombre o correo electrónico del usuario.',
+        description: 'Correo electrónico del usuario.',
         example: 'paciente@clinica.com',
         type: String,
     })
-    @IsString()
-    @IsNotEmpty({ message: 'Se debe indicar el nombre' })
-    nombre: string;
+    @IsEmail({}, { message: 'Se debe indicar un correo electrónico válido' })
+    @IsNotEmpty({ message: 'Se debe indicar el correo electrónico' })
+    email: string;
 
     /**
      * Contraseña del usuario.
@@ -32,5 +31,4 @@ export class LoginDTO {
     @IsString()
     @IsNotEmpty()
     clave: string;
-
 }
