@@ -244,13 +244,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({type: &#x27;enum&#x27;, enum: EstadoReserva, default: undefined})<br />
+                            @Column({type: &#x27;enum&#x27;, enum: EstadoReserva, enumName: &#x27;estados_reservas&#x27;, default: undefined})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/modules/gestion/entities/reserva.entity.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/modules/gestion/entities/reserva.entity.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -498,13 +498,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({type: &#x27;decimal&#x27;, precision: 10, scale: 2})<br />
+                            @Column({type: &#x27;int&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/modules/gestion/entities/reserva.entity.ts:44</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/modules/gestion/entities/reserva.entity.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -554,12 +554,13 @@ export class Reserva {
     @Column({
         type: &#x27;enum&#x27;,
         enum: EstadoReserva,
+        enumName: &#x27;estados_reservas&#x27;,
         default: EstadoReserva.ACTIVO,
     })
     estado: EstadoReserva;
 
-    @Column({ type: &#x27;decimal&#x27;, precision: 10, scale: 2 })
-    valor_consulta: number; 
+    @Column({ type: &#x27;int&#x27; })
+    valor_consulta: number;
 }
 </code></pre>
     </div>

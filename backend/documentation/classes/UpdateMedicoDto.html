@@ -233,20 +233,20 @@ de un médico desde el módulo de gestión.</p>
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiPropertyOptional({description: &#x27;Nuevo valor de la consulta médica.&#x27;, example: 20000, minimum: 0.01, type: Number})<br />@IsOptional()<br />@IsNumber({maxDecimalPlaces: 2}, {message: &#x27;El valor de la consulta debe ser un número con hasta dos decimales&#x27;})<br />@Min(0.01, {message: &#x27;El valor de la consulta debe ser mayor que cero&#x27;})<br />
+                            @ApiPropertyOptional({description: &#x27;Nuevo valor de la consulta médica.&#x27;, example: 20000, minimum: 1, type: Number})<br />@IsOptional()<br />@IsInt({message: &#x27;El valor de la consulta debe ser un número entero&#x27;})<br />@Min(1, {message: &#x27;El valor de la consulta debe ser mayor que cero&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/modules/gestion/dtos/input/update-medico.dato.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/modules/gestion/dtos/input/update-medico.dato.ts:29</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>Nuevo valor monetario de la consulta médica.</p>
-<p>Debe ser un número mayor que cero y admite hasta dos decimales.</p>
+<p>Debe ser un número entero mayor que cero.</p>
 </div>
                 </td>
             </tr>
@@ -267,7 +267,7 @@ de un médico desde el módulo de gestión.</p>
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
 
-import { IsNumber, IsOptional, Min } from &#x27;class-validator&#x27;;
+import { IsInt, IsOptional, Min } from &#x27;class-validator&#x27;;
 
 /**
  * DTO utilizado para recibir los datos que se pueden modificar
@@ -280,20 +280,17 @@ export class UpdateMedicoDto {
     /**
      * Nuevo valor monetario de la consulta médica.
      *
-     * Debe ser un número mayor que cero y admite hasta dos decimales.
+     * Debe ser un número entero mayor que cero.
      */
     @ApiPropertyOptional({
         description: &#x27;Nuevo valor de la consulta médica.&#x27;,
         example: 20000,
-        minimum: 0.01,
+        minimum: 1,
         type: Number,
     })
     @IsOptional()
-    @IsNumber(
-        { maxDecimalPlaces: 2 },
-        { message: &#x27;El valor de la consulta debe ser un número con hasta dos decimales&#x27; },
-    )
-    @Min(0.01, {
+    @IsInt({ message: &#x27;El valor de la consulta debe ser un número entero&#x27; })
+    @Min(1, {
         message: &#x27;El valor de la consulta debe ser mayor que cero&#x27;,
     })
     valor_consulta?: number;

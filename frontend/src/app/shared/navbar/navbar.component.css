@@ -1,0 +1,29 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #1f3a5f;
+  color: white;
+  font-family: sans-serif;
+}
+.links {
+  display: flex;
+  gap: 16px;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+button {
+  padding: 6px 10px;
+  cursor: pointer;
+}

@@ -238,6 +238,22 @@ Permite crear, consultar, listar y actualizar reservas según el rol del usuario
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#obtenerDisponibilidad" >obtenerDisponibilidad</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerReserva" >obtenerReserva</a>
                             </li>
@@ -322,8 +338,8 @@ Permite crear, consultar, listar y actualizar reservas según el rol del usuario
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="145"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:145</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:147</a></div>
                         </td>
                     </tr>
 
@@ -448,8 +464,8 @@ Las operaciones permitidas dependen del rol del usuario.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="91"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:91</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:93</a></div>
                         </td>
                     </tr>
 
@@ -526,6 +542,119 @@ pueden seleccionar al paciente correspondiente.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="obtenerDisponibilidad"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>obtenerDisponibilidad</b></span>
+                        <a href="#obtenerDisponibilidad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerDisponibilidad(idMedico: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, fecha: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@UseGuards(AuthGuard, RolesGuard)<br />@Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)<br />@Get(&#x27;disponibilidad&#x27;)<br />@ApiOperation({summary: &#x27;Consultar horarios libres de un médico&#x27;, description: &#x27;Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.&#x27;})<br />@ApiQuery({name: &#x27;id_medico&#x27;, description: &#x27;Identificador del médico.&#x27;, required: true, type: Number, example: 1})<br />@ApiQuery({name: &#x27;fecha&#x27;, description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;, required: true, type: String, example: &#x27;2026-11-10&#x27;})<br />@ApiOkResponse({description: &#x27;Horarios libres obtenidos correctamente.&#x27;, type: DisponibilidadDTO})<br />@ApiResponse({status: 400, description: &#x27;La fecha o el identificador del médico no son válidos.&#x27;})<br />@ApiResponse({status: 401, description: &#x27;Usuario no autenticado o token inválido.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;El usuario no tiene permisos para consultar la disponibilidad.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="311"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:311</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los horarios libres de un médico para una fecha determinada.
+Solo se informan horas futuras, dentro de los 30 días de anticipación
+permitidos y que no estén ocupadas por una reserva activa.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>idMedico</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Identificador del médico.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>fecha</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Fecha de consulta en formato YYYY-MM-DD.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/DisponibilidadDTO.html" target="_self" >Promise&lt;DisponibilidadDTO&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Horas de inicio de los turnos libres.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="obtenerReserva"></a>
                     <span class="name">
                             <span class="modifier"></span>
@@ -560,8 +689,8 @@ pueden seleccionar al paciente correspondiente.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="300"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:300</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="359"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:359</a></div>
                         </td>
                     </tr>
 
@@ -667,8 +796,8 @@ El acceso está sujeto a las reglas de autorización del servicio.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="188"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:188</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:190</a></div>
                         </td>
                     </tr>
 
@@ -762,8 +891,8 @@ pueden consultar todas las reservas.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="247"
-                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:247</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">src/modules/gestion/controllers/reserva.controller.ts:249</a></div>
                         </td>
                     </tr>
 
@@ -861,12 +990,14 @@ import {
     ApiParam,
     ApiQuery,
     ApiBody,
+    ApiOkResponse,
 } from &#x27;@nestjs/swagger&#x27;;
 
 import { CreateReservasDto } from &#x27;../dtos/input/create-reservas.dto.js&#x27;;
 import { UpdateReservasDto } from &#x27;../dtos/input/update-reservas.dto.js&#x27;;
 import { ListReservasDTO } from &#x27;../dtos/output/list-reservas.dto.js&#x27;;
 import { ReservaDTO } from &#x27;../dtos/output/reservas.dto.js&#x27;;
+import { DisponibilidadDTO } from &#x27;../dtos/output/disponibilidad.dto.js&#x27;;
 import { ReservasService } from &#x27;../services/reservas.service.js&#x27;;
 
 import { AuthGuard } from &#x27;../../auth/guardars/auth.guard.js&#x27;;
@@ -1094,6 +1225,63 @@ export class ReservasController {
             request.usuario.sub,
             fecha,
         );
+    }
+
+    /**
+     * Obtiene los horarios libres de un médico para una fecha determinada.
+     * Solo se informan horas futuras, dentro de los 30 días de anticipación
+     * permitidos y que no estén ocupadas por una reserva activa.
+     *
+     * @param idMedico Identificador del médico.
+     * @param fecha Fecha de consulta en formato YYYY-MM-DD.
+     * @returns Horas de inicio de los turnos libres.
+     */
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
+    @Get(&#x27;disponibilidad&#x27;)
+    @ApiOperation({
+        summary: &#x27;Consultar horarios libres de un médico&#x27;,
+        description: &#x27;Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.&#x27;,
+    })
+    @ApiQuery({
+        name: &#x27;id_medico&#x27;,
+        description: &#x27;Identificador del médico.&#x27;,
+        required: true,
+        type: Number,
+        example: 1,
+    })
+    @ApiQuery({
+        name: &#x27;fecha&#x27;,
+        description: &#x27;Fecha de consulta en formato YYYY-MM-DD.&#x27;,
+        required: true,
+        type: String,
+        example: &#x27;2026-11-10&#x27;,
+    })
+    @ApiOkResponse({
+        description: &#x27;Horarios libres obtenidos correctamente.&#x27;,
+        type: DisponibilidadDTO,
+    })
+    @ApiResponse({
+        status: 400,
+        description: &#x27;La fecha o el identificador del médico no son válidos.&#x27;,
+    })
+    @ApiResponse({
+        status: 401,
+        description: &#x27;Usuario no autenticado o token inválido.&#x27;,
+    })
+    @ApiResponse({
+        status: 403,
+        description: &#x27;El usuario no tiene permisos para consultar la disponibilidad.&#x27;,
+    })
+    @ApiResponse({
+        status: 404,
+        description: &#x27;Médico no encontrado.&#x27;,
+    })
+    async obtenerDisponibilidad(
+        @Query(&#x27;id_medico&#x27;, ParseIntPipe) idMedico: number,
+        @Query(&#x27;fecha&#x27;) fecha: string,
+    ): Promise&lt;DisponibilidadDTO&gt; {
+        return this.service.obtenerDisponibilidad(idMedico, fecha);
     }
 
     /**

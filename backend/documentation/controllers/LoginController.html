@@ -253,14 +253,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiOperation({summary: &#x27;Iniciar sesión&#x27;, description: &#x27;Valida las credenciales y devuelve un token JWT si el usuario está activo.&#x27;})<br />@ApiBody({type: LoginDTO})<br />@ApiCreatedResponse({description: &#x27;Inicio de sesión exitoso. Devuelve el token de acceso.&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;Credenciales incorrectas o usuario inactivo.&#x27;})<br />@ApiBadRequestResponse({description: &#x27;Los datos enviados no cumplen las validaciones.&#x27;})<br /></code>
+                    <code>@Post()<br />@ApiOperation({summary: &#x27;Iniciar sesión&#x27;, description: &#x27;Valida las credenciales y devuelve un token JWT si el usuario está activo.&#x27;})<br />@ApiBody({type: LoginDTO})<br />@ApiCreatedResponse({description: &#x27;Inicio de sesión exitoso. Devuelve el token de acceso.&#x27;, type: LoginResponseDTO})<br />@ApiUnauthorizedResponse({description: &#x27;Credenciales incorrectas o usuario inactivo.&#x27;})<br />@ApiBadRequestResponse({description: &#x27;Los datos enviados no cumplen las validaciones.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">src/modules/auth/controllers/login.controllers.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/modules/auth/controllers/login.controllers.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -303,7 +303,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;{ accessToken: string }&gt;</code>
+                            <b>Returns : </b>        <code><a href="../classes/LoginResponseDTO.html" target="_self" >Promise&lt;LoginResponseDTO&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -332,6 +332,7 @@ import {
 
 import { LoginDTO } from &quot;../dtos/input/login.dto.js&quot;;
 import { AuthService } from &quot;../services/auth.service.js&quot;;
+import { LoginResponseDTO } from &quot;../dtos/output/login-response.dto.js&quot;;
 
 /**
  * Controlador encargado de gestionar la autenticación de usuarios.
@@ -354,8 +355,9 @@ export class LoginController {
         description: &quot;Valida las credenciales y devuelve un token JWT si el usuario está activo.&quot;
     })
     @ApiBody({ type: LoginDTO })
-    @ApiCreatedResponse({
-        description: &quot;Inicio de sesión exitoso. Devuelve el token de acceso.&quot;
+        @ApiCreatedResponse({
+        description: &quot;Inicio de sesión exitoso. Devuelve el token de acceso.&quot;,
+        type: LoginResponseDTO,
     })
     @ApiUnauthorizedResponse({
         description: &quot;Credenciales incorrectas o usuario inactivo.&quot;
@@ -363,7 +365,7 @@ export class LoginController {
     @ApiBadRequestResponse({
         description: &quot;Los datos enviados no cumplen las validaciones.&quot;
     })
-    async login(@Body() dto: LoginDTO): Promise&lt;{ accessToken: string }&gt; {
+        async login(@Body() dto: LoginDTO): Promise&lt;LoginResponseDTO&gt; {
         return await this.service.login(dto);
     }
 

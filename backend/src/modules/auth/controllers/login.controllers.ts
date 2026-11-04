@@ -11,6 +11,7 @@ import {
 
 import { LoginDTO } from "../dtos/input/login.dto.js";
 import { AuthService } from "../services/auth.service.js";
+import { LoginResponseDTO } from "../dtos/output/login-response.dto.js";
 
 /**
  * Controlador encargado de gestionar la autenticación de usuarios.
@@ -33,8 +34,9 @@ export class LoginController {
         description: "Valida las credenciales y devuelve un token JWT si el usuario está activo."
     })
     @ApiBody({ type: LoginDTO })
-    @ApiCreatedResponse({
-        description: "Inicio de sesión exitoso. Devuelve el token de acceso."
+        @ApiCreatedResponse({
+        description: "Inicio de sesión exitoso. Devuelve el token de acceso.",
+        type: LoginResponseDTO,
     })
     @ApiUnauthorizedResponse({
         description: "Credenciales incorrectas o usuario inactivo."
@@ -42,7 +44,7 @@ export class LoginController {
     @ApiBadRequestResponse({
         description: "Los datos enviados no cumplen las validaciones."
     })
-    async login(@Body() dto: LoginDTO): Promise<{ accessToken: string }> {
+        async login(@Body() dto: LoginDTO): Promise<LoginResponseDTO> {
         return await this.service.login(dto);
     }
 

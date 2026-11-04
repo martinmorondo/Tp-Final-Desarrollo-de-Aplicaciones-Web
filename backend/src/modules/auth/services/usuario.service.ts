@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,23 +11,15 @@ export class UsuariosService {
     private readonly repository: Repository<Usuario>,
   ) {}
 
-  async buscarUsuarioActivoPorNombre(
-    nombre: string,
-  ): Promise<Usuario | null> {
+  async buscarUsuarioActivoPorEmail(email: string): Promise<Usuario | null> {
     return this.repository.findOne({
-      where: [
-        { nombres: nombre, estado: EstadoUsuario.ACTIVO },
-        { email: nombre, estado: EstadoUsuario.ACTIVO },
-      ],
+      where: { email, estado: EstadoUsuario.ACTIVO },
     });
   }
 
   async buscarUsuarioActivoPorId(id: number): Promise<Usuario | null> {
-  return this.repository.findOne({
-    where: {
-      id,
-      estado: EstadoUsuario.ACTIVO,
-    },
-  });
-}
+    return this.repository.findOne({
+      where: { id, estado: EstadoUsuario.ACTIVO },
+    });
+  }
 }

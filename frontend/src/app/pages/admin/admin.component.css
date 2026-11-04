@@ -1,0 +1,45 @@
+.pagina {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 16px;
+  font-family: sans-serif;
+}
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-end;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+select,
+input,
+button {
+  padding: 8px;
+  font-size: 1rem;
+}
+button {
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+td input[type='number'] {
+  width: 110px;
+}
+.ok {
+  color: #1b7f3b;
+}
+.error {
+  color: #b00020;
+}
