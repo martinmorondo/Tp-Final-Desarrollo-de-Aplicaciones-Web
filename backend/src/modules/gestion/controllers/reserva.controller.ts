@@ -11,6 +11,7 @@ import {
     Query,
     Req,
     UseGuards,
+    UseInterceptors,
 } from '@nestjs/common';
 
 import {
@@ -26,15 +27,20 @@ import {
 
 import { CreateReservasDto } from '../dtos/input/create-reservas.dto.js';
 import { UpdateReservasDto } from '../dtos/input/update-reservas.dto.js';
+
+import { CreateReservaResponseDTO } from '../dtos/output/create-reserva-response.dto.js';
 import { ListReservasDTO } from '../dtos/output/list-reservas.dto.js';
 import { ReservaDTO } from '../dtos/output/reservas.dto.js';
 import { DisponibilidadDTO } from '../dtos/output/disponibilidad.dto.js';
+
 import { ReservasService } from '../services/reservas.service.js';
 
 import { AuthGuard } from '../../auth/guardars/auth.guard.js';
 import { RolesGuard } from '../../auth/guardars/roles.guard.js';
 import { Roles } from '../../auth/decorators/roles.decorator.js';
 import { RolUsuario } from '../enums/rol-usuario.enum.js';
+
+import { ValidateResponseInterceptor } from '../../../common/interceptors/validate-response.interceptor.js';
 
 import type { Request } from 'express';
 
@@ -46,14 +52,11 @@ import type { Request } from 'express';
 @ApiBearerAuth()
 @Controller('Reservas')
 export class ReservasController {
-
     constructor(private readonly service: ReservasService) {}
 
     /**
      * Registra una nueva reserva.
      * Disponible para pacientes y administradores.
-     * Los pacientes reservan para sí mismos y los administradores
-     * pueden seleccionar al paciente correspondiente.
      *
      * @param dto Datos necesarios para crear la reserva.
      * @param request Información del usuario autenticado.
@@ -62,21 +65,24 @@ export class ReservasController {
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
     @Post()
+    @UseInterceptors(
+        new ValidateResponseInterceptor(CreateReservaResponseDTO),
+    )
     @ApiOperation({
         summary: 'Crear una reserva',
-        description: 'Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.',
+        description:
+            'Permite a un paciente reservar un turno propio o a un administrador reservar para un paciente.',
     })
     @ApiBody({ type: CreateReservasDto })
     @ApiResponse({
         status: 201,
         description: 'Reserva creada correctamente.',
-        schema: {
-            example: { id: 1 },
-        },
+        type: CreateReservaResponseDTO,
     })
     @ApiResponse({
         status: 400,
-        description: 'Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.',
+        description:
+            'Los datos son inválidos, el horario no está disponible o no se cumplen las reglas de reserva.',
     })
     @ApiResponse({
         status: 401,
@@ -95,7 +101,7 @@ export class ReservasController {
         @Req() request: Request & {
             usuario: { sub: number; rol: RolUsuario };
         },
-    ): Promise<{ id: number }> {
+    ): Promise<CreateReservaResponseDTO> {
         return this.service.crearReserva(
             dto,
             request.usuario.sub,
@@ -106,16 +112,13 @@ export class ReservasController {
     /**
      * Actualiza el estado de una reserva existente.
      * Las operaciones permitidas dependen del rol del usuario.
-     *
-     * @param dto Nuevo estado de la reserva.
-     * @param id Identificador de la reserva.
-     * @param request Información del usuario autenticado.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Put(':id')
     @ApiOperation({
         summary: 'Actualizar una reserva',
-        description: 'Permite cancelar una reserva o actualizar su estado según los permisos del paciente, médico o administrador.',
+        description:
+            'Permite cancelar una reserva o actualizar su estado según los permisos del paciente, médico o administrador.',
     })
     @ApiParam({
         name: 'id',
@@ -130,7 +133,8 @@ export class ReservasController {
     })
     @ApiResponse({
         status: 400,
-        description: 'El estado solicitado no es válido o no se cumplen las condiciones para modificar la reserva.',
+        description:
+            'El estado solicitado no es válido o no se cumplen las condiciones para modificar la reserva.',
     })
     @ApiResponse({
         status: 401,
@@ -161,17 +165,16 @@ export class ReservasController {
 
     /**
      * Obtiene las reservas correspondientes al usuario autenticado.
-     * Los pacientes consultan sus propias reservas y los administradores
-     * pueden consultar todas las reservas.
-     *
-     * @param request Información del usuario autenticado.
-     * @returns Listado de reservas según el rol.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Get()
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListReservasDTO, true),
+    )
     @ApiOperation({
         summary: 'Listar reservas',
-        description: 'Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.',
+        description:
+            'Los pacientes visualizan sus propias reservas y los administradores pueden consultar todas.',
     })
     @ApiResponse({
         status: 200,
@@ -185,7 +188,8 @@ export class ReservasController {
     })
     @ApiResponse({
         status: 403,
-        description: 'El usuario no tiene permisos para consultar este listado de reservas.',
+        description:
+            'El usuario no tiene permisos para consultar este listado de reservas.',
     })
     async obtenerReservas(
         @Req() request: Request & {
@@ -209,17 +213,17 @@ export class ReservasController {
 
     /**
      * Obtiene las reservas de un médico para una fecha determinada.
-     *
-     * @param fecha Fecha de consulta en formato YYYY-MM-DD.
-     * @param request Información del médico autenticado.
-     * @returns Reservas correspondientes al médico y la fecha indicados.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.MEDICO)
     @Get('medico')
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ListReservasDTO, true),
+    )
     @ApiOperation({
         summary: 'Consultar reservas del médico',
-        description: 'Permite al médico autenticado consultar sus reservas para una fecha determinada.',
+        description:
+            'Permite al médico autenticado consultar sus reservas para una fecha determinada.',
     })
     @ApiQuery({
         name: 'fecha',
@@ -260,19 +264,17 @@ export class ReservasController {
 
     /**
      * Obtiene los horarios libres de un médico para una fecha determinada.
-     * Solo se informan horas futuras, dentro de los 30 días de anticipación
-     * permitidos y que no estén ocupadas por una reserva activa.
-     *
-     * @param idMedico Identificador del médico.
-     * @param fecha Fecha de consulta en formato YYYY-MM-DD.
-     * @returns Horas de inicio de los turnos libres.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(RolUsuario.PACIENTE, RolUsuario.ADMINISTRADOR)
     @Get('disponibilidad')
+    @UseInterceptors(
+        new ValidateResponseInterceptor(DisponibilidadDTO),
+    )
     @ApiOperation({
         summary: 'Consultar horarios libres de un médico',
-        description: 'Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.',
+        description:
+            'Devuelve las horas de inicio disponibles de un médico en una fecha. Disponible para pacientes y administradores.',
     })
     @ApiQuery({
         name: 'id_medico',
@@ -302,7 +304,8 @@ export class ReservasController {
     })
     @ApiResponse({
         status: 403,
-        description: 'El usuario no tiene permisos para consultar la disponibilidad.',
+        description:
+            'El usuario no tiene permisos para consultar la disponibilidad.',
     })
     @ApiResponse({
         status: 404,
@@ -318,16 +321,16 @@ export class ReservasController {
     /**
      * Obtiene los datos de una reserva específica.
      * El acceso está sujeto a las reglas de autorización del servicio.
-     *
-     * @param id Identificador de la reserva.
-     * @param request Información del usuario autenticado.
-     * @returns Información de la reserva.
      */
     @UseGuards(AuthGuard, RolesGuard)
     @Get(':id')
+    @UseInterceptors(
+        new ValidateResponseInterceptor(ReservaDTO),
+    )
     @ApiOperation({
         summary: 'Consultar reserva por ID',
-        description: 'Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas y el administrador puede consultar cualquiera.',
+        description:
+            'Devuelve el detalle de una reserva. El paciente puede consultar sus propias reservas, el médico las asignadas a su cuenta y el administrador puede consultar cualquiera.',
     })
     @ApiParam({
         name: 'id',

@@ -1,29 +1,21 @@
+
 import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsString, Min, MinLength } from 'class-validator';
 
-/**
- * DTO que representa la información resumida de un paciente.
- *
- * Se utiliza para incluir los datos básicos del paciente
- * en las respuestas de las reservas.
- */
 export class ListPacienteDTO {
-
-    /**
-     * Identificador único del paciente.
-     */
     @ApiProperty({
         example: 15,
         description: 'Identificador único del paciente.',
     })
+    @IsInt()
+    @Min(1)
     id!: number;
 
-    /**
-     * Nombre completo del paciente.
-     */
     @ApiProperty({
         example: 'Juan Pérez',
         description: 'Nombre completo del paciente.',
     })
+    @IsString()
+    @MinLength(1)
     nombre!: string;
-
 }

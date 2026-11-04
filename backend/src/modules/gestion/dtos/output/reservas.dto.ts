@@ -1,72 +1,72 @@
+
 import { ApiProperty } from '@nestjs/swagger';
+import {
+    IsDate,
+    IsEnum,
+    IsInt,
+    IsNumber,
+    IsString,
+    Min,
+    MinLength,
+    ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 import { EstadoReserva } from '../../enums/estados-reserva.enum.js';
 import { ListPacienteDTO } from './list-paciente.dto.js';
 
 /**
  * DTO que representa el detalle de una reserva individual.
- *
- * Contiene la información del turno, el médico asignado,
- * el paciente asociado, el estado y el valor de la consulta.
  */
 export class ReservaDTO {
-
-    /**
-     * Identificador único de la reserva.
-     */
     @ApiProperty({
         example: 1,
         description: 'Identificador único de la reserva.',
     })
+    @IsInt()
+    @Min(1)
     id!: number;
 
-    /**
-     * Fecha y hora programada para el turno.
-     */
     @ApiProperty({
         example: '2026-11-15T10:00:00.000Z',
         description: 'Fecha y hora programada para el turno, en formato ISO 8601.',
         type: String,
         format: 'date-time',
     })
+    @Type(() => Date)
+    @IsDate()
     fecha_hora!: Date;
 
-    /**
-     * Nombre completo del médico asignado.
-     */
     @ApiProperty({
         example: 'Dr. Gregory House',
         description: 'Nombre del médico asignado a la reserva.',
     })
+    @IsString()
+    @MinLength(1)
     medico!: string;
 
-    /**
-     * Estado actual de la reserva.
-     */
     @ApiProperty({
         enum: EstadoReserva,
         example: EstadoReserva.ACTIVO,
         description: 'Estado actual de la reserva.',
     })
+    @IsEnum(EstadoReserva)
     estado!: EstadoReserva;
 
-    /**
-     * Información del paciente asociado a la reserva.
-     */
     @ApiProperty({
         type: () => ListPacienteDTO,
         description: 'Datos del paciente para quien se realizó la reserva.',
     })
+    @ValidateNested()
+    @Type(() => ListPacienteDTO)
     paciente!: ListPacienteDTO;
 
-    /**
-     * Valor de la consulta registrado al momento de realizar la reserva.
-     */
     @ApiProperty({
         example: 15000,
         description: 'Valor de la consulta médica congelado al momento de reservar.',
         type: Number,
     })
+    @IsNumber({ allowNaN: false, allowInfinity: false })
+    @Min(0)
     valor_consulta!: number;
-
 }
