@@ -42,7 +42,7 @@ CREATE TABLE usuarios (
 CREATE TABLE medicos (
   id             SERIAL PRIMARY KEY,
   id_usuario     INTEGER NOT NULL UNIQUE REFERENCES usuarios (id) ON DELETE CASCADE,
-  matricula      INTEGER NOT NULL,
+  matricula      VARCHAR(20) NOT NULL,
   valor_consulta INTEGER NOT NULL
 );
 
@@ -68,8 +68,8 @@ INSERT INTO usuarios (id, documento, apellidos, nombres, email, clave, estado, r
   (7, '30000004', 'Baja', 'Bruno', 'baja@test.com', '$2b$10$uKKRAZga7ErN.sSk2FuvQu63gwNhVqSbUtYR.rjOTt0wzTogNUvva', 'BAJA', 'PACIENTE');
 
 INSERT INTO medicos (id, id_usuario, matricula, valor_consulta) VALUES
-  (1, 2, 12345, 15000),
-  (2, 3, 67890, 18000);
+  (1, 2, 'MN-12345', 15000),
+  (2, 3, 'MN-67890', 18000);
 
 -- Las fechas son relativas a "hoy" para que los datos siempre sirvan de ejemplo.
 INSERT INTO reservas (id, id_medico, id_paciente, fecha_hora, estado, valor_consulta) VALUES
