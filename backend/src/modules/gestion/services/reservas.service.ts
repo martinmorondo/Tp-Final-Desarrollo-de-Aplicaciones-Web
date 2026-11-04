@@ -394,7 +394,7 @@ async obtenerReservasPorMedicoYFecha(
     });
 }
 
-   async obtenerReserva(
+  async obtenerReserva(
     id: number,
     idUsuario: number,
     rol: RolUsuario,
@@ -413,18 +413,24 @@ async obtenerReservasPorMedicoYFecha(
         throw new NotFoundException('Reserva no encontrada');
     }
 
-    if (
+    // El paciente solamente puede consultar sus propias reservas.
+    const esPacientePropietario =
         rol === RolUsuario.PACIENTE &&
-        reserva.id_paciente !== idUsuario
-    ) {
-        throw new ForbiddenException(
-            'No tenés permiso para consultar esta reserva',
-        );
-    }
+        reserva.id_paciente === idUsuario;
+
+    // El médico solamente puede consultar los turnos que tiene asignados.
+    const esMedicoPropietario =
+        rol === RolUsuario.MEDICO &&
+        reserva.medico?.id_usuario === idUsuario;
+
+    // El administrador puede consultar cualquier reserva.
+    const esAdministrador =
+        rol === RolUsuario.ADMINISTRADOR;
 
     if (
-        rol !== RolUsuario.PACIENTE &&
-        rol !== RolUsuario.ADMINISTRADOR
+        !esPacientePropietario &&
+        !esMedicoPropietario &&
+        !esAdministrador
     ) {
         throw new ForbiddenException(
             'No tenés permiso para consultar esta reserva',
