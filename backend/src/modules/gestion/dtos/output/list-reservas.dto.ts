@@ -1,11 +1,11 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import {
-    IsDate,
     IsEnum,
     IsInt,
     IsNumber,
     IsString,
+    Matches,
     Min,
     MinLength,
     ValidateNested,
@@ -24,15 +24,14 @@ export class ListReservasDTO {
     @Min(1)
     id!: number;
 
-    @ApiProperty({
-        example: '2026-11-15T10:00:00.000Z',
-        description: 'Fecha y hora programada para el turno, en formato ISO 8601.',
+        @ApiProperty({
+        example: '2026-11-15T10:00:00',
+        description: 'Fecha y hora local del consultorio, sin zona horaria.',
         type: String,
-        format: 'date-time',
     })
-    @Type(() => Date)
-    @IsDate()
-    fecha_hora!: Date;
+    @IsString()
+    @Matches(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/)
+    fecha_hora!: string;
 
     @ApiProperty({
         example: 'Dr. Gregory House',

@@ -7,6 +7,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
 import { AuthService } from "./services/auth.service.js";
 import { AuthGuard } from "./guardars/auth.guard.js";
+import { RolesGuard } from "./guardars/roles.guard.js";
 
 @Module({
     imports: [TypeOrmModule.forFeature([Usuario]),
@@ -20,8 +21,8 @@ import { AuthGuard } from "./guardars/auth.guard.js";
     }),
     ],
     controllers: [LoginController],
-    providers: [UsuariosService, AuthService, AuthGuard],
-    exports: [AuthGuard, UsuariosService]
+    providers: [UsuariosService, AuthService, AuthGuard, RolesGuard],
+    exports: [AuthGuard, RolesGuard, UsuariosService]
 })
 export class AuthModule {
 
