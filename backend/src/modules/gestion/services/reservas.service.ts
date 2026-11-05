@@ -33,6 +33,32 @@ export class ReservasService {
         private readonly medicoService: MedicoService,
     ) { }
 
+        private fechaBaseDatosAFechaLocal(fecha: Date): Date {
+        return new Date(
+            fecha.getUTCFullYear(),
+            fecha.getUTCMonth(),
+            fecha.getUTCDate(),
+            fecha.getUTCHours(),
+            fecha.getUTCMinutes(),
+            fecha.getUTCSeconds(),
+            fecha.getUTCMilliseconds(),
+        );
+    }
+
+    private fechaBaseDatosAStringLocal(fecha: Date): string {
+        const pad = (valor: number): string =>
+            String(valor).padStart(2, '0');
+
+        return (
+            `${fecha.getUTCFullYear()}-` +
+            `${pad(fecha.getUTCMonth() + 1)}-` +
+            `${pad(fecha.getUTCDate())}T` +
+            `${pad(fecha.getUTCHours())}:` +
+            `${pad(fecha.getUTCMinutes())}:` +
+            `${pad(fecha.getUTCSeconds())}`
+        );
+    }
+
 
 async crearReserva(
     dto: CreateReservasDto,
@@ -82,7 +108,18 @@ async crearReserva(
         );
     }
 
-    const fechaTurno = new Date(dto.fecha_hora);
+    const [fechaTexto, horaTexto] = dto.fecha_hora.split('T');
+    const [anio, mes, dia] = fechaTexto.split('-').map(Number);
+    const [horaLocal, minutoLocal, segundoLocal] = horaTexto.split(':').map(Number);
+
+    const fechaTurno = new Date(
+    anio,
+    mes - 1,
+    dia,
+    horaLocal,
+    minutoLocal,
+    segundoLocal,
+);
 
     if (Number.isNaN(fechaTurno.getTime())) {
         throw new BadRequestException(
@@ -181,7 +218,7 @@ async actualizarReserva(
     throw new NotFoundException('Reserva no encontrada');
 }
     const ahora = new Date();
-    const fechaTurno = reserva.fecha_hora;
+    const fechaTurno = this.fechaBaseDatosAFechaLocal(reserva.fecha_hora);
 
     if (rol === RolUsuario.PACIENTE) {
         if (reserva.id_paciente !== idUsuario) {
@@ -274,7 +311,7 @@ async obtenerReservas(): Promise<ListReservasDTO[]> {
         const dto = new ListReservasDTO();
 
         dto.id = reserva.id;
-        dto.fecha_hora = reserva.fecha_hora;
+        dto.fecha_hora = this.fechaBaseDatosAStringLocal(reserva.fecha_hora);
         dto.estado = reserva.estado;
         dto.valor_consulta = reserva.valor_consulta;
 
@@ -315,7 +352,7 @@ async obtenerReservasPorPaciente(
         const dto = new ListReservasDTO();
 
         dto.id = reserva.id;
-        dto.fecha_hora = reserva.fecha_hora;
+        dto.fecha_hora = this.fechaBaseDatosAStringLocal(reserva.fecha_hora);
         dto.estado = reserva.estado;
         dto.valor_consulta = reserva.valor_consulta;
 
@@ -376,7 +413,7 @@ async obtenerReservasPorMedicoYFecha(
         const dto = new ListReservasDTO();
 
         dto.id = reserva.id;
-        dto.fecha_hora = reserva.fecha_hora;
+        dto.fecha_hora = this.fechaBaseDatosAStringLocal(reserva.fecha_hora);
         dto.estado = reserva.estado;
         dto.valor_consulta = reserva.valor_consulta;
 
@@ -439,7 +476,7 @@ async obtenerReservasPorMedicoYFecha(
     const dto = new ReservaDTO();
 
     dto.id = reserva.id;
-    dto.fecha_hora = reserva.fecha_hora;
+    dto.fecha_hora = this.fechaBaseDatosAStringLocal(reserva.fecha_hora);
     dto.estado = reserva.estado;
     dto.valor_consulta = reserva.valor_consulta;
 
@@ -513,7 +550,7 @@ async obtenerDisponibilidad(
         .getMany();
 
     const horasOcupadas = new Set(
-        ocupadas.map((r) => r.fecha_hora.getHours()),
+        ocupadas.map((r) => r.fecha_hora.getUTCHours()),
     );
 
     const ahora = new Date();

@@ -34,7 +34,10 @@ export class AuthGuard implements CanActivate {
                 throw new UnauthorizedException('Usuario inactivo o inexistente');
             }
 
-            request['usuario'] = payload;
+            request['usuario'] = {
+                sub: usuario.id,
+                rol: usuario.rol,
+            };
         } catch {
             throw new UnauthorizedException('Token inválido o usuario inactivo');
         }
